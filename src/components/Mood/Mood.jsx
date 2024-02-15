@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './Mood.css';
 import EmojiPicker from 'emoji-picker-react'; // Assuming you have imported the EmojiPicker component correctly
 import { Emoji, EmojiStyle } from 'emoji-picker-react';
+import { Theme } from 'emoji-picker-react';
 
 function Mood() {
   const [moodUrl, setMoodUrl] = useState(null);
@@ -21,7 +22,7 @@ function Mood() {
     <>
       <div className="dropdown-container">
         {/* Pass the handleEmojiClick function to the onEmojiClick prop */}
-        <EmojiPicker onEmojiClick={handleEmojiClick} reactionsDefaultOpen={true} />
+        <EmojiPicker onEmojiClick={handleEmojiClick} reactionsDefaultOpen={true} theme={Theme.AUTO} />
       </div>
       {/* Render the selected emoji based on the mood */}
       {moodUrl && <img src={moodUrl} />}
