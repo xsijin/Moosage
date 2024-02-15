@@ -1,0 +1,17 @@
+.dropdown-container {
+    display: flex;
+  }
+  
+  .dropdown {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px; /* Adjust as needed */
+    border: 1px solid #ccc; /* Add border style as needed */
+    border-radius: 5px; /* Add border radius as needed */
+    appearance: none; /* Hide the default dropdown arrow */
+  }
+  
+  .dropdown option {
+    display: block;
+    padding: 10px;
+  }

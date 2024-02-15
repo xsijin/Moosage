@@ -1,26 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
+import Emoji from 'react-emojis';
+import NavBar from "./components/Navbar/NavBar";
+import Mood from "./components/Mood/Mood";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [mood, setMood] = useState(null);
+
+  const handleMoodChange = (event) => {
+    const selectedMood = event.target.value;
+    setMood(selectedMood);
+  };
 
   return (
     <>
-      <div>
-        <iframe
-          src="https://www.facebook.com"
-          title="Facebook"
-          width="560"
-          height="315"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-      </div>
+    <div><NavBar /></div>
+    <div><Mood /></div>
+
+    
     </>
   );
 }
 
-export default App
+export default App;
