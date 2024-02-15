@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./Navbar.css";
+import "./Navi.css";
 
-function Navbar() {
+function Navi() {
   const [selectedTheme, setSelectedTheme] = useState("light");
 
   const handleThemeChange = (theme) => {
@@ -86,4 +86,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default Navi;
