@@ -1,13 +1,7 @@
 import { useState } from 'react';
-import './NavBar.css';
+import './Navbar.css';
 
-function NavBar() {
-  const [mood, setMood] = useState(null);
-
-  const handleMoodChange = (event) => {
-    const selectedMood = event.target.value;
-    setMood(selectedMood);
-  };
+function Navbar() {
 
   return (
 <div className="navbar bg-base-100">
@@ -42,4 +36,4 @@ function NavBar() {
 );
 }
 
-export default NavBar;
+export default Navbar;
