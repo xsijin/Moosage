@@ -1,0 +1,17 @@
+.quote::before {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    content: "“";
+    position: absolute;
+    top: -0.2em;
+    left: 0;
+    font-size: 1.5em;
+  }
+  
+  .quote::after {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    content: "”";
+    position: absolute;
+    bottom: -0.2em;
+    right: 0;
+    font-size: 1.5em;
+  }

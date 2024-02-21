@@ -17,7 +17,7 @@ function Navi() {
         </div>
 
         <div className="flex-none gap-2">
-        Welcome, user!
+          Welcome, user!
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -49,39 +49,35 @@ function Navi() {
               </li>
             </ul>
           </div>
-
-{/* Theme Dropdown */}
-<div className="flex-none">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <details>
-                <summary>Theme</summary>
-                <ul className="p-2 bg-base-100 rounded-t-none">
-                  {["light", "forest", "night", "emerald", "winter"].map(
-                    (theme) => (
-                      <li key={theme}>
-                        <input
-                          type="radio"
-                          name="theme-dropdown"
-                          className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-                          aria-label={theme}
-                          value={theme}
-                          checked={selectedTheme === theme}
-                          onChange={() => handleThemeChange(theme)}
-                        />
-                      </li>
-                    )
-                  )}
-                </ul>
-              </details>
-            </li>
-          </ul>
-        </div>
-
-
+          {/* Theme Dropdown */}
+          <div className="flex-none">
+            <ul className="menu menu-horizontal px-1">
+              <li>
+                <details>
+                  <summary>Theme</summary>
+                  <ul className="p-2 bg-base-100 rounded-t-none">
+                    {["light", "forest", "night", "emerald", "winter"].map(
+                      (theme) => (
+                        <li key={theme}>
+                          <input
+                            type="radio"
+                            name="theme-dropdown"
+                            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                            aria-label={theme}
+                            value={theme}
+                            checked={selectedTheme === theme}
+                            onChange={() => handleThemeChange(theme)}
+                          />
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </details>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-      
     </>
   );
 }
