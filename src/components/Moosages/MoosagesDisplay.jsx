@@ -216,7 +216,7 @@ const MoosageDisplay = ({
                 </button>
               </>
             ) : (
-              <p className="quote relative">{moosage.message}</p>
+              <p className="quote relative text-left">{moosage.message}</p>
             )}
 
             <div className="absolute inset-x-0 bottom-0">
