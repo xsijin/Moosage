@@ -1,18 +1,19 @@
 import { useState } from 'react';
+import ThemeContext from './ThemeContext';
 import './App.css';
 import Navi from "./components/Navi/Navi";
-import Mood from "./components/Mood/Mood";
 import MoosageLanding from './components/Moosages/MoosagesLanding'; 
 
 function App() {
-  const [mood, setMood] = useState(null);
+  const [selectedTheme, setSelectedTheme] = useState('light');
 
 
   return (
     <>
-    <div><Navi /></div>
+    <ThemeContext.Provider value={selectedTheme}>
+    <div><Navi setSelectedTheme={setSelectedTheme} /></div>
     <div><MoosageLanding /></div>
-    
+    </ThemeContext.Provider>
     </>
   );
 }

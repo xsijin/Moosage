@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./Moosages.css";
 
-const MoosageDisplay = ({ moosage, boardId, moosages, moosageId, setMoosages }) => {
+const MoosageDisplay = ({
+  moosage,
+  boardId,
+  moosages,
+  moosageId,
+  setMoosages,
+}) => {
   if (!moosage) return null;
   console.log(moosage);
 
@@ -79,11 +85,9 @@ const MoosageDisplay = ({ moosage, boardId, moosages, moosageId, setMoosages }) 
     document.getElementById("deleteConfirmationModal").showModal();
   };
 
-  // calls the delete function to delete moosage
   const handleConfirmDelete = async () => {
     try {
-      // const token = localStorage.getItem("token"); // Retrieve the token from localStorage
-      // if (!token) throw new Error("Token not found");
+      console.log(`Starting deletion process for ${moosageId}`);
 
       const response = await fetch(
         `http://localhost:3000/moosages/remove/${moosageId}`,
@@ -91,23 +95,29 @@ const MoosageDisplay = ({ moosage, boardId, moosages, moosageId, setMoosages }) 
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${token}`, // Include the authorization header
           },
         }
       );
+
+      console.log("Response received:", response);
 
       if (!response.ok) {
         throw new Error("Failed to delete moosage");
       }
 
-      // Update the state to reflect the changes immediately
-      const updatedMoosages = moosages.filter(moosage => moosage.status === 'active');
+      console.log("Moosage deleted successfully");
+
+      const updatedMoosages = moosages.filter(
+        (moosage) => moosage._id !== moosageId
+      );
       setMoosages(updatedMoosages);
 
-      // Close the confirmation modal upon confirmation to delete
+      console.log("State updated:", updatedMoosages);
+
       document.getElementById("deleteConfirmationModal").close();
+      console.log("Modal closed");
     } catch (error) {
-      console.error(error);
+      console.error("Error:", error);
     }
   };
 
@@ -137,7 +147,7 @@ const MoosageDisplay = ({ moosage, boardId, moosages, moosageId, setMoosages }) 
             <p className="quote relative">{moosage.message}</p>
 
             <div className="absolute inset-x-0 bottom-0">
-              {moosage.userId.preferredName} · {formatDate(moosage.createdAt)}
+            <span className="badge">{moosage.userId.preferredName} · {formatDate(moosage.createdAt)}</span>
             </div>
 
             <div className="card-actions justify-end">
@@ -253,9 +263,9 @@ const MoosageDisplay = ({ moosage, boardId, moosages, moosageId, setMoosages }) 
                       ✕
                     </button>
                   </form>
-                  <h3 className="font-bold text-lg">Confirm Deletion</h3>
+                  <h3 className="font-bold text-lg">Your moosage is about to be deleted.</h3>
                   <p>
-                    Are you sure you want to delete this review?
+                    Are you sure you want to delete this moosage?
                     <br />
                     This action cannot be undone.
                   </p>

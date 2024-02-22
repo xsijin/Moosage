@@ -56,7 +56,7 @@ function Navi() {
                 <details>
                   <summary>Theme</summary>
                   <ul className="p-2 bg-base-100 rounded-t-none">
-                    {["light", "forest", "night", "emerald", "winter"].map(
+                    {["light", "winter", "emerald", "forest", "night"].map(
                       (theme) => (
                         <li key={theme}>
                           <input

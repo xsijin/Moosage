@@ -1,28 +1,25 @@
 import { useState } from 'react';
 import './Mood.css';
-import EmojiPicker from 'emoji-picker-react';
-import { Emoji, EmojiStyle } from 'emoji-picker-react';
-import { Theme } from 'emoji-picker-react';
+import EmojiPicker, { Emoji, EmojiStyle, Theme } from 'emoji-picker-react';
 
 function Mood({ setMoodUrl }) {
-  // const [moodUrl, setMoodUrl] = useState(null);
-  // const [unified, setUnified] = useState(null);
+  const [theme, setTheme] = useState(Theme.LIGHT); // Initialize theme to light
+
+  // Callback function to handle theme change
+  const handleEmojiThemeChange = () => {
+    setTheme(prevTheme => prevTheme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT);
+  };
 
   // Callback function to handle emoji click
   const handleEmojiClick = (emojiData, event) => {
-    // Extract the emoji character from the emoji data
     const selectedMood = emojiData.imageUrl;
-    const selectedUnified = emojiData.unified;
-    // Update the state with the selected emoji
     setMoodUrl(selectedMood);
-    // setUnified(selectedUnified);
   };
 
   return (
-      <div className="dropdown-container">
-        {/* Pass the handleEmojiClick function to the onEmojiClick prop */}
-        <EmojiPicker onEmojiClick={handleEmojiClick} reactionsDefaultOpen={true} theme={Theme.AUTO} />
-      </div>
+    <div className="dropdown-container">
+      <EmojiPicker onEmojiClick={handleEmojiClick} reactionsDefaultOpen={true} theme={theme} />
+    </div>
   );
 }
 

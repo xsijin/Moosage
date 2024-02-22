@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MoosageDisplay from "./MoosagesDisplay";
 import MoosageInput from "./MoosagesInput";
-
+import "./Moosages.css";
 
 const MoosageLanding = () => {
   const [boardId, setBoardId] = useState("65d434013c7234ba2e82dc58"); // replace this with the actual board ID
@@ -48,18 +48,29 @@ const MoosageLanding = () => {
       }
 
       // Fetch the updated moosages again to reflect the changes immediately
-      fetchMoosages();
+      await fetchMoosages();
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div>
+    <div className="centered-content flex flex-col space-y-4">
       <MoosageInput addMoosage={addMoosage} />
-      {moosages.map((moosage) => (
-        <MoosageDisplay key={moosage._id} moosage={moosage} boardId={boardId} moosages={moosages} moosageId={moosage._id} setMoosages={setMoosages} />
-      ))}
+      {(!moosages || !Array.isArray(moosages) || moosages.length === 0) ? (
+        <p className="p-3">There are no moosages currently, please add one of your own!</p>
+      ) : (
+        moosages.map((moosage) => (
+          <MoosageDisplay
+            key={moosage._id}
+            moosage={moosage}
+            boardId={boardId}
+            moosages={moosages}
+            moosageId={moosage._id}
+            setMoosages={setMoosages}
+          />
+        ))
+      )}
     </div>
   );
 };
