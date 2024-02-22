@@ -83,6 +83,7 @@ const MoosageDisplay = ({
   // Delete feature - opens modal
   const handleDeleteClick = async () => {
     document.getElementById("deleteConfirmationModal").showModal();
+    console.log(`To delete moosage with ID: ${moosageId}`);
   };
 
   const handleConfirmDelete = async () => {
@@ -147,8 +148,8 @@ const MoosageDisplay = ({
             <p className="quote relative">{moosage.message}</p>
 
             <div className="absolute inset-x-0 bottom-0">
-              <span className="badge">
-                {moosage.userId.preferredName} · {formatDate(moosage.createdAt)}
+              <span className="badge m-1">
+                {moosage.userId.preferredName} · {formatDate(moosage.createdAt)} . {moosageId}
               </span>
             </div>
 
@@ -180,7 +181,7 @@ const MoosageDisplay = ({
                   <li onClick={() => handleEditClick(moosage)}>
                     <a>Edit</a>
                   </li>
-                  <li onClick={() => handleDeleteClick(moosage._id)}>
+                  <li onClick={() => handleDeleteClick(moosageId)}>
                     <a>Delete</a>
                   </li>
                 </ul>

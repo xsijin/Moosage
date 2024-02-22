@@ -57,10 +57,8 @@ const MoosageLanding = () => {
   return (
     <div className="centered-content flex flex-col space-y-4">
       <MoosageInput addMoosage={addMoosage} />
-      {!moosages || !Array.isArray(moosages) || moosages.length === 0 ? (
-        <p className="p-3">
-          There are no moosages currently, please add one of your own!
-        </p>
+      {(!moosages || !Array.isArray(moosages) || moosages.length === 0) ? (
+        <p className="p-3">There are no moosages currently, please add one of your own!</p>
       ) : (
         moosages.map((moosage) => (
           <MoosageDisplay

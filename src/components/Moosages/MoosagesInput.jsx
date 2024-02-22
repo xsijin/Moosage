@@ -71,9 +71,16 @@ const MoosageInput = ({ addMoosage }) => {
 
             <div className="form-control">
               <label className="cursor-pointer label">
-                <span className="label-text"><div className="tooltip" data-tip="Unchecking this box will only allow admin, board owners and moosage owners (you!) to view.">Your moosage is available to public.</div></span>
-                <input 
-                  type="checkbox" 
+                <span className="label-text">
+                  <div
+                    className="tooltip"
+                    data-tip="Unchecking this box will only allow admin, board owners and moosage owners (you!) to view."
+                  >
+                    Your moosage is available to public.
+                  </div>
+                </span>
+                <input
+                  type="checkbox"
                   name="is_public"
                   checked={newMoosage.is_public}
                   onChange={(e) =>
@@ -81,15 +88,19 @@ const MoosageInput = ({ addMoosage }) => {
                       target: { name: e.target.name, value: e.target.checked },
                     })
                   }
-                  className="checkbox checkbox-warning" 
+                  className="checkbox checkbox-warning"
                 />
               </label>
             </div>
-            <button type="submit" className="btn btn-sm">Post your moosage!</button>
+            <button type="submit" className="btn btn-sm">
+              Post your moosage!
+            </button>
           </form>
         </div>
         <div className="absolute inset-x-0 bottom-0">
-          <span className="badge">logged_in_user's_preferred_name · {todayDate}</span>
+          <span className="badge m-1">
+            logged_in_user's_preferred_name · {todayDate}
+          </span>
         </div>
       </div>
     </div>
