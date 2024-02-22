@@ -6,6 +6,8 @@ import "./Moosages.css";
 const MoosageLanding = () => {
   const [boardId, setBoardId] = useState("65d434013c7234ba2e82dc58"); // replace this with the actual board ID
   const [moosages, setMoosages] = useState([]);
+  const [selectedMoosageId, setSelectedMoosageId] = useState(null);
+  const [deleteMoosageId , setDeleteMoosageId] = useState(null);
 
   useEffect(() => {
     fetchMoosages();
@@ -68,6 +70,10 @@ const MoosageLanding = () => {
             moosages={moosages}
             moosageId={moosage._id}
             setMoosages={setMoosages}
+            selectedMoosageId={selectedMoosageId}
+            setSelectedMoosageId={setSelectedMoosageId}
+            deleteMoosageId={deleteMoosageId} 
+            setDeleteMoosageId={setDeleteMoosageId}
           />
         ))
       )}

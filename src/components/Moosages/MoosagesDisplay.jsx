@@ -7,6 +7,10 @@ const MoosageDisplay = ({
   moosages,
   moosageId,
   setMoosages,
+  selectedMoosageId, 
+  setSelectedMoosageId, 
+  deleteMoosageId, 
+  setDeleteMoosageId, 
 }) => {
   if (!moosage) return null;
   console.log(moosage);
@@ -18,7 +22,8 @@ const MoosageDisplay = ({
     moodUrl: null,
     is_public: true,
   });
-  const [selectedMoosageId, setSelectedMoosageId] = useState(null);
+  // const [selectedMoosageId, setSelectedMoosageId] = useState(null);
+  // const [deleteMoosageId , setDeleteMoosageId] = useState(null);
 
   // Edit button - opens the modal
   const handleEditClick = (moosage) => {
@@ -81,17 +86,18 @@ const MoosageDisplay = ({
   };
 
   // Delete feature - opens modal
-  const handleDeleteClick = async () => {
+  const handleDeleteClick = async (id) => {
+    setDeleteMoosageId(id);
     document.getElementById("deleteConfirmationModal").showModal();
-    console.log(`To delete moosage with ID: ${moosageId}`);
+    console.log(`To delete moosage with ID: ${id}`);
   };
 
   const handleConfirmDelete = async () => {
     try {
-      console.log(`Starting deletion process for ${moosageId}`);
+      console.log(`Starting deletion process for ${deleteMoosageId}`);
 
       const response = await fetch(
-        `https://moosage-backend.onrender.com/moosages/remove/${moosageId}`,
+        `https://moosage-backend.onrender.com/moosages/remove/${deleteMoosageId}`,
         {
           method: "PATCH",
           headers: {
@@ -109,7 +115,7 @@ const MoosageDisplay = ({
       console.log("Moosage deleted successfully");
 
       const updatedMoosages = moosages.filter(
-        (moosage) => moosage._id !== moosageId
+        (moosage) => moosage._id !== deleteMoosageId
       );
       setMoosages(updatedMoosages);
 
@@ -149,7 +155,7 @@ const MoosageDisplay = ({
 
             <div className="absolute inset-x-0 bottom-0">
               <span className="badge m-1">
-                {moosage.userId.preferredName} · {formatDate(moosage.createdAt)} . {moosageId}
+                {moosage.userId.preferredName} · {formatDate(moosage.createdAt)} . {moosage._id}
               </span>
             </div>
 
@@ -181,7 +187,7 @@ const MoosageDisplay = ({
                   <li onClick={() => handleEditClick(moosage)}>
                     <a>Edit</a>
                   </li>
-                  <li onClick={() => handleDeleteClick(moosageId)}>
+                  <li onClick={() => handleDeleteClick(moosage._id)}>
                     <a>Delete</a>
                   </li>
                 </ul>
@@ -277,7 +283,7 @@ const MoosageDisplay = ({
                   <div className="py-4">
                     <button
                       className="btn btn-outline btn-error"
-                      onClick={() => handleConfirmDelete()}
+                      onClick={handleConfirmDelete}
                     >
                       Yes, Delete
                     </button>
