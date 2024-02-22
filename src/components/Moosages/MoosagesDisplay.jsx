@@ -44,7 +44,7 @@ const MoosageDisplay = ({
       // if (!token) throw new Error("Token not found");
 
       const response = await fetch(
-        `http://localhost:3000/moosages/update/${selectedMoosageId}`,
+        `https://moosage-backend.onrender.com/moosages/update/${selectedMoosageId}`,
         {
           method: "PATCH",
           headers: {
@@ -68,7 +68,7 @@ const MoosageDisplay = ({
 
       // Fetch the updated moosages again to reflect the changes immediately
       const updatedResponse = await fetch(
-        `http://localhost:3000/moosages/show/${boardId}`
+        `https://moosage-backend.onrender.com/moosages/show/${boardId}`
       );
       if (!updatedResponse.ok) {
         throw new Error("Failed to fetch updated moosages");
@@ -90,7 +90,7 @@ const MoosageDisplay = ({
       console.log(`Starting deletion process for ${moosageId}`);
 
       const response = await fetch(
-        `http://localhost:3000/moosages/remove/${moosageId}`,
+        `https://moosage-backend.onrender.com/moosages/remove/${moosageId}`,
         {
           method: "PATCH",
           headers: {
@@ -147,7 +147,9 @@ const MoosageDisplay = ({
             <p className="quote relative">{moosage.message}</p>
 
             <div className="absolute inset-x-0 bottom-0">
-            <span className="badge">{moosage.userId.preferredName} · {formatDate(moosage.createdAt)}</span>
+              <span className="badge">
+                {moosage.userId.preferredName} · {formatDate(moosage.createdAt)}
+              </span>
             </div>
 
             <div className="card-actions justify-end">
@@ -263,7 +265,9 @@ const MoosageDisplay = ({
                       ✕
                     </button>
                   </form>
-                  <h3 className="font-bold text-lg">Your moosage is about to be deleted.</h3>
+                  <h3 className="font-bold text-lg">
+                    Your moosage is about to be deleted.
+                  </h3>
                   <p>
                     Are you sure you want to delete this moosage?
                     <br />

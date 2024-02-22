@@ -14,7 +14,7 @@ const MoosageLanding = () => {
   const fetchMoosages = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/moosages/show/${boardId}`
+        `https://moosage-backend.onrender.com/moosages/show/${boardId}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch moosages");
@@ -32,7 +32,7 @@ const MoosageLanding = () => {
       // if (!token) throw new Error("Token not found");
 
       const response = await fetch(
-        `http://localhost:3000/moosages/create/${boardId}`,
+        `https://moosage-backend.onrender.com/moosages/create/${boardId}`,
         {
           method: "POST",
           headers: {
@@ -57,8 +57,10 @@ const MoosageLanding = () => {
   return (
     <div className="centered-content flex flex-col space-y-4">
       <MoosageInput addMoosage={addMoosage} />
-      {(!moosages || !Array.isArray(moosages) || moosages.length === 0) ? (
-        <p className="p-3">There are no moosages currently, please add one of your own!</p>
+      {!moosages || !Array.isArray(moosages) || moosages.length === 0 ? (
+        <p className="p-3">
+          There are no moosages currently, please add one of your own!
+        </p>
       ) : (
         moosages.map((moosage) => (
           <MoosageDisplay
