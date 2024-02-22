@@ -161,9 +161,9 @@ const MoosageDisplay = ({
   return (
     <>
       <div>
-        <div className="card lg:card-side bg-base-100 shadow-xl w-auto">
-          <figure className="p-4 hover:p-3" style={{ minWidth: "90px" }}>
-          <img src={isEditing ? editMoodUrl : moosage.moodUrl} alt="Mood" />
+        <div className="card lg:card-side bg-base-100 shadow-xl w-[500px] border border-primary-content hover:border-primary">
+          <figure className="p-4" style={{ minWidth: "90px" }}>
+            <img src={isEditing ? editMoodUrl : moosage.moodUrl} alt="Mood" />
           </figure>
           <div className="card-body">
             {isEditing ? (
@@ -222,6 +222,7 @@ const MoosageDisplay = ({
             <div className="absolute inset-x-0 bottom-0">
               <span className="badge m-1">
                 {moosage.userId.preferredName} · {formatDate(moosage.createdAt)}
+                {moosage.createdAt !== moosage.updatedAt && " · edited"}
               </span>
             </div>
 
@@ -273,9 +274,7 @@ const MoosageDisplay = ({
                   <h3 className="font-bold text-lg">
                     Your moosage is about to be deleted.
                   </h3>
-                  <p>
-                    Are you sure you want to delete this moosage?
-                  </p>
+                  <p>Are you sure you want to delete this moosage?</p>
                   <div className="py-4">
                     <button
                       className="btn btn-outline btn-error"
@@ -300,7 +299,6 @@ const MoosageDisplay = ({
             </div>
           </div>
         </div>
-        <br />
       </div>
     </>
   );
