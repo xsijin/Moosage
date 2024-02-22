@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext } from 'react';
+import ThemeContext from '../../ThemeContext';
 import "./Navi.css";
 
-function Navi() {
-  const [selectedTheme, setSelectedTheme] = useState("light");
+function Navi({ setSelectedTheme }) {
+  const selectedTheme = useContext(ThemeContext);
 
   const handleThemeChange = (theme) => {
     document.documentElement.setAttribute("data-theme", theme);
