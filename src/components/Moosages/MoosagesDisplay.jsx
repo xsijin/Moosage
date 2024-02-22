@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Moosages.css";
+import Mood from "../Mood/Mood";
 
 const MoosageDisplay = ({
   moosage,
@@ -7,14 +8,15 @@ const MoosageDisplay = ({
   moosages,
   moosageId,
   setMoosages,
-  selectedMoosageId, 
-  setSelectedMoosageId, 
-  deleteMoosageId, 
-  setDeleteMoosageId, 
+  selectedMoosageId,
+  setSelectedMoosageId,
+  deleteMoosageId,
+  setDeleteMoosageId,
 }) => {
   if (!moosage) return null;
   console.log(moosage);
 
+  const [isEditing, setIsEditing] = useState(false);
   const [editedMoosage, setEditedMoosage] = useState({
     // Initialize with empty values or default values
     userId: "65cfd9c270188fae2349b2b4", // replace this with the actual user ID
@@ -22,14 +24,27 @@ const MoosageDisplay = ({
     moodUrl: null,
     is_public: true,
   });
-  // const [selectedMoosageId, setSelectedMoosageId] = useState(null);
-  // const [deleteMoosageId , setDeleteMoosageId] = useState(null);
+  const [editMoodUrl, setEditMoodUrl] = useState(moosage.moodUrl);
 
-  // Edit button - opens the modal
-  const handleEditClick = (moosage) => {
-    setEditedMoosage(moosage);
+  const handleEditClick = () => {
     setSelectedMoosageId(moosage._id);
-    document.getElementById("my_modal_3").showModal();
+    setEditedMoosage({
+      // userId: moosage.userId,
+      message: moosage.message,
+      moodUrl: moosage.moodUrl,
+      is_public: moosage.is_public,
+    });
+    setIsEditing(true);
+  };
+
+  const handleCancelClick = () => {
+    setIsEditing(false);
+    setEditedMoosage({
+      // userId: moosage.userId,
+      message: moosage.message,
+      moodUrl: moosage.moodUrl,
+      is_public: moosage.is_public,
+    });
   };
 
   const handleInputChange = (e) => {
@@ -40,10 +55,13 @@ const MoosageDisplay = ({
     });
   };
 
-  // calls the patch function to edit moosage
-  const handlePatchSubmit = async (e) => {
-    e.preventDefault();
+  const handleSaveClick = async () => {
+    await handlePatchSubmit();
+    setIsEditing(false);
+  };
 
+  // calls the patch function to edit moosage
+  const handlePatchSubmit = async () => {
     try {
       // const token = localStorage.getItem("token"); // Retrieve the token from localStorage
       // if (!token) throw new Error("Token not found");
@@ -67,9 +85,6 @@ const MoosageDisplay = ({
       if (!response.ok) {
         throw new Error("Failed to update moosage");
       }
-
-      // Close the modal after a successful update
-      document.getElementById("my_modal_3").close();
 
       // Fetch the updated moosages again to reflect the changes immediately
       const updatedResponse = await fetch(
@@ -146,16 +161,67 @@ const MoosageDisplay = ({
   return (
     <>
       <div>
-        <div className="card lg:card-side bg-base-100 shadow-xl w-96">
+        <div className="card lg:card-side bg-base-100 shadow-xl w-auto">
           <figure className="p-4 hover:p-3" style={{ minWidth: "90px" }}>
-            <img src={moosage.moodUrl} alt="Mood" />
+          <img src={isEditing ? editMoodUrl : moosage.moodUrl} alt="Mood" />
           </figure>
           <div className="card-body">
-            <p className="quote relative">{moosage.message}</p>
+            {isEditing ? (
+              <>
+                <div className="form-control">
+                  <textarea
+                    name="message"
+                    value={editedMoosage.message}
+                    onChange={handleInputChange}
+                    className="textarea textarea-bordered"
+                  />
+                </div>
+
+                <Mood
+                  setMoodUrl={(url) => {
+                    setEditMoodUrl(url);
+                    setEditedMoosage((prevMoosage) => ({
+                      ...prevMoosage,
+                      moodUrl: url,
+                    }));
+                  }}
+                />
+
+                <div className="form-control">
+                  <label className="cursor-pointer label">
+                    <span className="label-text">Public</span>
+                    <input
+                      type="checkbox"
+                      name="is_public"
+                      checked={editedMoosage.is_public}
+                      onChange={(e) =>
+                        handleInputChange({
+                          target: {
+                            name: e.target.name,
+                            value: e.target.checked,
+                          },
+                        })
+                      }
+                      className="checkbox checkbox-warning"
+                    />
+                  </label>
+                </div>
+
+                <button onClick={handleSaveClick} className="btn btn-xs">
+                  Save Changes
+                </button>
+
+                <button onClick={handleCancelClick} className="btn btn-xs">
+                  Cancel
+                </button>
+              </>
+            ) : (
+              <p className="quote relative">{moosage.message}</p>
+            )}
 
             <div className="absolute inset-x-0 bottom-0">
               <span className="badge m-1">
-                {moosage.userId.preferredName} · {formatDate(moosage.createdAt)} . {moosage._id}
+                {moosage.userId.preferredName} · {formatDate(moosage.createdAt)}
               </span>
             </div>
 
@@ -163,6 +229,7 @@ const MoosageDisplay = ({
               {/* only admin, board owner or moosage owner have access to edit/delete moosage */}
               {/* {String(userId) === String(review.user) ||
                     (user && user.is_admin) ? ( */}
+
               <div className="dropdown dropdown-bottom dropdown-end">
                 <div tabIndex={0} role="button" className="btn btn-sm">
                   <svg
@@ -184,7 +251,7 @@ const MoosageDisplay = ({
                   tabIndex={0}
                   className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-24"
                 >
-                  <li onClick={() => handleEditClick(moosage)}>
+                  <li onClick={handleEditClick}>
                     <a>Edit</a>
                   </li>
                   <li onClick={() => handleDeleteClick(moosage._id)}>
@@ -193,75 +260,6 @@ const MoosageDisplay = ({
                 </ul>
               </div>
               {/* ) : null} */}
-
-              {/* start of edit modal */}
-              <dialog id="my_modal_3" className="modal">
-                <div className="modal-box">
-                  <form method="dialog">
-                    {/* button to close modal without any changes */}
-                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                      ✕
-                    </button>
-                  </form>
-                  <form onSubmit={handlePatchSubmit}>
-                    <h3 className="font-bold text-lg">Edit Moosage</h3>
-                    <div className="py-4">
-                      <div className="rating">
-                        {[1, 2, 3, 4, 5].map((value) => (
-                          <input
-                            key={value}
-                            type="radio"
-                            name="editRating"
-                            className="mask mask-star-2 bg-yellow-400"
-                            value={value}
-                            checked={parseInt(editedMoosage.rating) === value}
-                            onChange={() => handleStarChange(value)}
-                          />
-                        ))}
-                      </div>
-                      <br />
-                      <input
-                        type="text"
-                        id="editTitle"
-                        name="title"
-                        placeholder="Your review title"
-                        className="input input-bordered w-full max-w-xs titlemargin"
-                        value={editedMoosage.title}
-                        onChange={handleInputChange}
-                      />
-
-                      <textarea
-                        id="editContent"
-                        name="content"
-                        className="textarea textarea-bordered textarea-sm w-full max-w-xs"
-                        placeholder="Share your review here"
-                        value={editedMoosage.content}
-                        onChange={handleInputChange}
-                        required
-                      ></textarea>
-
-                      <input
-                        type="text"
-                        title="Please include only 1 photo URL. We suggest using an image hosting site such as Imgur. Image will not appear if the link is broken."
-                        id="editImage"
-                        name="images"
-                        placeholder="Add photo URL (if any)"
-                        className="input input-bordered input-sm w-full max-w-xs"
-                        value={editedMoosage.images}
-                        onChange={handleInputChange}
-                      />
-
-                      <br />
-                      <br />
-                      <br />
-                      <button type="submit" className="btn btn-submit">
-                        Save Changes
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </dialog>
-              {/* end of edit modal*/}
 
               {/* start of delete modal */}
               <dialog id="deleteConfirmationModal" className="modal">
@@ -277,8 +275,6 @@ const MoosageDisplay = ({
                   </h3>
                   <p>
                     Are you sure you want to delete this moosage?
-                    <br />
-                    This action cannot be undone.
                   </p>
                   <div className="py-4">
                     <button

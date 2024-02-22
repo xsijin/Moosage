@@ -8,6 +8,7 @@ const MoosageLanding = () => {
   const [moosages, setMoosages] = useState([]);
   const [selectedMoosageId, setSelectedMoosageId] = useState(null);
   const [deleteMoosageId , setDeleteMoosageId] = useState(null);
+  
 
   useEffect(() => {
     fetchMoosages();
