@@ -150,12 +150,28 @@ const MoosageDisplay = ({
 
   // re-format generated date/time
   const formatDate = (dateString) => {
-    const options = { day: "2-digit", month: "short", year: "numeric" };
-    const formattedDate = new Date(dateString).toLocaleDateString(
-      "en-GB",
-      options
-    );
-    return formattedDate;
+    const dateOptions = { day: "2-digit", month: "short", year: "numeric" };
+    const date = new Date(dateString);
+    const formattedDate = date.toLocaleDateString("en-GB", dateOptions);
+
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'pm' : 'am';
+
+    if (hours > 12) {
+      hours -= 12;
+    } else if (hours === 0) {
+      hours = 12;
+    }
+
+    // Add leading zero to the minutes if needed
+    if (minutes < 10) {
+      minutes = '0' + minutes;
+    }
+
+    const formattedTime = `${hours}:${minutes}${ampm}`;
+
+    return `${formattedDate} · ${formattedTime}`;
   };
 
   return (
