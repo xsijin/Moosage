@@ -52,7 +52,7 @@ const MoosagesLanding = ({ setResetToken }) => {
 
       // Fetch the updated moosages again to reflect the changes immediately
       await fetchMoosages();
-      setResetToken(prevToken => prevToken + 1); // trigger re-render of boards to show +1 moosage
+      setResetToken(prevToken => prevToken + 1); // trigger re-render of boards to show +1 moosage count
     } catch (error) {
       console.error(error);
     }
@@ -78,6 +78,7 @@ const MoosagesLanding = ({ setResetToken }) => {
             setSelectedMoosageId={setSelectedMoosageId}
             deleteMoosageId={deleteMoosageId} 
             setDeleteMoosageId={setDeleteMoosageId}
+            setResetToken={setResetToken}
           />
         ))
       )}

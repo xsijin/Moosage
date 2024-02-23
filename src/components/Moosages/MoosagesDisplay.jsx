@@ -12,6 +12,7 @@ const MoosageDisplay = ({
   setSelectedMoosageId,
   deleteMoosageId,
   setDeleteMoosageId,
+  setResetToken,
 }) => {
   if (!moosage) return null;
   console.log(moosage);
@@ -95,6 +96,7 @@ const MoosageDisplay = ({
       }
       const updatedData = await updatedResponse.json();
       setMoosages(updatedData);
+      setResetToken(prevToken => prevToken + 1); // trigger re-render of boards to show -1 moosage count (if user set moosage to private)
     } catch (error) {
       console.error(error);
     }
@@ -104,12 +106,12 @@ const MoosageDisplay = ({
   const handleDeleteClick = async (id) => {
     setDeleteMoosageId(id);
     document.getElementById("deleteConfirmationModal").showModal();
-    console.log(`To delete moosage with ID: ${id}`);
+    // console.log(`To delete moosage with ID: ${id}`);
   };
 
   const handleConfirmDelete = async () => {
     try {
-      console.log(`Starting deletion process for ${deleteMoosageId}`);
+      // console.log(`Starting deletion process for ${deleteMoosageId}`);
 
       const response = await fetch(
         `https://moosage-backend.onrender.com/moosages/remove/${deleteMoosageId}`,
@@ -121,23 +123,24 @@ const MoosageDisplay = ({
         }
       );
 
-      console.log("Response received:", response);
+      // console.log("Response received:", response);
 
       if (!response.ok) {
         throw new Error("Failed to delete moosage");
       }
 
-      console.log("Moosage deleted successfully");
+      // console.log("Moosage deleted successfully");
 
       const updatedMoosages = moosages.filter(
         (moosage) => moosage._id !== deleteMoosageId
       );
       setMoosages(updatedMoosages);
 
-      console.log("State updated:", updatedMoosages);
+      // console.log("State updated:", updatedMoosages);
 
       document.getElementById("deleteConfirmationModal").close();
-      console.log("Modal closed");
+      // console.log("Modal closed");
+      setResetToken(prevToken => prevToken + 1); // trigger re-render of boards to show -1 moosage count
     } catch (error) {
       console.error("Error:", error);
     }
@@ -242,7 +245,7 @@ const MoosageDisplay = ({
               </>
             ) : (
               <p
-                className="quote relative text-left"
+                className="quote relative text-left indent-3"
                 style={{ whiteSpace: "pre-line" }}
               >
                 {moosage.message}

@@ -12,7 +12,7 @@ const BoardList = ({
   userId,
   selectedBoardId,
   setSelectedBoardId,
-  cancelToken
+  cancelToken,
 }) => {
   const [isEditingBoard, setIsEditingBoard] = useState(false);
   const [editedBoard, setEditedBoard] = useState(board.title);
@@ -39,7 +39,7 @@ const BoardList = ({
   const handleBoardInputChange = (e) => {
     setEditedBoard({
       ...editedBoard,
-      title: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -142,13 +142,50 @@ const BoardList = ({
       <div>
         {isEditingBoard ? (
           <>
-            <input
-              type="text"
-              value={editedBoard.title}
-              onChange={handleBoardInputChange}
-            />
-            <button onClick={handleBoardSaveClick}>Save</button>
-            <button onClick={handleBoardCancelClick}>Cancel</button>
+            <div className="form-control">
+                  <input type="text"
+                    name="title"
+                    value={editedBoard.title}
+                    onChange={handleBoardInputChange}
+                    className="input input-bordered"
+                  />
+                </div>
+
+                <div className="form-control items-end">
+                  <label className="cursor-pointer label">
+                    <div
+                      className="tooltip"
+                      data-tip="Unchecking this box will only allow admin and board owners (you!) to view."
+                    >
+                      <span className="label-text">Public</span>
+                    </div>
+                    &nbsp;
+                    <input
+                      type="checkbox"
+                      name="is_public"
+                      checked={editedBoard.is_public}
+                      onChange={(e) =>
+                        handleBoardInputChange({
+                          target: {
+                            name: e.target.name,
+                            value: e.target.checked,
+                          },
+                        })
+                      }
+                      className="checkbox checkbox-warning"
+                    />
+                  </label>
+                </div>
+
+            <div className="flex space-x-2 justify-center">
+              <button onClick={handleBoardSaveClick} className="btn btn-xs">
+                Save Changes
+              </button>
+
+              <button onClick={handleBoardCancelClick} className="btn btn-xs">
+                Cancel
+              </button>
+            </div>
           </>
         ) : (
           <>
@@ -194,7 +231,7 @@ const BoardList = ({
                   Private
                 </span>
               )}
-              <div className="grid w-[200px] h-[40px] bg-neutral-content place-items-center p-1 text-neutral">
+              <div className="grid min-w-[200px] max-w-[200px] min-h-[40px] bg-neutral-content place-items-center p-1 text-neutral text-balance">
                 {board.title}
               </div>
             </div>
