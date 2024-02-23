@@ -4,6 +4,11 @@ import BoardList from "./BoardList";
 const BoardsLanding = () => {
   const [userId, setUserId] = useState("65cfd9c270188fae2349b2b4"); // replace this with the actual user ID
   const [boards, setBoards] = useState([]);
+  const [isDeleteClicked, setIsDeleteClicked] = useState(false);
+  const [isEditClicked, setIsEditClicked] = useState(false);
+  const [deleteBoardId, setDeleteBoardId] = useState(null);
+  const [selectedBoardId, setSelectedBoardId] = useState(null);
+  const [cancelBoardEdit, setCancelBoardEdit] = useState(() => {});
 
   useEffect(() => {
     fetchBoard();
@@ -53,6 +58,23 @@ const BoardsLanding = () => {
     }
   };
 
+  const handleEditClick = () => {
+    setIsDeleteClicked(false); // Reset isDeleteClicked when edit is clicked
+    setIsEditClicked(true);
+  };
+
+
+  const handleDeleteClick = () => {
+    setIsEditClicked(false); // Reset isEditClicked when delete is clicked
+    setIsDeleteClicked(true);
+  };
+
+  const handleCancel = () => {
+    setIsDeleteClicked(false);
+    setIsEditClicked(false);
+    cancelBoardEdit();
+  };
+
   return (
     <>
       <br />
@@ -62,10 +84,27 @@ const BoardsLanding = () => {
             There are no boards currently, please add one of your own!
           </p>
         ) : (
-          boards.map((board) => <BoardList key={board._id} board={board} />)
+          boards.map((board) => (
+            <BoardList
+              key={board._id}
+              board={board}
+              isDeleteClicked={isDeleteClicked}
+              isEditClicked={isEditClicked}
+              setBoards={setBoards}
+              boardId={board._id}
+              boards={boards}
+              deleteBoardId={deleteBoardId}
+              setDeleteBoardId={setDeleteBoardId}
+              userId={userId}
+              selectedBoardId={selectedBoardId}
+              setSelectedBoardId={setSelectedBoardId}
+              setCancelBoardEdit={setCancelBoardEdit}
+            />
+          ))
         )}
 
         <div className="dropdown dropdown-right">
+          <br />
           <div
             tabIndex={0}
             role="button"
@@ -78,11 +117,11 @@ const BoardsLanding = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
               <g
                 id="SVGRepo_tracerCarrier"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               ></g>
               <g id="SVGRepo_iconCarrier">
                 {" "}
@@ -96,7 +135,7 @@ const BoardsLanding = () => {
                   cy="12"
                   r="4"
                   stroke="currentColor"
-                  stroke-linejoin="round"
+                  strokeLinejoin="round"
                 ></circle>{" "}
               </g>
             </svg>
@@ -105,14 +144,28 @@ const BoardsLanding = () => {
             tabIndex={0}
             className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40"
           >
+                        <li>
+              <a>Copy board URL</a>
+            </li>
             <li>
               <a>Create new board</a>
             </li>
-            <li>
-              <a>Edit board</a>
+            <li onClick={() => {handleEditClick();}}>
+              <a>Edit a board</a>
             </li>
-            <li>
-              <a>Delete board</a>
+            <li
+              onClick={() => {
+                handleDeleteClick();
+              }}
+            >
+              <a>Delete a board</a>
+            </li>
+            <li
+              onClick={() => {
+                handleCancel();
+              }}
+            >
+              <a>Done</a>
             </li>
           </ul>
         </div>
