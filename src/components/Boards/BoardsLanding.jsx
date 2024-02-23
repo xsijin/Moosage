@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import BoardList from "./BoardList";
 
-const BoardsLanding = () => {
+const BoardsLanding = ({ resetToken }) => {
   const [userId, setUserId] = useState("65cfd9c270188fae2349b2b4"); // replace this with the actual user ID
   const [boards, setBoards] = useState([]);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
   const [isEditClicked, setIsEditClicked] = useState(false);
   const [deleteBoardId, setDeleteBoardId] = useState(null);
   const [selectedBoardId, setSelectedBoardId] = useState(null);
-  const [cancelBoardEdit, setCancelBoardEdit] = useState(() => {});
+  const [cancelToken, setCancelToken] = useState(0);
 
   useEffect(() => {
     fetchBoard();
-  }, [userId]);
+  }, [userId, resetToken]);
 
   const fetchBoard = async () => {
     try {
@@ -63,7 +63,6 @@ const BoardsLanding = () => {
     setIsEditClicked(true);
   };
 
-
   const handleDeleteClick = () => {
     setIsEditClicked(false); // Reset isEditClicked when delete is clicked
     setIsDeleteClicked(true);
@@ -72,7 +71,7 @@ const BoardsLanding = () => {
   const handleCancel = () => {
     setIsDeleteClicked(false);
     setIsEditClicked(false);
-    cancelBoardEdit();
+    setCancelToken((prevToken) => prevToken + 1); // to trigger useEffect in BoardList that sets all isEdit state to false
   };
 
   return (
@@ -98,7 +97,7 @@ const BoardsLanding = () => {
               userId={userId}
               selectedBoardId={selectedBoardId}
               setSelectedBoardId={setSelectedBoardId}
-              setCancelBoardEdit={setCancelBoardEdit}
+              cancelToken={cancelToken}
             />
           ))
         )}
@@ -144,13 +143,17 @@ const BoardsLanding = () => {
             tabIndex={0}
             className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40"
           >
-                        <li>
+            <li>
               <a>Copy board URL</a>
             </li>
             <li>
               <a>Create new board</a>
             </li>
-            <li onClick={() => {handleEditClick();}}>
+            <li
+              onClick={() => {
+                handleEditClick();
+              }}
+            >
               <a>Edit a board</a>
             </li>
             <li

@@ -12,7 +12,7 @@ const BoardList = ({
   userId,
   selectedBoardId,
   setSelectedBoardId,
-  setCancelBoardEdit
+  cancelToken
 }) => {
   const [isEditingBoard, setIsEditingBoard] = useState(false);
   const [editedBoard, setEditedBoard] = useState(board.title);
@@ -86,8 +86,8 @@ const BoardList = ({
   };
 
   useEffect(() => {
-    setCancelBoardEdit(() => () => setIsEditingBoard(false));
-  }, []);
+    setIsEditingBoard(false);
+  }, [cancelToken]);
 
   // Delete feature - opens modal
   const handleDeleteClick = async (id) => {

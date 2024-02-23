@@ -3,6 +3,7 @@ import MoosagesLanding from '../Moosages/MoosagesLanding';
 import BoardsLanding from '../Boards/BoardsLanding';
 
 const Homepage = () => {
+  const [resetToken, setResetToken] = useState(0);
  
   const scrollToTop = () => {
     window.scrollTo({
@@ -14,10 +15,10 @@ const Homepage = () => {
   return (
     <div className="flex justify-around">
       <div className="">
-        <BoardsLanding />
+        <BoardsLanding resetToken={resetToken} />
       </div>
       <div className="">
-        <MoosagesLanding />
+        <MoosagesLanding setResetToken={setResetToken} />
       </div>
 
       <button onClick={scrollToTop} className="text-primary-content hover:text-primary fixed bottom-5 right-5">

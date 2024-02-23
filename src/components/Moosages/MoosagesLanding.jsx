@@ -3,7 +3,7 @@ import MoosageDisplay from "./MoosagesDisplay";
 import MoosageInput from "./MoosagesInput";
 import "./Moosages.css";
 
-const MoosagesLanding = () => {
+const MoosagesLanding = ({ setResetToken }) => {
   const [boardId, setBoardId] = useState("65d434013c7234ba2e82dc58"); // replace this with the actual board ID
   const [moosages, setMoosages] = useState([]);
   const [selectedMoosageId, setSelectedMoosageId] = useState(null);
@@ -52,6 +52,7 @@ const MoosagesLanding = () => {
 
       // Fetch the updated moosages again to reflect the changes immediately
       await fetchMoosages();
+      setResetToken(prevToken => prevToken + 1); // trigger re-render of boards to show +1 moosage
     } catch (error) {
       console.error(error);
     }
