@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import { Routes, Route } from "react-router-dom";
 import ThemeContext from './ThemeContext';
 import './App.css';
-import Navi from "./components/Navi/Navi";
-import MoosageLanding from './components/Moosages/MoosagesLanding'; 
+import Navi from './components/Navi/Navi';
+import Dashboard from './components/Navi/Dashboard'; 
 
 function App() {
   const [selectedTheme, setSelectedTheme] = useState('light');
@@ -11,8 +12,20 @@ function App() {
   return (
     <>
     <ThemeContext.Provider value={selectedTheme}>
-    <div><Navi setSelectedTheme={setSelectedTheme} /></div>
-    <div><MoosageLanding /></div>
+
+
+
+    <nav><Navi setSelectedTheme={setSelectedTheme} /></nav>
+
+
+    <main>
+      <Routes>
+      <Route path="/" element={<Dashboard />} />
+      </Routes>
+    </main>
+
+
+
     </ThemeContext.Provider>
     </>
   );

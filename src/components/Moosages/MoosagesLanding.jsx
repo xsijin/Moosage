@@ -3,7 +3,7 @@ import MoosageDisplay from "./MoosagesDisplay";
 import MoosageInput from "./MoosagesInput";
 import "./Moosages.css";
 
-const MoosageLanding = () => {
+const MoosagesLanding = () => {
   const [boardId, setBoardId] = useState("65d434013c7234ba2e82dc58"); // replace this with the actual board ID
   const [moosages, setMoosages] = useState([]);
   const [selectedMoosageId, setSelectedMoosageId] = useState(null);
@@ -82,4 +82,4 @@ const MoosageLanding = () => {
   );
 };
 
-export default MoosageLanding;
+export default MoosagesLanding;
