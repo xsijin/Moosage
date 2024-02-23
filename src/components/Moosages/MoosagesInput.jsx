@@ -43,7 +43,7 @@ const MoosageInput = ({ addMoosage }) => {
   };
 
   return (
-    <div className="card lg:card-side bg-base-100 shadow-xl w-[500px] border border-primary-content hover:border-primary">
+    <div className="card lg:card-side bg-base-100 shadow-xl w-[500px] border border-primary-content hover:border-primary flex space-x-4">
       <figure className="p-4" style={{ minWidth: "90px" }}>
         <img src={newMoosage.moodUrl} alt="Mood" />
       </figure>
@@ -67,18 +67,18 @@ const MoosageInput = ({ addMoosage }) => {
                 }))
               }
             />
-            <br />
 
-            <div className="form-control">
+            <div className="form-control items-end">
               <label className="cursor-pointer label">
                 <span className="label-text">
                   <div
                     className="tooltip"
                     data-tip="Unchecking this box will only allow admin, board owners and moosage owners (you!) to view."
                   >
-                    Your moosage is available to public.
+                    Public
                   </div>
                 </span>
+                &nbsp;
                 <input
                   type="checkbox"
                   name="is_public"

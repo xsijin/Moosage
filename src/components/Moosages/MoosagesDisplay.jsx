@@ -161,7 +161,7 @@ const MoosageDisplay = ({
   return (
     <>
       <div>
-        <div className="card lg:card-side bg-base-100 shadow-xl w-[500px] border border-primary-content hover:border-primary">
+        <div className="card lg:card-side bg-base-100 shadow-xl w-[500px] border border-primary-content hover:border-primary flex space-x-4">
           <figure className="p-4" style={{ minWidth: "90px" }}>
             <img src={isEditing ? editMoodUrl : moosage.moodUrl} alt="Mood" />
           </figure>
@@ -174,6 +174,7 @@ const MoosageDisplay = ({
                     value={editedMoosage.message}
                     onChange={handleInputChange}
                     className="textarea textarea-bordered"
+                    style={{ whiteSpace: "pre-wrap" }}
                   />
                 </div>
 
@@ -187,9 +188,15 @@ const MoosageDisplay = ({
                   }}
                 />
 
-                <div className="form-control">
+                <div className="form-control items-end">
                   <label className="cursor-pointer label">
-                    <span className="label-text">Public</span>
+                    <div
+                      className="tooltip"
+                      data-tip="Unchecking this box will only allow admin, board owners and moosage owners (you!) to view."
+                    >
+                      <span className="label-text">Public</span>
+                    </div>
+                    &nbsp;
                     <input
                       type="checkbox"
                       name="is_public"
@@ -207,16 +214,23 @@ const MoosageDisplay = ({
                   </label>
                 </div>
 
-                <button onClick={handleSaveClick} className="btn btn-xs">
-                  Save Changes
-                </button>
+                <div className="flex space-x-2 justify-center">
+                  <button onClick={handleSaveClick} className="btn btn-xs">
+                    Save Changes
+                  </button>
 
-                <button onClick={handleCancelClick} className="btn btn-xs">
-                  Cancel
-                </button>
+                  <button onClick={handleCancelClick} className="btn btn-xs">
+                    Cancel
+                  </button>
+                </div>
               </>
             ) : (
-              <p className="quote relative text-left">{moosage.message}</p>
+              <p
+                className="quote relative text-left"
+                style={{ whiteSpace: "pre-line" }}
+              >
+                {moosage.message}
+              </p>
             )}
 
             <div className="absolute inset-x-0 bottom-0">
@@ -231,71 +245,75 @@ const MoosageDisplay = ({
               {/* {String(userId) === String(review.user) ||
                     (user && user.is_admin) ? ( */}
 
-              <div className="dropdown dropdown-bottom dropdown-end">
-                <div tabIndex={0} role="button" className="btn btn-sm">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="rgba(61, 120, 101, 1)"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                    />
-                  </svg>
-                </div>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-24"
-                >
-                  <li onClick={handleEditClick}>
-                    <a>Edit</a>
-                  </li>
-                  <li onClick={() => handleDeleteClick(moosage._id)}>
-                    <a>Delete</a>
-                  </li>
-                </ul>
-              </div>
-              {/* ) : null} */}
-
-              {/* start of delete modal */}
-              <dialog id="deleteConfirmationModal" className="modal">
-                <div className="modal-box">
-                  <form method="dialog">
-                    {/* button to close modal without any changes */}
-                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                      ✕
-                    </button>
-                  </form>
-                  <h3 className="font-bold text-lg">
-                    Your moosage is about to be deleted.
-                  </h3>
-                  <p>Are you sure you want to delete this moosage?</p>
-                  <div className="py-4">
-                    <button
-                      className="btn btn-outline btn-error"
-                      onClick={handleConfirmDelete}
+              {!isEditing && (
+                <>
+                  <div className="dropdown dropdown-bottom dropdown-end">
+                    <div tabIndex={0} role="button" className="btn btn-sm">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="rgba(61, 120, 101, 1)"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                        />
+                      </svg>
+                    </div>
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-24"
                     >
-                      Yes, Delete
-                    </button>
-                    &nbsp;
-                    <button
-                      className="btn btn-ghost"
-                      onClick={() => handleCancelDelete()}
-                    >
-                      Cancel
-                    </button>
+                      <li onClick={handleEditClick}>
+                        <a>Edit</a>
+                      </li>
+                      <li onClick={() => handleDeleteClick(moosage._id)}>
+                        <a>Delete</a>
+                      </li>
+                    </ul>
                   </div>
-                </div>
-              </dialog>
+                  {/* ) : null} */}
 
-              {/* end of delete modal */}
+                  {/* start of delete modal */}
+                  <dialog id="deleteConfirmationModal" className="modal">
+                    <div className="modal-box">
+                      <form method="dialog">
+                        {/* button to close modal without any changes */}
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                          ✕
+                        </button>
+                      </form>
+                      <h3 className="font-bold text-lg">
+                        Your moosage is about to be deleted.
+                      </h3>
+                      <p>Are you sure you want to delete this moosage?</p>
+                      <div className="py-4">
+                        <button
+                          className="btn btn-outline btn-error"
+                          onClick={handleConfirmDelete}
+                        >
+                          Yes, Delete
+                        </button>
+                        &nbsp;
+                        <button
+                          className="btn btn-ghost"
+                          onClick={() => handleCancelDelete()}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </dialog>
 
-              <button className="btn btn-accent btn-sm">Like</button>
+                  {/* end of delete modal */}
+
+                  <button className="btn btn-accent btn-sm">Like</button>
+                </>
+              )}
             </div>
           </div>
         </div>

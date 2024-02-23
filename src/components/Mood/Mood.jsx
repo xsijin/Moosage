@@ -40,6 +40,8 @@ function Mood({ setMoodUrl }) {
         onEmojiClick={handleEmojiClick}
         reactionsDefaultOpen={true}
         theme={theme}
+        width="320px"
+        height="355px"
       />
     </div>
   );
