@@ -6,7 +6,7 @@ import Navi from './components/Navi/Navi';
 import Dashboard from './components/Navi/Dashboard'; 
 
 function App() {
-  const [selectedTheme, setSelectedTheme] = useState('light');
+  const [selectedTheme, setSelectedTheme] = useState('emerald');
 
 
   return (

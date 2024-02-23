@@ -58,6 +58,8 @@ const MoosagesLanding = () => {
   };
 
   return (
+    <>
+    <br />
     <div className="centered-content flex flex-col space-y-4">
       <MoosageInput addMoosage={addMoosage} />
       {(!moosages || !Array.isArray(moosages) || moosages.length === 0) ? (
@@ -79,6 +81,7 @@ const MoosagesLanding = () => {
         ))
       )}
     </div>
+    </>
   );
 };
 
