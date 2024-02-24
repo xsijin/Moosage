@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BoardList from "./BoardList";
 
-const BoardsLanding = ({ resetToken }) => {
+const BoardsLanding = ({ resetToken, setBoardId }) => {
   const [userId, setUserId] = useState("65cfd9c270188fae2349b2b4"); // replace this with the actual user ID
   const [boards, setBoards] = useState([]);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
@@ -134,6 +134,7 @@ const BoardsLanding = ({ resetToken }) => {
               selectedBoardId={selectedBoardId}
               setSelectedBoardId={setSelectedBoardId}
               cancelToken={cancelToken}
+              setBoardId={setBoardId}
             />
           ))
         )}

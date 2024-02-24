@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import MoosagesLanding from '../Moosages/MoosagesLanding';
 import BoardsLanding from '../Boards/BoardsLanding';
 
-const Homepage = () => {
+const Dashboard = () => {
   const [resetToken, setResetToken] = useState(0);
+  const [boardId, setBoardId] = useState(null);
  
   const scrollToTop = () => {
     window.scrollTo({
@@ -15,10 +16,10 @@ const Homepage = () => {
   return (
     <div className="flex justify-around">
       <div className="">
-        <BoardsLanding resetToken={resetToken} />
+        <BoardsLanding resetToken={resetToken} setBoardId={setBoardId} />
       </div>
       <div className="">
-        <MoosagesLanding setResetToken={setResetToken} />
+        <MoosagesLanding setResetToken={setResetToken} boardId={boardId} />
       </div>
 
       <button onClick={scrollToTop} className="text-primary-content hover:text-primary fixed bottom-5 right-5">
@@ -31,4 +32,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default Dashboard;

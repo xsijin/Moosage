@@ -13,6 +13,7 @@ const BoardList = ({
   selectedBoardId,
   setSelectedBoardId,
   cancelToken,
+  setBoardId,
 }) => {
   const [isEditingBoard, setIsEditingBoard] = useState(false);
   const [editedBoard, setEditedBoard] = useState(board.title);
@@ -137,6 +138,10 @@ const BoardList = ({
     document.getElementById("deleteConfirmationModalBoard").close();
   };
 
+  const linkToMoosages = (id) => {
+    setBoardId(id);
+  };
+
   return (
     <div>
       <div>
@@ -233,7 +238,7 @@ const BoardList = ({
                 </span>
               )}
               <div className="grid min-w-[200px] max-w-[200px] min-h-[40px] bg-neutral-content place-items-center p-1 text-neutral text-balance petit-formal">
-                {board.title}
+                <span onClick={() => linkToMoosages(board._id)}>{board.title}</span>
               </div>
             </div>
           </>

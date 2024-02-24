@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ThemeContext from './ThemeContext';
 import './App.css';
 import Navi from './components/Navi/Navi';
