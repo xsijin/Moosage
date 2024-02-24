@@ -47,7 +47,7 @@ const BoardList = ({
   const handleBoardInputChange = (e) => {
     setEditedBoard({
       ...editedBoard,
-      [e.target.name]: e.target.value.trim(),
+      [e.target.name]: e.target.value,
     });
   };
 

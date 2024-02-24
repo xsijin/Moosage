@@ -40,12 +40,6 @@ const MoosageInput = ({ addMoosage }) => {
           console.error("Moosage cannot be empty or all spaces, please write a moosage to proceed.");
           return;
         }
-    
-        // Update the message with the trimmed message
-        setNewMoosage({
-          ...newMoosage,
-          message: trimmedMessage,
-        });
 
     addMoosage(newMoosage);
 

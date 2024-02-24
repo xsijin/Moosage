@@ -69,12 +69,6 @@ const MoosageDisplay = ({
       return;
     }
 
-    // Update the message with the trimmed message
-    setEditedMoosage({
-      ...editedMoosage,
-      message: trimmedMessage,
-    });
-
     await handlePatchSubmit();
     setIsEditing(false);
   };
