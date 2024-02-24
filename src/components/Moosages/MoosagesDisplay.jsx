@@ -56,7 +56,8 @@ const MoosageDisplay = ({
     });
   };
 
-  const handleSaveClick = async () => {
+  const handleSaveClick = async (e) => {
+    e.preventDefault();
     await handlePatchSubmit();
     setIsEditing(false);
   };
@@ -96,7 +97,7 @@ const MoosageDisplay = ({
       }
       const updatedData = await updatedResponse.json();
       setMoosages(updatedData);
-      setResetToken(prevToken => prevToken + 1); // trigger re-render of boards to show -1 moosage count (if user set moosage to private)
+      setResetToken((prevToken) => prevToken + 1); // trigger re-render of boards to show -1 moosage count (if user set moosage to private)
     } catch (error) {
       console.error(error);
     }
@@ -140,7 +141,7 @@ const MoosageDisplay = ({
 
       document.getElementById("deleteConfirmationModal").close();
       // console.log("Modal closed");
-      setResetToken(prevToken => prevToken + 1); // trigger re-render of boards to show -1 moosage count
+      setResetToken((prevToken) => prevToken + 1); // trigger re-render of boards to show -1 moosage count
     } catch (error) {
       console.error("Error:", error);
     }
@@ -159,7 +160,7 @@ const MoosageDisplay = ({
 
     let hours = date.getHours();
     let minutes = date.getMinutes();
-    const ampm = hours >= 12 ? 'pm' : 'am';
+    const ampm = hours >= 12 ? "pm" : "am";
 
     if (hours > 12) {
       hours -= 12;
@@ -169,7 +170,7 @@ const MoosageDisplay = ({
 
     // Add leading zero to the minutes if needed
     if (minutes < 10) {
-      minutes = '0' + minutes;
+      minutes = "0" + minutes;
     }
 
     const formattedTime = `${hours}:${minutes}${ampm}`;
@@ -187,60 +188,66 @@ const MoosageDisplay = ({
           <div className="card-body">
             {isEditing ? (
               <>
-                <div className="form-control">
-                  <textarea
-                    name="message"
-                    value={editedMoosage.message}
-                    onChange={handleInputChange}
-                    className="textarea textarea-bordered"
-                    style={{ whiteSpace: "pre-wrap" }}
-                  />
-                </div>
-
-                <Mood
-                  setMoodUrl={(url) => {
-                    setEditMoodUrl(url);
-                    setEditedMoosage((prevMoosage) => ({
-                      ...prevMoosage,
-                      moodUrl: url,
-                    }));
-                  }}
-                />
-
-                <div className="form-control items-end">
-                  <label className="cursor-pointer label">
-                    <div
-                      className="tooltip"
-                      data-tip="Unchecking this box will only allow admin, board owners and moosage owners (you!) to view."
-                    >
-                      <span className="label-text">Public</span>
-                    </div>
-                    &nbsp;
-                    <input
-                      type="checkbox"
-                      name="is_public"
-                      checked={editedMoosage.is_public}
-                      onChange={(e) =>
-                        handleInputChange({
-                          target: {
-                            name: e.target.name,
-                            value: e.target.checked,
-                          },
-                        })
-                      }
-                      className="checkbox checkbox-warning"
+                <div className="add-moosage-form">
+                  <form onSubmit={handleSaveClick}>
+                    <textarea
+                      name="message"
+                      value={editedMoosage.message}
+                      onChange={handleInputChange}
+                      className="textarea textarea-bordered textarea-md w-full max-w-xs"
+                      style={{ whiteSpace: "pre-wrap" }}
+                      required
                     />
-                  </label>
-                </div>
 
-                <div className="flex space-x-2 justify-center">
-                  <button onClick={handleSaveClick} className="btn btn-xs">
-                    Save Changes
-                  </button>
+                    <Mood
+                      setMoodUrl={(url) => {
+                        setEditMoodUrl(url);
+                        setEditedMoosage((prevMoosage) => ({
+                          ...prevMoosage,
+                          moodUrl: url,
+                        }));
+                      }}
+                    />
 
-                  <button onClick={handleCancelClick} className="btn btn-xs">
-                    Cancel
-                  </button>
+                    <div className="form-control items-end">
+                      <label className="cursor-pointer label">
+                        <div
+                          className="tooltip"
+                          data-tip="Unchecking this box will only allow admin, board owners and moosage owners (you!) to view."
+                        >
+                          <span className="label-text">Public</span>
+                        </div>
+                        &nbsp;
+                        <input
+                          type="checkbox"
+                          name="is_public"
+                          checked={editedMoosage.is_public}
+                          onChange={(e) =>
+                            handleInputChange({
+                              target: {
+                                name: e.target.name,
+                                value: e.target.checked,
+                              },
+                            })
+                          }
+                          className="checkbox checkbox-warning"
+                        />
+                      </label>
+                    </div>
+
+                    <div className="flex space-x-2 justify-center">
+                      <button type="submit" className="btn btn-xs">
+                        Save Changes
+                      </button>
+
+                      <button
+                        onClick={handleCancelClick}
+                        className="btn btn-xs"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </>
             ) : (

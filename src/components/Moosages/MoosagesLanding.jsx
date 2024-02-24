@@ -9,7 +9,9 @@ const MoosagesLanding = ({ setResetToken, boardId }) => {
   const [deleteMoosageId, setDeleteMoosageId] = useState(null);
 
   useEffect(() => {
-    fetchMoosages();
+    if (boardId) {
+      fetchMoosages();
+    }
   }, [boardId]);
 
   const fetchMoosages = async () => {
@@ -61,7 +63,7 @@ const MoosagesLanding = ({ setResetToken, boardId }) => {
       <br />
       {!boardId ? (
         <>
-          <p>Please select a board to view moosages</p>
+          <p className="petit-formal text-2xl">Please choose a board you'd like to view.</p>
           <p>
             <svg
               fill="currentColor"
@@ -69,8 +71,8 @@ const MoosagesLanding = ({ setResetToken, boardId }) => {
               id="Capa_1"
               xmlns="http://www.w3.org/2000/svg"
               xmlnsXlink="http://www.w3.org/1999/xlink"
-              width="172px"
-              height="172px"
+              width="70px"
+              height="130px"
               viewBox="0 0 60.731 60.73"
               xmlSpace="preserve"
             >

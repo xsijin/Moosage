@@ -16,13 +16,19 @@ const BoardList = ({
   setBoardId,
 }) => {
   const [isEditingBoard, setIsEditingBoard] = useState(false);
-  const [editedBoard, setEditedBoard] = useState(board.title);
+  const [editedBoard, setEditedBoard] = useState({
+    // userId: moosage.userId,
+    title: board.title,
+    description: board.description,
+    is_public: board.is_public,
+  });
 
   const handleBoardEditClick = () => {
     setSelectedBoardId(board._id);
     setEditedBoard({
       // userId: moosage.userId,
       title: board.title,
+      description: board.description,
       is_public: board.is_public,
     });
     setIsEditingBoard(true);
@@ -33,6 +39,7 @@ const BoardList = ({
     setEditedBoard({
       // userId: moosage.userId,
       title: board.title,
+      description: board.description,
       is_public: board.is_public,
     });
   };
@@ -60,6 +67,7 @@ const BoardList = ({
           },
           body: JSON.stringify({
             title: editedBoard.title,
+            description: editedBoard.description,
             is_public: editedBoard.is_public,
           }),
         }
@@ -76,6 +84,7 @@ const BoardList = ({
             ? {
                 ...updatedBoard,
                 title: editedBoard.title,
+                description: editedBoard.description,
                 is_public: editedBoard.is_public,
               }
             : updatedBoard
@@ -153,7 +162,15 @@ const BoardList = ({
                 name="title"
                 value={editedBoard.title}
                 onChange={handleBoardInputChange}
-                className="input input-bordered"
+                className="input input-bordered min-w-[400px] max-w-[400px] mb-2"
+              />
+              <input
+                type="text"
+                name="description"
+                placeholder="What's this board about?"
+                value={editedBoard.description}
+                onChange={handleBoardInputChange}
+                className="input input-bordered min-w-[400px] max-w-[400px]"
               />
             </div>
 
@@ -237,8 +254,19 @@ const BoardList = ({
                   Private
                 </span>
               )}
-              <div className="grid min-w-[200px] max-w-[200px] min-h-[40px] bg-neutral-content place-items-center p-1 text-neutral text-balance petit-formal">
-                <span onClick={() => linkToMoosages(board._id)}>{board.title}</span>
+              <div className="grid min-w-[400px] max-w-[400px] min-h-[40px] bg-neutral-content place-items-center p-1 text-neutral text-balance petit-formal">
+                <div
+                  className="collapse bg-base-200"
+                  onClick={() => linkToMoosages(board._id)}
+                >
+                  <input type="radio" name="my-accordion-1" />
+                  <div className="collapse-title text-2xl font-medium text-center">
+                    {board.title}
+                  </div>
+                  <div className="collapse-content">
+                    <p>{board.description}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </>
