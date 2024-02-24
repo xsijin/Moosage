@@ -172,6 +172,9 @@ const BoardsLanding = ({ resetToken }) => {
             </li>
           </ul>
         </div>
+        
+<img src="boardemoji.png" width="50" height="50" />
+
       </div>
     </>
   );

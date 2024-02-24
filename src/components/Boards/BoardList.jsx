@@ -143,39 +143,40 @@ const BoardList = ({
         {isEditingBoard ? (
           <>
             <div className="form-control">
-                  <input type="text"
-                    name="title"
-                    value={editedBoard.title}
-                    onChange={handleBoardInputChange}
-                    className="input input-bordered"
-                  />
-                </div>
+              <input
+                type="text"
+                name="title"
+                value={editedBoard.title}
+                onChange={handleBoardInputChange}
+                className="input input-bordered"
+              />
+            </div>
 
-                <div className="form-control items-end">
-                  <label className="cursor-pointer label">
-                    <div
-                      className="tooltip"
-                      data-tip="Unchecking this box will only allow admin and board owners (you!) to view."
-                    >
-                      <span className="label-text">Public</span>
-                    </div>
-                    &nbsp;
-                    <input
-                      type="checkbox"
-                      name="is_public"
-                      checked={editedBoard.is_public}
-                      onChange={(e) =>
-                        handleBoardInputChange({
-                          target: {
-                            name: e.target.name,
-                            value: e.target.checked,
-                          },
-                        })
-                      }
-                      className="checkbox checkbox-warning"
-                    />
-                  </label>
+            <div className="form-control items-end">
+              <label className="cursor-pointer label">
+                <div
+                  className="tooltip"
+                  data-tip="Unchecking this box will only allow admin and board owners (you!) to view."
+                >
+                  <span className="label-text">Public</span>
                 </div>
+                &nbsp;
+                <input
+                  type="checkbox"
+                  name="is_public"
+                  checked={editedBoard.is_public}
+                  onChange={(e) =>
+                    handleBoardInputChange({
+                      target: {
+                        name: e.target.name,
+                        value: e.target.checked,
+                      },
+                    })
+                  }
+                  className="checkbox checkbox-warning"
+                />
+              </label>
+            </div>
 
             <div className="flex space-x-2 justify-center">
               <button onClick={handleBoardSaveClick} className="btn btn-xs">
@@ -221,7 +222,7 @@ const BoardList = ({
                   </span>
                 </span>
               ) : (
-                <span className="indicator-item indicator-top indicator-end badge badge-secondary">
+                <span className="indicator-item indicator-top indicator-end badge">
                   {board.moosages.length}
                 </span>
               )}
@@ -231,7 +232,7 @@ const BoardList = ({
                   Private
                 </span>
               )}
-              <div className="grid min-w-[200px] max-w-[200px] min-h-[40px] bg-neutral-content place-items-center p-1 text-neutral text-balance">
+              <div className="grid min-w-[200px] max-w-[200px] min-h-[40px] bg-neutral-content place-items-center p-1 text-neutral text-balance petit-formal">
                 {board.title}
               </div>
             </div>

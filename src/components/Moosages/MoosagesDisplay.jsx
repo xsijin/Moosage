@@ -245,7 +245,7 @@ const MoosageDisplay = ({
               </>
             ) : (
               <p
-                className="quote relative text-left indent-3"
+                className="quote relative text-left indent-3 mali-regular text-balance"
                 style={{ whiteSpace: "pre-line" }}
               >
                 {moosage.message}

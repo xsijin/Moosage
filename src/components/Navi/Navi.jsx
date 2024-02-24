@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import ThemeContext from '../../ThemeContext';
 import "./Navi.css";
 
@@ -14,7 +15,8 @@ function Navi({ setSelectedTheme }) {
     <>
       <div className="navbar bg-base-200">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">Moosage</a>
+          <img src="/movingcowemoji.png" width="50" height="50" />
+          <Link to="/" className="btn btn-ghost text-xl hachi-maru text-2xl">Moosage</Link>
         </div>
 
         <div className="flex-none gap-2">
