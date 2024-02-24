@@ -31,6 +31,22 @@ const MoosageInput = ({ addMoosage }) => {
       delete newMoosage.moodUrl; // ensures that if no emoji is selected, the moodUrl property is not included in the data sent to the backend, so that backend can auto populate it.
     }
 
+        // Trim the message
+        const trimmedMessage = newMoosage.message.trim();
+
+        // Check if the trimmed message is empty
+        if (trimmedMessage === "") {
+          // Show an error message
+          console.error("Moosage cannot be empty or all spaces, please write a moosage to proceed.");
+          return;
+        }
+    
+        // Update the message with the trimmed message
+        setNewMoosage({
+          ...newMoosage,
+          message: trimmedMessage,
+        });
+
     addMoosage(newMoosage);
 
     setNewMoosage({

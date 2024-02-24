@@ -58,6 +58,23 @@ const MoosageDisplay = ({
 
   const handleSaveClick = async (e) => {
     e.preventDefault();
+
+    // Trim the message
+    const trimmedMessage = editedMoosage.message.trim();
+
+    // Check if the trimmed message is empty
+    if (trimmedMessage === "") {
+      // Show an error message
+      console.error("Moosage cannot be empty or all spaces, please write a moosage to proceed.");
+      return;
+    }
+
+    // Update the message with the trimmed message
+    setEditedMoosage({
+      ...editedMoosage,
+      message: trimmedMessage,
+    });
+
     await handlePatchSubmit();
     setIsEditing(false);
   };
@@ -197,6 +214,7 @@ const MoosageDisplay = ({
                       className="textarea textarea-bordered textarea-md w-full max-w-xs"
                       style={{ whiteSpace: "pre-wrap" }}
                       required
+                      pattern="\S+.*"
                     />
 
                     <Mood

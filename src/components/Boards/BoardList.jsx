@@ -47,11 +47,17 @@ const BoardList = ({
   const handleBoardInputChange = (e) => {
     setEditedBoard({
       ...editedBoard,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value.trim(),
     });
   };
 
   const handleBoardSaveClick = async () => {
+    // Check if the title is empty
+    if (editedBoard.title.trim() === "") {
+      console.error("Board title cannot be empty or all spaces, please enter a title to proceed.");
+      return;
+    }
+
     await handleBoardPatchSubmit();
     setIsEditingBoard(false);
   };
