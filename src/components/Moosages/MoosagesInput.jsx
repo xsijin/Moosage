@@ -53,7 +53,7 @@ const MoosageInput = ({ addMoosage }) => {
   };
 
   return (
-    <div className="card lg:card-side bg-base-100 shadow-xl w-[500px] border border-primary-content hover:border-primary flex space-x-4">
+    <div className="card lg:card-side bg-base-100 shadow-xl w-[500px] border border-primary hover:border-primary-content flex space-x-4">
       <figure className="p-4" style={{ minWidth: "90px" }}>
         <img src={newMoosage.moodUrl} alt="Mood" />
       </figure>

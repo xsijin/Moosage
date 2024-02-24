@@ -266,10 +266,10 @@ const BoardList = ({
                   onClick={() => linkToMoosages(board._id)}
                 >
                   <input type="radio" name="my-accordion-1" />
-                  <div className="collapse-title text-2xl font-medium text-center">
+                  <div className="collapse-title text-2xl font-medium text-center text-neutral">
                     {board.title}
                   </div>
-                  <div className="collapse-content">
+                  <div className="collapse-content text-neutral">
                     <p>{board.description}</p>
                   </div>
                 </div>
