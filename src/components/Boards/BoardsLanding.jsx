@@ -9,6 +9,12 @@ const BoardsLanding = ({ resetToken }) => {
   const [deleteBoardId, setDeleteBoardId] = useState(null);
   const [selectedBoardId, setSelectedBoardId] = useState(null);
   const [cancelToken, setCancelToken] = useState(0);
+  const [showForm, setShowForm] = useState(false);
+  const [newBoard, setNewBoard] = useState({
+    // userId: moosage.userId,
+    title: "",
+    is_public: true,
+  });
 
   useEffect(() => {
     fetchBoard();
@@ -30,6 +36,36 @@ const BoardsLanding = ({ resetToken }) => {
     }
   };
 
+  const handleAddInputChange = (e) => {
+    setNewBoard({
+      ...newBoard,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleBoardCancelClick = () => {
+    setShowForm(false);
+    setNewBoard({
+      // userId: moosage.userId,
+      title: "",
+      is_public: true,
+    });
+  };
+
+  const handleBoardSaveClick = async () => {
+    let boardToSave = { ...newBoard };
+    if (newBoard.title.trim() === "") {
+      delete boardToSave.title;
+    }
+    await addBoard(boardToSave);
+    setShowForm(false);
+    setNewBoard({
+      // userId: moosage.userId,
+      title: "",
+      is_public: true,
+    });
+  };
+
   const addBoard = async (newBoard) => {
     try {
       // const token = localStorage.getItem("token"); // Retrieve the token from localStorage
@@ -48,10 +84,10 @@ const BoardsLanding = ({ resetToken }) => {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to add moosage");
+        throw new Error("Failed to add board");
       }
 
-      // Fetch the updated moosages again to reflect the changes immediately
+      // Fetch the updated board again to reflect the changes immediately
       await fetchBoard();
     } catch (error) {
       console.error(error);
@@ -102,8 +138,60 @@ const BoardsLanding = ({ resetToken }) => {
           ))
         )}
 
+        <div>
+          {showForm && (
+            <>
+              <div className="form-control">
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Name your new board"
+                  value={newBoard.title}
+                  onChange={handleAddInputChange}
+                  className="input input-bordered"
+                />
+              </div>
+
+              <div className="form-control items-end">
+                <label className="cursor-pointer label">
+                  <div
+                    className="tooltip"
+                    data-tip="Unchecking this box will only allow admin and board owners (you!) to view."
+                  >
+                    <span className="label-text">Public</span>
+                  </div>
+                  &nbsp;
+                  <input
+                    type="checkbox"
+                    name="is_public"
+                    checked={newBoard.is_public}
+                    onChange={(e) =>
+                      handleAddInputChange({
+                        target: {
+                          name: e.target.name,
+                          value: e.target.checked,
+                        },
+                      })
+                    }
+                    className="checkbox checkbox-warning"
+                  />
+                </label>
+              </div>
+
+              <div className="flex space-x-2 justify-center">
+                <button onClick={handleBoardSaveClick} className="btn btn-xs">
+                  Save Changes
+                </button>
+
+                <button onClick={handleBoardCancelClick} className="btn btn-xs">
+                  Cancel
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+
         <div className="dropdown dropdown-right">
-          <br />
           <div
             tabIndex={0}
             role="button"
@@ -146,7 +234,11 @@ const BoardsLanding = ({ resetToken }) => {
             <li>
               <a>Copy board URL</a>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                setShowForm(true);
+              }}
+            >
               <a>Create new board</a>
             </li>
             <li
@@ -172,9 +264,8 @@ const BoardsLanding = ({ resetToken }) => {
             </li>
           </ul>
         </div>
-        
-<img src="boardemoji.png" width="50" height="50" />
 
+        <img src="boardemoji.png" width="50" height="50" />
       </div>
     </>
   );
