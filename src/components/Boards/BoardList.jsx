@@ -13,7 +13,7 @@ const BoardList = ({
   selectedBoardId,
   setSelectedBoardId,
   cancelToken,
-  setBoardId,
+  setUserBoard,
 }) => {
   const [isEditingBoard, setIsEditingBoard] = useState(false);
   const [editedBoard, setEditedBoard] = useState({
@@ -153,8 +153,8 @@ const BoardList = ({
     document.getElementById("deleteConfirmationModalBoard").close();
   };
 
-  const linkToMoosages = (id) => {
-    setBoardId(id);
+  const linkToMoosages = (board) => {
+    setUserBoard(board);
   };
 
   return (
@@ -263,7 +263,7 @@ const BoardList = ({
               <div className="grid min-w-[400px] max-w-[400px] min-h-[40px] bg-neutral-content place-items-center p-1 text-neutral text-balance petit-formal">
                 <div
                   className="collapse bg-base-200"
-                  onClick={() => linkToMoosages(board._id)}
+                  onClick={() => linkToMoosages(board)}
                 >
                   <input type="radio" name="my-accordion-1" />
                   <div className="collapse-title text-2xl font-medium text-center text-neutral">

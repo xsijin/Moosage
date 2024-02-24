@@ -3,10 +3,12 @@ import MoosageDisplay from "./MoosagesDisplay";
 import MoosageInput from "./MoosagesInput";
 import "./Moosages.css";
 
-const MoosagesLanding = ({ setResetToken, boardId }) => {
+const MoosagesLanding = ({ setResetToken, userBoard }) => {
   const [moosages, setMoosages] = useState([]);
   const [selectedMoosageId, setSelectedMoosageId] = useState(null);
   const [deleteMoosageId, setDeleteMoosageId] = useState(null);
+  const boardId = userBoard && userBoard._id;
+  const boardTitle = userBoard && userBoard.title;
 
   useEffect(() => {
     if (boardId) {
@@ -63,7 +65,9 @@ const MoosagesLanding = ({ setResetToken, boardId }) => {
       <br />
       {!boardId ? (
         <>
-          <p className="petit-formal text-2xl">Please choose a board you'd like to view.</p>
+          <p className="petit-formal text-2xl">
+            Please choose a board you'd like to view.
+          </p>
           <p>
             <svg
               fill="currentColor"
@@ -83,8 +87,7 @@ const MoosagesLanding = ({ setResetToken, boardId }) => {
       ) : (
         <div className="centered-content flex flex-col space-y-4">
           <span className="petit-formal text-2xl">
-            Moosages for{" "}
-            {moosages && moosages.length > 0 && moosages[0].boardId && moosages[0].boardId.title}
+            Moosages for {boardTitle}
           </span>
           <MoosageInput addMoosage={addMoosage} />
           {!moosages || !Array.isArray(moosages) || moosages.length === 0 ? (

@@ -4,7 +4,7 @@ import BoardsLanding from '../Boards/BoardsLanding';
 
 const Dashboard = () => {
   const [resetToken, setResetToken] = useState(0);
-  const [boardId, setBoardId] = useState(null);
+  const [userBoard, setUserBoard] = useState(null);
  
   const scrollToTop = () => {
     window.scrollTo({
@@ -16,10 +16,10 @@ const Dashboard = () => {
   return (
     <div className="flex justify-around">
       <div className="">
-        <BoardsLanding resetToken={resetToken} setBoardId={setBoardId} />
+        <BoardsLanding resetToken={resetToken} setUserBoard={setUserBoard} />
       </div>
       <div className="">
-        <MoosagesLanding setResetToken={setResetToken} boardId={boardId} />
+        <MoosagesLanding setResetToken={setResetToken} userBoard={userBoard} />
       </div>
 
       <button onClick={scrollToTop} className="text-primary-content hover:text-primary fixed bottom-5 right-5">
