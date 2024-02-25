@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import BoardList from "./BoardList";
 
-const BoardsLanding = ({ resetToken, setUserBoard }) => {
+const BoardsLanding = ({ resetToken, setUserBoard, setDeleteMoosageToken }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [userId, setUserId] = useState("65cfd9c270188fae2349b2b4"); // replace this with the actual user ID
   const [boards, setBoards] = useState([]);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
@@ -23,6 +25,7 @@ const BoardsLanding = ({ resetToken, setUserBoard }) => {
   }, [userId, resetToken]);
 
   const fetchBoard = async () => {
+    if (isFirstLoad) setIsLoading(true);
     try {
       const response = await fetch(
         `https://moosage-backend.onrender.com/boards/user/${userId}`
@@ -36,6 +39,8 @@ const BoardsLanding = ({ resetToken, setUserBoard }) => {
     } catch (error) {
       console.error(error);
     }
+    setIsLoading(false);
+    if (isFirstLoad) setIsFirstLoad(false);
   };
 
   const handleAddInputChange = (e) => {
@@ -120,34 +125,43 @@ const BoardsLanding = ({ resetToken, setUserBoard }) => {
     <>
       <br />
       <div className="centered-content flex flex-col space-y-4">
-        {!boards || !Array.isArray(boards) || boards.length === 0 ? (
-          <p className="p-3">
-            Much space for your board here.
-            <br />
-            Click on the Board Assistant below to add one!
-            <br />
-            ⬇️
-          </p>
+        {isLoading ? (
+          <div>Loading...</div>
         ) : (
-          boards.map((board) => (
-            <BoardList
-              key={board._id}
-              board={board}
-              isDeleteClicked={isDeleteClicked}
-              isEditClicked={isEditClicked}
-              setBoards={setBoards}
-              boardId={board._id}
-              boards={boards}
-              deleteBoardId={deleteBoardId}
-              setDeleteBoardId={setDeleteBoardId}
-              userId={userId}
-              selectedBoardId={selectedBoardId}
-              setSelectedBoardId={setSelectedBoardId}
-              cancelToken={cancelToken}
-              setUserBoard={setUserBoard}
-              showShare={showShare}
-            />
-          ))
+          <>
+            <h1 className="text-2xl font-bold text-center petit-formal">
+              My Boards
+            </h1>
+
+            {!boards || !Array.isArray(boards) || boards.length === 0 ? (
+              <p className="p-3">
+                Much space for your board here.
+                <br />
+                Click on the Board Assistant below to add one!
+              </p>
+            ) : (
+              boards.map((board) => (
+                <BoardList
+                  key={board._id}
+                  board={board}
+                  isDeleteClicked={isDeleteClicked}
+                  isEditClicked={isEditClicked}
+                  setBoards={setBoards}
+                  boardId={board._id}
+                  boards={boards}
+                  deleteBoardId={deleteBoardId}
+                  setDeleteBoardId={setDeleteBoardId}
+                  userId={userId}
+                  selectedBoardId={selectedBoardId}
+                  setSelectedBoardId={setSelectedBoardId}
+                  cancelToken={cancelToken}
+                  setUserBoard={setUserBoard}
+                  showShare={showShare}
+                  setDeleteMoosageToken={setDeleteMoosageToken}
+                />
+              ))
+            )}
+          </>
         )}
 
         <div>

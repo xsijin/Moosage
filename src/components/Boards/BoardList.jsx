@@ -14,6 +14,7 @@ const BoardList = ({
   setSelectedBoardId,
   cancelToken,
   setUserBoard,
+  setDeleteMoosageToken,
 }) => {
   const [isEditingBoard, setIsEditingBoard] = useState(false);
   const [editedBoard, setEditedBoard] = useState({
@@ -54,7 +55,9 @@ const BoardList = ({
   const handleBoardSaveClick = async () => {
     // Check if the title is empty
     if (editedBoard.title.trim() === "") {
-      console.error("Board title cannot be empty or all spaces, please enter a title to proceed.");
+      console.error(
+        "Board title cannot be empty or all spaces, please enter a title to proceed."
+      );
       return;
     }
 
@@ -109,12 +112,12 @@ const BoardList = ({
   const handleDeleteClick = async (id) => {
     setDeleteBoardId(id);
     document.getElementById("deleteConfirmationModalBoard").showModal();
-    console.log(`To delete board with ID: ${id}`);
+    // console.log(`To delete board with ID: ${id}`);
   };
 
   const handleConfirmDelete = async () => {
     try {
-      console.log(`Starting deletion process for ${deleteBoardId}`);
+      // console.log(`Starting deletion process for ${deleteBoardId}`);
 
       const response = await fetch(
         `https://moosage-backend.onrender.com/boards/remove/${deleteBoardId}`,
@@ -126,23 +129,24 @@ const BoardList = ({
         }
       );
 
-      console.log("Response received:", response);
+      // console.log("Response received:", response);
 
       if (!response.ok) {
         throw new Error("Failed to delete board");
       }
 
-      console.log("Board deleted successfully");
+      // console.log("Board deleted successfully");
 
       const updatedBoards = boards.filter(
         (board) => board._id !== deleteBoardId
       );
       setBoards(updatedBoards);
 
-      console.log("State updated:", updatedBoards);
+      // console.log("State updated:", updatedBoards);
 
       document.getElementById("deleteConfirmationModalBoard").close();
-      console.log("Modal closed");
+      // console.log("Modal closed");
+      setDeleteMoosageToken((prevToken) => !prevToken); // Toggle the token to force a re-render in moosages
     } catch (error) {
       console.error("Error:", error);
     }
@@ -266,7 +270,7 @@ const BoardList = ({
                   onClick={() => linkToMoosages(board)}
                 >
                   <input type="radio" name="my-accordion-1" />
-                  <div className="collapse-title text-2xl font-medium text-center text-neutral">
+                  <div className="collapse-title text-2xl text-center text-neutral">
                     {board.title}
                   </div>
                   <div className="collapse-content text-neutral">
