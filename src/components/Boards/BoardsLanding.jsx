@@ -125,6 +125,8 @@ const BoardsLanding = ({ resetToken, setUserBoard }) => {
             Much space for your board here.
             <br />
             Click on the Board Assistant below to add one!
+            <br />
+            ⬇️
           </p>
         ) : (
           boards.map((board) => (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import MoosageDisplay from "./MoosagesDisplay";
 import MoosageInput from "./MoosagesInput";
 import "./Moosages.css";
@@ -10,13 +10,15 @@ const MoosagesLanding = ({ setResetToken, userBoard }) => {
   const [deleteMoosageId, setDeleteMoosageId] = useState(null);
   const { boardId: routeBoardId } = useParams();
   const userBoardId = userBoard && userBoard._id;
-  const [ boardTitle, setBoardTitle ] = useState(userBoard && userBoard.title);
+  const [boardTitle, setBoardTitle] = useState(userBoard && userBoard.title);
   const boardId = routeBoardId ? routeBoardId : userBoardId;
 
   useEffect(() => {
     const fetchBoardDetails = async () => {
       try {
-        const response = await fetch(`https://moosage-backend.onrender.com/boards/show/${boardId}`);
+        const response = await fetch(
+          `https://moosage-backend.onrender.com/boards/show/${boardId}`
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch board details");
         }
@@ -27,7 +29,7 @@ const MoosagesLanding = ({ setResetToken, userBoard }) => {
         console.error(error);
       }
     };
-  
+
     const fetchMoosages = async () => {
       try {
         const response = await fetch(
@@ -46,7 +48,7 @@ const MoosagesLanding = ({ setResetToken, userBoard }) => {
     if (!userBoard && routeBoardId) {
       fetchBoardDetails();
     }
-  
+
     if (boardId) {
       fetchMoosages();
     }
@@ -54,7 +56,6 @@ const MoosagesLanding = ({ setResetToken, userBoard }) => {
     if (userBoard) {
       setBoardTitle(userBoard.title);
     }
-
   }, [routeBoardId, userBoardId]);
 
   const addMoosage = async (newMoosage) => {
@@ -118,7 +119,13 @@ const MoosagesLanding = ({ setResetToken, userBoard }) => {
           <MoosageInput addMoosage={addMoosage} />
           {!moosages || !Array.isArray(moosages) || moosages.length === 0 ? (
             <p className="p-3">
-              Congratulations, you've got the honour of being the first poster.
+              Congratulations!
+              <br />
+              You've got the honour of being the first poster should you choose
+              to do so.
+              <br />
+              <br />
+              No pressure. 😎
             </p>
           ) : (
             moosages.map((moosage) => (
