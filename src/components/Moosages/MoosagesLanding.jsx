@@ -7,6 +7,7 @@ import "./Moosages.css";
 
 const MoosagesLanding = ({ setResetToken, userBoard, deleteMoosageToken }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [addLoading, setAddLoading] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [fetchSuccess, setFetchSuccess] = useState(true);
   const [moosages, setMoosages] = useState([]);
@@ -34,6 +35,7 @@ const MoosagesLanding = ({ setResetToken, userBoard, deleteMoosageToken }) => {
       setFetchSuccess(false);
     } finally {
       setIsLoading(false);
+      if (isFirstLoad) setIsFirstLoad(false);
     }
   };
 
@@ -68,11 +70,10 @@ const MoosagesLanding = ({ setResetToken, userBoard, deleteMoosageToken }) => {
     if (userBoard) {
       setBoardTitle(userBoard.title);
     }
-
-    if (isFirstLoad) setIsFirstLoad(false);
   }, [routeBoardId, userBoardId, deleteMoosageToken]);
 
   const addMoosage = async (newMoosage) => {
+    setAddLoading(true);
     try {
       // const token = localStorage.getItem("token"); // Retrieve the token from localStorage
       // if (!token) throw new Error("Token not found");
@@ -98,6 +99,8 @@ const MoosagesLanding = ({ setResetToken, userBoard, deleteMoosageToken }) => {
       setResetToken((prevToken) => prevToken + 1); // trigger re-render of boards to show +1 moosage count
     } catch (error) {
       console.error(error);
+    } finally {
+      setAddLoading(false);
     }
   };
 
@@ -135,6 +138,13 @@ const MoosagesLanding = ({ setResetToken, userBoard, deleteMoosageToken }) => {
             Moosages for {boardTitle}
           </span>
           <MoosageInput addMoosage={addMoosage} />
+          <div className="divider">
+            {addLoading ? (
+              <span className="loading loading-ring loading-lg"></span>
+            ) : (
+              <></>
+            )}
+          </div>
           {!moosages || !Array.isArray(moosages) || moosages.length === 0 ? (
             <p className="p-3">
               Congratulations!
@@ -164,6 +174,7 @@ const MoosagesLanding = ({ setResetToken, userBoard, deleteMoosageToken }) => {
           )}
         </div>
       ) : (
+        // failed to fetch moosages
         <>
           <LandingError />
         </>
