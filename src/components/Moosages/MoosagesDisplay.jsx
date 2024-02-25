@@ -65,7 +65,9 @@ const MoosageDisplay = ({
     // Check if the trimmed message is empty
     if (trimmedMessage === "") {
       // Show an error message
-      console.error("Moosage cannot be empty or all spaces, please write a moosage to proceed.");
+      console.error(
+        "Moosage cannot be empty or all spaces, please write a moosage to proceed."
+      );
       return;
     }
 
@@ -276,6 +278,9 @@ const MoosageDisplay = ({
                 {moosage.userId.preferredName} · {formatDate(moosage.createdAt)}
                 {moosage.createdAt !== moosage.updatedAt && " · edited"}
               </span>
+              {moosage.is_public === false ? (
+                <span className="badge m-1">Private</span>
+              ) : null}
             </div>
 
             <div className="card-actions justify-end">

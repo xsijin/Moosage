@@ -132,7 +132,7 @@ const MoosagesLanding = ({ setResetToken, userBoard, deleteMoosageToken }) => {
         <p>
           <span className="loading loading-ring loading-lg"></span>
         </p>
-      ) : fetchSuccess ? (
+      ) : fetchSuccess && moosages ? (
         <div className="centered-content flex flex-col space-y-4">
           <span className="text-2xl font-bold text-center petit-formal">
             Moosages for {boardTitle}
@@ -145,7 +145,7 @@ const MoosagesLanding = ({ setResetToken, userBoard, deleteMoosageToken }) => {
               <></>
             )}
           </div>
-          {!moosages || !Array.isArray(moosages) || moosages.length === 0 ? (
+          {!Array.isArray(moosages) || moosages.length === 0 ? (
             <p className="p-3">
               Congratulations!
               <br />

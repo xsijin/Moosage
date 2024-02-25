@@ -99,6 +99,7 @@ const BoardList = ({
             : updatedBoard
         )
       );
+      linkToMoosages(editedBoard);
     } catch (error) {
       console.error(error);
     }
@@ -146,7 +147,7 @@ const BoardList = ({
 
       document.getElementById("deleteConfirmationModalBoard").close();
       // console.log("Modal closed");
-      setDeleteMoosageToken((prevToken) => !prevToken); // Toggle the token to force a re-render in moosages
+      setDeleteMoosageToken((prevToken) => prevToken + 1); // Toggle the token to force a re-render in moosages
     } catch (error) {
       console.error("Error:", error);
     }
