@@ -126,7 +126,9 @@ const BoardsLanding = ({ resetToken, setUserBoard, setDeleteMoosageToken }) => {
       <br />
       <div className="centered-content flex flex-col space-y-4">
         {isLoading ? (
-          <div>Loading...</div>
+          <div>
+            <span className="loading loading-ring loading-lg"></span>
+          </div>
         ) : (
           <>
             <h1 className="text-2xl font-bold text-center petit-formal">
