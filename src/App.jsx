@@ -4,6 +4,7 @@ import ThemeContext from './ThemeContext';
 import './App.css';
 import Navi from './components/Navi/Navi';
 import Dashboard from './components/Navi/Dashboard'; 
+import MoosageLanding from './components/Moosages/MoosagesLanding';
 
 function App() {
   const [selectedTheme, setSelectedTheme] = useState('emerald');
@@ -21,6 +22,7 @@ function App() {
     <main>
       <Routes>
       <Route path="/" element={<Dashboard />} />
+      <Route path="/moosages/show/:boardId" element={<MoosageLanding />} />
       </Routes>
     </main>
 

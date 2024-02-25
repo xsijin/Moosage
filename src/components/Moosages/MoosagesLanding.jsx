@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom';
 import MoosageDisplay from "./MoosagesDisplay";
 import MoosageInput from "./MoosagesInput";
 import "./Moosages.css";
@@ -7,29 +8,54 @@ const MoosagesLanding = ({ setResetToken, userBoard }) => {
   const [moosages, setMoosages] = useState([]);
   const [selectedMoosageId, setSelectedMoosageId] = useState(null);
   const [deleteMoosageId, setDeleteMoosageId] = useState(null);
-  const boardId = userBoard && userBoard._id;
-  const boardTitle = userBoard && userBoard.title;
+  const { boardId: routeBoardId } = useParams();
+  const userBoardId = userBoard && userBoard._id;
+  const [ boardTitle, setBoardTitle ] = useState(userBoard && userBoard.title);
+  const boardId = routeBoardId ? routeBoardId : userBoardId;
 
   useEffect(() => {
+    const fetchBoardDetails = async () => {
+      try {
+        const response = await fetch(`https://moosage-backend.onrender.com/boards/show/${boardId}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch board details");
+        }
+        const data = await response.json();
+        console.log("Landed via paramId", data);
+        setBoardTitle(data.board.title);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    const fetchMoosages = async () => {
+      try {
+        const response = await fetch(
+          `https://moosage-backend.onrender.com/moosages/show/${boardId}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch moosages");
+        }
+        const data = await response.json();
+        setMoosages(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (!userBoard && routeBoardId) {
+      fetchBoardDetails();
+    }
+  
     if (boardId) {
       fetchMoosages();
     }
-  }, [boardId]);
 
-  const fetchMoosages = async () => {
-    try {
-      const response = await fetch(
-        `https://moosage-backend.onrender.com/moosages/show/${boardId}`
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch moosages");
-      }
-      const data = await response.json();
-      setMoosages(data);
-    } catch (error) {
-      console.error(error);
+    if (userBoard) {
+      setBoardTitle(userBoard.title);
     }
-  };
+
+  }, [routeBoardId, userBoardId]);
 
   const addMoosage = async (newMoosage) => {
     try {

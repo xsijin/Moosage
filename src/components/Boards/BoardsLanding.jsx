@@ -122,7 +122,9 @@ const BoardsLanding = ({ resetToken, setUserBoard }) => {
       <div className="centered-content flex flex-col space-y-4">
         {!boards || !Array.isArray(boards) || boards.length === 0 ? (
           <p className="p-3">
-            There are no boards currently, click on the Board Assistant below to create one.
+            Much space for your board here.
+            <br />
+            Click on the Board Assistant below to add one!
           </p>
         ) : (
           boards.map((board) => (
