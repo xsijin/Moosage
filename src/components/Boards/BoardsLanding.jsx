@@ -10,6 +10,7 @@ const BoardsLanding = ({ resetToken, setUserBoard }) => {
   const [selectedBoardId, setSelectedBoardId] = useState(null);
   const [cancelToken, setCancelToken] = useState(0);
   const [showForm, setShowForm] = useState(false);
+  const [showShare, setShowShare] = useState(false);
   const [newBoard, setNewBoard] = useState({
     // userId: moosage.userId,
     title: "",
@@ -107,10 +108,11 @@ const BoardsLanding = ({ resetToken, setUserBoard }) => {
     setIsDeleteClicked(true);
   };
 
-  const handleCancel = () => {
+  const handleExit = () => {
     setIsDeleteClicked(false);
     setIsEditClicked(false);
     setShowForm(false);
+    setShowShare(false);
     setCancelToken((prevToken) => prevToken + 1); // to trigger useEffect in BoardList that sets all isEdit state to false
   };
 
@@ -120,7 +122,7 @@ const BoardsLanding = ({ resetToken, setUserBoard }) => {
       <div className="centered-content flex flex-col space-y-4">
         {!boards || !Array.isArray(boards) || boards.length === 0 ? (
           <p className="p-3">
-            There are no boards currently, please add one of your own!
+            There are no boards currently, click on the Board Assistant below to create one.
           </p>
         ) : (
           boards.map((board) => (
@@ -139,6 +141,7 @@ const BoardsLanding = ({ resetToken, setUserBoard }) => {
               setSelectedBoardId={setSelectedBoardId}
               cancelToken={cancelToken}
               setUserBoard={setUserBoard}
+              showShare={showShare}
             />
           ))
         )}
@@ -216,7 +219,11 @@ const BoardsLanding = ({ resetToken, setUserBoard }) => {
             tabIndex={0}
             className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40"
           >
-            <li>
+            <li
+              onClick={() => {
+                setShowShare(true);
+              }}
+            >
               <a>Copy board URL</a>
             </li>
             <li
@@ -242,7 +249,7 @@ const BoardsLanding = ({ resetToken, setUserBoard }) => {
             </li>
             <li
               onClick={() => {
-                handleCancel();
+                handleExit();
               }}
             >
               <a>Exit edit mode</a>

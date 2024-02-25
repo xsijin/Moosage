@@ -62,7 +62,7 @@ const MoosageInput = ({ addMoosage }) => {
           <form onSubmit={handleSubmit}>
             <textarea
               name="message"
-              placeholder="Got something to share? Spread the vibes! ✨"
+              placeholder="Got something to share? Let's vibe! ✨"
               value={newMoosage.message}
               onChange={handleInputChange}
               required

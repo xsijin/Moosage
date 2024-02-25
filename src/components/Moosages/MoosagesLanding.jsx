@@ -92,7 +92,7 @@ const MoosagesLanding = ({ setResetToken, userBoard }) => {
           <MoosageInput addMoosage={addMoosage} />
           {!moosages || !Array.isArray(moosages) || moosages.length === 0 ? (
             <p className="p-3">
-              There are no moosages currently, please add one of your own!
+              Congratulations, you've got the honour of being the first poster.
             </p>
           ) : (
             moosages.map((moosage) => (
