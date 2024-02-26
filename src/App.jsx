@@ -5,6 +5,7 @@ import './App.css';
 import Navi from './components/Navi/Navi';
 import Dashboard from './components/Navi/Dashboard'; 
 import MoosageLanding from './components/Moosages/MoosagesLanding';
+import LandingError from './components/Moosages/LandingError';
 
 function App() {
   const [selectedTheme, setSelectedTheme] = useState('emerald');
@@ -23,6 +24,7 @@ function App() {
       <Routes>
       <Route path="/" element={<Dashboard />} />
       <Route path="/moosages/show/:boardId" element={<MoosageLanding />} />
+      <Route path="*" element={<LandingError />} />
       </Routes>
     </main>
 

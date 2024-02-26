@@ -1,16 +1,31 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const LandingError = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <p>
+        <br />
         You've landed on the wrong side of the <b>moo</b>n.
         <br />
         🌚
       </p>
       <br />
-      <Link to="/">Go 🔙 home?</Link>
+      Go{" "}
+      <span onClick={goBack} style={{ cursor: "pointer" }}>
+        🔙
+      </span>{" "}
+      <Link to="/" className="hover:text-primary hover:font-bold">
+        home
+      </Link>
+      ?
       <br />
       <br />
       Or you can stay here and admire the scenery.
