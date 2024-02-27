@@ -28,7 +28,7 @@ const BoardsLanding = ({ resetToken, setUserBoard, setDeleteMoosageToken }) => {
     if (isFirstLoad) setIsLoading(true);
     try {
       const response = await fetch(
-        `https://moosage-backend.onrender.com/boards/user/${userId}`
+        `http://localhost:3000/boards/user/${userId}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch board");
@@ -81,7 +81,7 @@ const BoardsLanding = ({ resetToken, setUserBoard, setDeleteMoosageToken }) => {
       // if (!token) throw new Error("Token not found");
 
       const response = await fetch(
-        `https://moosage-backend.onrender.com/boards/create/${userId}`,
+        `http://localhost:3000/boards/create/${userId}`,
         {
           method: "POST",
           headers: {

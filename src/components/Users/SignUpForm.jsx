@@ -21,14 +21,14 @@ function SignUpForm() {
   };
 
   function hashPassword() {
-      var currForm = signUpInput;
-      if (currForm.password) {
-          console.log(currForm.password)
-          var hash = hashData(currForm.password);
-          currForm.password = hash.hash;
-          currForm.salt = hash.salt;
-          currForm.iterations = hash.iterations;
-      }
+    var currForm = signUpInput;
+    if (currForm.password) {
+      console.log(currForm.password);
+      var hash = hashData(currForm.password);
+      currForm.password = hash.hash;
+      currForm.salt = hash.salt;
+      currForm.iterations = hash.iterations;
+    }
   }
 
   const handleSubmit = async (evt) => {
@@ -42,16 +42,22 @@ function SignUpForm() {
       const user = await signUp(signUpData);
       console.log("user: ", user);
 
-      setSignUpInput({
-        nickName: "",
-        preferredName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
-      setSignupSucc(true);
+      if (user.success) {
+        setSignUpInput({
+          nickName: "",
+          preferredName: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+        setSignupSucc(true);
+      } else {
+        console.error(user.error);
+        setSignupSucc(false);
+      }
     } catch (err) {
       console.error(err);
+      setSignupSucc(false);
     }
   };
 
@@ -116,7 +122,7 @@ function SignUpForm() {
             name="password"
             value={signUpInput.password}
             onChange={handleInputChange}
-            placeholder="Enter your password"
+            placeholder="Enter your password, case-sensitive"
             className="input input-bordered input-sm w-full max-w-xs"
             required
           />
@@ -131,13 +137,13 @@ function SignUpForm() {
             name="confirmPassword"
             value={signUpInput.confirmPassword}
             onChange={handleInputChange}
-            placeholder="Enter your password again"
+            placeholder="Enter your password again, still case-sensitive"
             className="input input-bordered input-sm w-full max-w-xs"
             required
           />
         </label>
 
-        {signupSucc ? <p className="text-success">Sign Up Success!</p> : null}
+        {signupSucc ? <p className="text-success">Sign Up Success!</p> : <p className="text-error">Nick name or email already exists, please use a different one.</p> }
 
         <button className="btn btn-submit btn-sm">Sign Up</button>
       </form>

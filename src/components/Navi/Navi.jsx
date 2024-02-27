@@ -2,8 +2,9 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ThemeContext from '../../ThemeContext';
 import "./Navi.css";
+import { logoutUser } from "../../service/users";
 
-function Navi({ setSelectedTheme }) {
+function Navi({ setSelectedTheme, user }) {
   const selectedTheme = useContext(ThemeContext);
 
   const handleThemeChange = (theme) => {
@@ -20,7 +21,7 @@ function Navi({ setSelectedTheme }) {
         </div>
 
         <div className="flex-none gap-2">
-          Welcome, user!
+          Welcome, {user.preferredName}!
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -48,7 +49,14 @@ function Navi({ setSelectedTheme }) {
                 <a>Settings</a>
               </li>
               <li>
-                <a>Logout</a>
+              <button
+                onClick={async () => {
+                  await logoutUser();
+                  window.location.reload();
+                }}
+              >
+                Logout
+              </button>
               </li>
             </ul>
           </div>

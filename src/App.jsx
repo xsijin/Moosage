@@ -30,12 +30,12 @@ function App() {
     <>
       <ThemeContext.Provider value={selectedTheme}>
         <nav>
-          <Navi setSelectedTheme={setSelectedTheme} />
+          <Navi setSelectedTheme={setSelectedTheme} user={user}/>
         </nav>
 
         <main>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<Dashboard user={user} setLogin={setLogin} />} />
             <Route
               path="/board/:boardId"
               element={<MoosageLanding />}
