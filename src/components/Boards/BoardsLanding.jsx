@@ -125,16 +125,16 @@ const BoardsLanding = ({ resetToken, setUserBoard, setDeleteMoosageToken }) => {
     <>
       <br />
       <div className="centered-content flex flex-col space-y-4">
+        <h1 className="text-2xl font-bold text-center petit-formal">
+          My Boards
+        </h1>
+
         {isLoading ? (
           <div>
             <span className="loading loading-ring loading-lg"></span>
           </div>
         ) : (
           <>
-            <h1 className="text-2xl font-bold text-center petit-formal">
-              My Boards
-            </h1>
-
             {!boards || !Array.isArray(boards) || boards.length === 0 ? (
               <p className="p-3">
                 Much space for your board here.
