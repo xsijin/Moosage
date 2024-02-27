@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Mood from "../Mood/Mood";
 
-const MoosageInput = ({ addMoosage }) => {
+const MoosageInput = ({ addMoosage, user }) => {
   const today = new Date();
   const todayDate = today.toLocaleDateString("en-GB", {
     day: "2-digit",
@@ -10,7 +10,7 @@ const MoosageInput = ({ addMoosage }) => {
   });
 
   const [newMoosage, setNewMoosage] = useState({
-    userId: "65cfd9c270188fae2349b2b4", // replace this with the actual user ID
+    userId: user.userId,
     message: "",
     moodUrl:
       "https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/2709-fe0f.png",
@@ -31,20 +31,22 @@ const MoosageInput = ({ addMoosage }) => {
       delete newMoosage.moodUrl; // ensures that if no emoji is selected, the moodUrl property is not included in the data sent to the backend, so that backend can auto populate it.
     }
 
-        // Trim the message
-        const trimmedMessage = newMoosage.message.trim();
+    // Trim the message
+    const trimmedMessage = newMoosage.message.trim();
 
-        // Check if the trimmed message is empty
-        if (trimmedMessage === "") {
-          // Show an error message
-          console.error("Moosage cannot be empty or all spaces, please write a moosage to proceed.");
-          return;
-        }
+    // Check if the trimmed message is empty
+    if (trimmedMessage === "") {
+      // Show an error message
+      console.error(
+        "Moosage cannot be empty or all spaces, please write a moosage to proceed."
+      );
+      return;
+    }
 
     addMoosage(newMoosage);
 
     setNewMoosage({
-      userId: "65cfd9c270188fae2349b2b4", // reset the form
+      userId: user.userId,
       message: "",
       moodUrl:
         "https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/2709-fe0f.png",

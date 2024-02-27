@@ -4,6 +4,7 @@ import DeleteConfirmation from "./DeleteConfirmation";
 function ProfileForm({
   user,
   fetchUsers,
+  fetchUser,
   closeModal,
   updateMsg,
   setUpdateMsg,
@@ -60,7 +61,7 @@ function ProfileForm({
         success: true,
         msg: "Makeover Completed!",
       });
-      fetchUsers(); // re-fetch users after updating
+      fetchUsers ? fetchUsers() : fetchUser(); // re-fetch user(s) after updating
       closeModal();
     } else {
       console.error("Failed to update user.");

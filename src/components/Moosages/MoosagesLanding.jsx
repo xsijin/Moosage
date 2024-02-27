@@ -5,7 +5,12 @@ import MoosageInput from "./MoosagesInput";
 import LandingError from "./LandingError";
 import "./Moosages.css";
 
-const MoosagesLanding = ({ setResetToken, userBoard, deleteMoosageToken }) => {
+const MoosagesLanding = ({
+  setResetToken,
+  userBoard,
+  deleteMoosageToken,
+  user,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [addLoading, setAddLoading] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
@@ -131,13 +136,15 @@ const MoosagesLanding = ({ setResetToken, userBoard, deleteMoosageToken }) => {
       ) : isLoading ? (
         <p>
           <span className="loading loading-ring loading-lg"></span>
+          <br />
+          Loading board...
         </p>
       ) : fetchSuccess && moosages ? (
         <div className="centered-content flex flex-col space-y-4">
           <span className="text-2xl font-bold text-center petit-formal">
             Moosages for {boardTitle}
           </span>
-          <MoosageInput addMoosage={addMoosage} />
+          <MoosageInput addMoosage={addMoosage} user={user} />
           <div className="divider">
             {addLoading ? (
               <span className="loading loading-ring loading-lg"></span>
@@ -169,6 +176,7 @@ const MoosagesLanding = ({ setResetToken, userBoard, deleteMoosageToken }) => {
                 deleteMoosageId={deleteMoosageId}
                 setDeleteMoosageId={setDeleteMoosageId}
                 setResetToken={setResetToken}
+                user={user}
               />
             ))
           )}

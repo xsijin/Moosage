@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Moosages.css";
 import Mood from "../Mood/Mood";
 
@@ -13,6 +14,7 @@ const MoosageDisplay = ({
   deleteMoosageId,
   setDeleteMoosageId,
   setResetToken,
+  user,
 }) => {
   if (!moosage) return null;
   console.log(moosage);
@@ -275,7 +277,13 @@ const MoosageDisplay = ({
 
             <div className="absolute inset-x-0 bottom-0">
               <span className="badge m-1">
-                {moosage.userId.preferredName} · {formatDate(moosage.createdAt)}
+                <Link
+                  to={`/user/${moosage.userId._id}`}
+                  className="hover:text-primary hover:font-bold"
+                >
+                  {moosage.userId.preferredName}
+                </Link>
+                &nbsp;· {formatDate(moosage.createdAt)}
                 {moosage.createdAt !== moosage.updatedAt && " · edited"}
               </span>
               {moosage.is_public === false ? (

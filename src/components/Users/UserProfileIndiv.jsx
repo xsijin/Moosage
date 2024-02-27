@@ -1,44 +1,34 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router"
+import { useState, useEffect, useCallback } from "react";
+import { useParams } from "react-router";
 import UserProfile from "./UserProfile";
 
 function UserProfileIndiv() {
+  const { userId } = useParams();
+  const [singleUser, setSingleUser] = useState(null);
 
-    const params = useParams();
+  const fetchUser = useCallback(async () => {
+    try {
+      const response = await fetch(
+        `https://moosage-backend.onrender.com/users/show/${userId}`
+      );
+      const result = await response.json();
+      setSingleUser(result.user);
+    } catch (err) {
+      console.error(err);
+    }
+  }, [userId]);
 
-    const [userId, setUserId] = useState(params.userId);
-    const [user, setuser] = useState(null);
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
 
-    useEffect(() => {
-        const fetchUser = async () => {
-          try {
-            const response = await fetch(   
-              `https://moosage-backend.onrender.com/users/show/${userId}`
-            );
-            if (!response.ok) {
-              throw new Error("Failed to fetch user details");
-            }
-            const data = await response.json();
-            setuser(data.user);
-
-          } catch (error) {
-            console.error(error);
-          }
-        };
-
-        fetchUser();
-
-    }, [userId]);
-
-
-    return (
-        <>
-            { user
-                ? <UserProfile user={user} />
-                : null
-            }
-        </>
-    )
+  return (
+    <>
+      {singleUser ? (
+        <UserProfile user={singleUser} fetchUser={fetchUser} />
+      ) : null}
+    </>
+  );
 }
 
 export default UserProfileIndiv;

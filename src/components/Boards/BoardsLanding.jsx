@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import BoardList from "./BoardList";
 
-const BoardsLanding = ({ resetToken, setUserBoard, setDeleteMoosageToken }) => {
+const BoardsLanding = ({
+  resetToken,
+  setUserBoard,
+  setDeleteMoosageToken,
+  user,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
-  const [userId, setUserId] = useState("65cfd9c270188fae2349b2b4"); // replace this with the actual user ID
+  const [userId, setUserId] = useState(user.userId);
   const [boards, setBoards] = useState([]);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
   const [isEditClicked, setIsEditClicked] = useState(false);
@@ -21,14 +26,16 @@ const BoardsLanding = ({ resetToken, setUserBoard, setDeleteMoosageToken }) => {
   });
 
   useEffect(() => {
-    fetchBoard();
-  }, [userId, resetToken]);
+    if (user.userId) {
+      fetchBoard();
+    }
+  }, [user.userId, resetToken]);
 
   const fetchBoard = async () => {
     if (isFirstLoad) setIsLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3000/boards/user/${userId}`
+        `https://moosage-backend.onrender.com/boards/user/${user.userId}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch board");
@@ -81,7 +88,7 @@ const BoardsLanding = ({ resetToken, setUserBoard, setDeleteMoosageToken }) => {
       // if (!token) throw new Error("Token not found");
 
       const response = await fetch(
-        `http://localhost:3000/boards/create/${userId}`,
+        `https://moosage-backend.onrender.com/boards/create/${user.userId}`,
         {
           method: "POST",
           headers: {
@@ -153,7 +160,7 @@ const BoardsLanding = ({ resetToken, setUserBoard, setDeleteMoosageToken }) => {
                   boards={boards}
                   deleteBoardId={deleteBoardId}
                   setDeleteBoardId={setDeleteBoardId}
-                  userId={userId}
+                  userId={user.userId}
                   selectedBoardId={selectedBoardId}
                   setSelectedBoardId={setSelectedBoardId}
                   cancelToken={cancelToken}
