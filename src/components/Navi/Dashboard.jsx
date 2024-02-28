@@ -4,7 +4,6 @@ import BoardsLanding from "../Boards/BoardsLanding";
 
 const Dashboard = ({ user }) => {
   const [resetToken, setResetToken] = useState(0);
-  const [deleteMoosageToken, setDeleteMoosageToken] = useState(0);
   const [userBoard, setUserBoard] = useState(null);
 
   const scrollToTop = () => {
@@ -21,7 +20,6 @@ const Dashboard = ({ user }) => {
           user={user}
           resetToken={resetToken}
           setUserBoard={setUserBoard}
-          setDeleteMoosageToken={setDeleteMoosageToken}
         />
       </div>
       <div className="mx-3">
@@ -29,7 +27,6 @@ const Dashboard = ({ user }) => {
           user={user}
           setResetToken={setResetToken}
           userBoard={userBoard}
-          deleteMoosageToken={deleteMoosageToken}
         />
       </div>
 

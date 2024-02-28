@@ -14,11 +14,10 @@ const BoardList = ({
   setSelectedBoardId,
   cancelToken,
   setUserBoard,
-  setDeleteMoosageToken,
 }) => {
   const [isEditingBoard, setIsEditingBoard] = useState(false);
   const [editedBoard, setEditedBoard] = useState({
-    // userId: moosage.userId,
+    // _id: board._id,
     title: board.title,
     description: board.description,
     is_public: board.is_public,
@@ -86,20 +85,27 @@ const BoardList = ({
         throw new Error("Failed to update board");
       }
 
-      // Update the state directly
-      setBoards(
-        boards.map((updatedBoard) =>
-          updatedBoard._id === board._id
-            ? {
-                ...updatedBoard,
-                title: editedBoard.title,
-                description: editedBoard.description,
-                is_public: editedBoard.is_public,
-              }
-            : updatedBoard
-        )
-      );
-      linkToMoosages(editedBoard);
+    // Add the board._id to the editedBoard object
+    const updatedEditedBoard = {
+      ...editedBoard,
+      _id: board._id
+    };
+
+    // Update the state directly
+    setBoards(
+      boards.map((updatedBoard) =>
+        updatedBoard._id === board._id
+          ? {
+              ...updatedBoard,
+              title: updatedEditedBoard.title,
+              description: updatedEditedBoard.description,
+              is_public: updatedEditedBoard.is_public,
+            }
+          : updatedBoard
+      )
+    );
+    linkToMoosages(updatedEditedBoard);
+    console.log("check", updatedEditedBoard);
     } catch (error) {
       console.error(error);
     }
@@ -147,7 +153,7 @@ const BoardList = ({
 
       document.getElementById("deleteConfirmationModalBoard").close();
       // console.log("Modal closed");
-      setDeleteMoosageToken((prevToken) => prevToken + 1); // Toggle the token to force a re-render in moosages
+      linkToMoosages(null); // re-render moosages
     } catch (error) {
       console.error("Error:", error);
     }

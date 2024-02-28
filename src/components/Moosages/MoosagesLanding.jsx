@@ -5,12 +5,7 @@ import MoosageInput from "./MoosagesInput";
 import LandingError from "./LandingError";
 import "./Moosages.css";
 
-const MoosagesLanding = ({
-  setResetToken,
-  userBoard,
-  deleteMoosageToken,
-  user,
-}) => {
+const MoosagesLanding = ({ setResetToken, userBoard, user }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [addLoading, setAddLoading] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
@@ -75,7 +70,15 @@ const MoosagesLanding = ({
     if (userBoard) {
       setBoardTitle(userBoard.title);
     }
-  }, [routeBoardId, userBoardId, deleteMoosageToken]);
+  }, [routeBoardId, userBoardId]);
+
+  useEffect(() => {
+    if (userBoard) {
+      console.log("Landed via userBoard", userBoard);
+      setBoardTitle(userBoard.title);
+      fetchMoosages();
+    }
+  }, [userBoard]);
 
   const addMoosage = async (newMoosage) => {
     setAddLoading(true);
