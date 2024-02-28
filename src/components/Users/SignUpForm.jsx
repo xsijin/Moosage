@@ -35,6 +35,12 @@ function SignUpForm() {
     try {
       evt.preventDefault();
 
+      console.log("signUpInput: ", signUpInput);
+
+      if (signUpInput.preferredName === "") {
+        signUpInput.preferredName = signUpInput.nickName;
+      } // default preferred name if not provided
+
       hashPassword();
       const signUpData = { ...signUpInput };
       delete signUpData.confirmPassword;
@@ -143,7 +149,13 @@ function SignUpForm() {
           />
         </label>
 
-        {signupSucc === null ? null : (signupSucc ? <p className="text-success">Sign Up Success!</p> : <p className="text-error">Nick name or email already exists, please use a different one.</p>)}
+        {signupSucc === null ? null : signupSucc ? (
+          <p className="text-success">Sign Up Success!</p>
+        ) : (
+          <p className="text-error">
+            Nick name or email already exists, please use a different one.
+          </p>
+        )}
 
         <button className="btn btn-submit btn-sm">Sign Up</button>
       </form>

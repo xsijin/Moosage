@@ -29,7 +29,7 @@ function UserProfile({ user, fetchUsers, fetchUser }) {
           <div className="card-body mali-regular">
             <Link
               to={`/user/${user._id}`}
-              className="hover:text-primary hover:font-bold"
+              className="hover:text-primary"
             >
               <h2 className="card-title">
                 {user.preferredName}{" "}

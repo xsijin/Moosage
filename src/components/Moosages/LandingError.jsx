@@ -21,7 +21,7 @@ const LandingError = () => {
       <br />
       Go<span onClick={goBack} style={{ cursor: "pointer" }}>
         🔙
-      </span> <Link to="/" className="hover:text-primary hover:font-bold">
+      </span> <Link to="/" className="hover:text-primary">
         home
       </Link>
       ?
