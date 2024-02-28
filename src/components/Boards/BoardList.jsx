@@ -226,7 +226,7 @@ const BoardList = ({
             <div className="indicator">
               {isDeleteClicked ? (
                 <span
-                  className="indicator-item indicator-top indicator-end badge badge-error text-secondary-content"
+                  className="indicator-item indicator-top indicator-end badge badge-error text-error-content"
                   onClick={() => handleDeleteClick(board._id)}
                 >
                   <svg
@@ -245,7 +245,7 @@ const BoardList = ({
                 </span>
               ) : isEditClicked ? (
                 <span
-                  className="indicator-item indicator-top indicator-end badge badge-warning text-secondary-content"
+                  className="indicator-item indicator-top indicator-end badge badge-warning text-warning-content"
                   onClick={handleBoardEditClick}
                 >
                   <span
@@ -261,20 +261,20 @@ const BoardList = ({
               )}
 
               {board.is_public ? null : (
-                <span className="indicator-item indicator-bottom indicator-center badge badge-ghost">
+                <span className="indicator-item indicator-bottom indicator-center badge badge-primary text-primary-content">
                   Private
                 </span>
               )}
-              <div className="grid min-w-[400px] max-w-[400px] min-h-[40px] bg-neutral-content place-items-center p-1 text-neutral text-balance petit-formal">
+              <div className="grid min-w-[400px] max-w-[400px] min-h-[40px] bg-primary/30 place-items-center p-0.5 text-primary text-balance petit-formal rounded-lg hover:bg-primary/60">
                 <div
-                  className="collapse bg-base-200"
+                  className="collapse bg-base-100"
                   onClick={() => linkToMoosages(board)}
                 >
                   <input type="radio" name="my-accordion-1" />
-                  <div className="collapse-title text-2xl text-center text-neutral">
+                  <div className="collapse-title text-2xl text-center text-base-content">
                     {board.title}
                   </div>
-                  <div className="collapse-content text-neutral">
+                  <div className="collapse-content text-base-content">
                     <p>{board.description}</p>
                   </div>
                 </div>

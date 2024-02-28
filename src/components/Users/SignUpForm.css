@@ -1,11 +1,11 @@
 .userForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 60%;
-    margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+  margin: auto;
 }
 
 .userForm > * {
-    margin-top: 1rem;
+  margin-top: 0.5rem;
 }

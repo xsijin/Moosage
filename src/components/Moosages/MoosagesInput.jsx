@@ -55,7 +55,7 @@ const MoosageInput = ({ addMoosage, user }) => {
   };
 
   return (
-    <div className="card lg:card-side bg-base-100 shadow-xl w-[500px] border border-primary hover:border-primary-content flex space-x-4">
+    <div className="card lg:card-side bg-base-100 shadow-xl w-[500px] border border-primary-content hover:border-primary flex space-x-4">
       <figure className="p-4" style={{ minWidth: "90px" }}>
         <img src={newMoosage.moodUrl} alt="Mood" />
       </figure>
@@ -111,7 +111,7 @@ const MoosageInput = ({ addMoosage, user }) => {
         </div>
         <div className="absolute inset-x-0 bottom-0">
           <span className="badge m-1">
-            logged_in_user's_preferred_name · {todayDate}
+            {user.preferredName} · {todayDate}
           </span>
         </div>
       </div>

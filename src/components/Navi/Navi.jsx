@@ -1,6 +1,6 @@
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import ThemeContext from '../../ThemeContext';
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import ThemeContext from "../../ThemeContext";
 import "./Navi.css";
 import { logoutUser } from "../../service/users";
 
@@ -14,14 +14,28 @@ function Navi({ setSelectedTheme, user }) {
 
   return (
     <>
-      <div className="navbar bg-base-200">
+      <div className="navbar bg-base-100 rounded-full">
         <div className="flex-1">
           <img src="/movingcowemoji.png" width="50" height="50" />
-          <Link to="/" className="btn btn-ghost text-xl hachi-maru text-2xl">Moosage</Link>
+          <Link
+            to="/"
+            className="btn btn-ghost text-xl hachi-maru text-2xl text-base-content"
+          >
+            Moosage
+          </Link>
         </div>
 
-        <div className="flex-none gap-2">
-          Welcome, {user.preferredName}!
+        <div className="flex-none gap-2 text-base-content">
+          {user.nickName ? (
+            `Welcome, ${user.preferredName}!`
+          ) : (
+            <>
+              Welcome,{" "}
+              <Link to="/login-signup" className="hover:text-primary">
+                login here.
+              </Link>
+            </>
+          )}
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -40,23 +54,20 @@ function Navi({ setSelectedTheme, user }) {
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
               <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
+                <Link to={`/user/${user.id}`}>Profile</Link>
               </li>
               <li>
                 <a>Settings</a>
               </li>
               <li>
-              <button
-                onClick={async () => {
-                  await logoutUser();
-                  window.location.reload();
-                }}
-              >
-                Logout
-              </button>
+                <button
+                  onClick={async () => {
+                    await logoutUser();
+                    window.location.reload();
+                  }}
+                >
+                  Logout
+                </button>
               </li>
             </ul>
           </div>
@@ -66,7 +77,7 @@ function Navi({ setSelectedTheme, user }) {
               <li>
                 <details>
                   <summary>Theme</summary>
-                  <ul className="p-2 bg-base-100 rounded-t-none">
+                  <ul className="p-2 bg-base-100">
                     {["light", "winter", "emerald", "forest", "night"].map(
                       (theme) => (
                         <li key={theme}>

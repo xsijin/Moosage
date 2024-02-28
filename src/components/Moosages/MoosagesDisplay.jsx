@@ -196,7 +196,7 @@ const MoosageDisplay = ({
   return (
     <>
       <div>
-        <div className="card lg:card-side bg-base-100 shadow-xl w-[500px] border border-primary hover:border-primary-content flex space-x-4">
+        <div className="card lg:card-side bg-base-100 shadow-xl w-[500px] border border-primary-content hover:border-primary flex space-x-4">
           <figure className="p-4" style={{ minWidth: "90px" }}>
             <img src={isEditing ? editMoodUrl : moosage.moodUrl} alt="Mood" />
           </figure>
@@ -276,10 +276,10 @@ const MoosageDisplay = ({
             )}
 
             <div className="absolute inset-x-0 bottom-0">
-              <span className="badge m-1">
+              <span className="badge m-1 text-xs">
                 <Link
                   to={`/user/${moosage.userId._id}`}
-                  className="hover:text-primary hover:font-bold"
+                  className="hover:text-primary"
                 >
                   {moosage.userId.preferredName}
                 </Link>
@@ -287,7 +287,7 @@ const MoosageDisplay = ({
                 {moosage.createdAt !== moosage.updatedAt && " · edited"}
               </span>
               {moosage.is_public === false ? (
-                <span className="badge m-1">Private</span>
+                <span className="badge m-1 text-xs">Private</span>
               ) : null}
             </div>
 
@@ -361,7 +361,7 @@ const MoosageDisplay = ({
 
                   {/* end of delete modal */}
 
-                  <button className="btn btn-accent btn-sm">Like</button>
+                  {/* <button className="btn btn-accent btn-sm">Like</button> */}
                 </>
               )}
             </div>

@@ -131,11 +131,13 @@ const BoardsLanding = ({
   return (
     <>
       <br />
-      <div className="centered-content flex flex-col space-y-4">
+      <div className="centered-content flex flex-col space-y-4 bg-base-100 p-3">
         <h1 className="text-2xl font-bold text-center petit-formal">
           My Boards
         </h1>
-
+      </div>
+      <br />
+      <div className="centered-content flex flex-col space-y-4 bg-base-100/70 p-6">
         {isLoading ? (
           <div>
             <span className="loading loading-ring loading-lg"></span>
@@ -238,7 +240,7 @@ const BoardsLanding = ({
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-submit btn-circle bg-neutral-content text-neutral"
+            className="btn btn-submit btn-circle bg-base-100 text-neutral hover:bg-primary"
           >
             <img src="boardemoji.png" width="50" height="50" />
           </div>

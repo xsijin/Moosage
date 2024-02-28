@@ -114,7 +114,7 @@ const MoosagesLanding = ({
       <br />
       {!boardId ? (
         <>
-          <p className="petit-formal text-2xl">
+          <p className="petit-formal text-2xl bg-base-100 p-5 rounded-full">
             Please choose a board you'd like to view.
           </p>
           <p>
@@ -140,47 +140,51 @@ const MoosagesLanding = ({
           Loading board...
         </p>
       ) : fetchSuccess && moosages ? (
-        <div className="centered-content flex flex-col space-y-4">
-          <span className="text-2xl font-bold text-center petit-formal">
-            Moosages for {boardTitle}
-          </span>
-          <MoosageInput addMoosage={addMoosage} user={user} />
-          <div className="divider">
-            {addLoading ? (
-              <span className="loading loading-ring loading-lg"></span>
+        <>
+          <div className="centered-content flex flex-col space-y-4 bg-base-100 p-3">
+            <span className="text-2xl font-bold text-center petit-formal">
+              Moosages for {boardTitle}
+            </span>
+          </div><br />
+          <div className="centered-content flex flex-col space-y-4 bg-base-100/70 p-3">
+            <MoosageInput addMoosage={addMoosage} user={user} />
+            <div className="divider divider-accent">
+              {addLoading ? (
+                <span className="loading loading-ring loading-lg text-accent"></span>
+              ) : (
+                <></>
+              )}
+            </div>
+            {!Array.isArray(moosages) || moosages.length === 0 ? (
+              <p className="p-3">
+                Congratulations!
+                <br />
+                You've got the honour of being the first poster should you
+                choose to do so.
+                <br />
+                <br />
+                No pressure. 😎
+              </p>
             ) : (
-              <></>
+              moosages.map((moosage) => (
+                <MoosageDisplay
+                  key={moosage._id}
+                  moosage={moosage}
+                  boardId={boardId}
+                  moosages={moosages}
+                  moosageId={moosage._id}
+                  setMoosages={setMoosages}
+                  selectedMoosageId={selectedMoosageId}
+                  setSelectedMoosageId={setSelectedMoosageId}
+                  deleteMoosageId={deleteMoosageId}
+                  setDeleteMoosageId={setDeleteMoosageId}
+                  setResetToken={setResetToken}
+                  user={user}
+                />
+              ))
             )}
           </div>
-          {!Array.isArray(moosages) || moosages.length === 0 ? (
-            <p className="p-3">
-              Congratulations!
-              <br />
-              You've got the honour of being the first poster should you choose
-              to do so.
-              <br />
-              <br />
-              No pressure. 😎
-            </p>
-          ) : (
-            moosages.map((moosage) => (
-              <MoosageDisplay
-                key={moosage._id}
-                moosage={moosage}
-                boardId={boardId}
-                moosages={moosages}
-                moosageId={moosage._id}
-                setMoosages={setMoosages}
-                selectedMoosageId={selectedMoosageId}
-                setSelectedMoosageId={setSelectedMoosageId}
-                deleteMoosageId={deleteMoosageId}
-                setDeleteMoosageId={setDeleteMoosageId}
-                setResetToken={setResetToken}
-                user={user}
-              />
-            ))
-          )}
-        </div>
+        </>
       ) : (
         // failed to fetch moosages
         <>

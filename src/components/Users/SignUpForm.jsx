@@ -11,7 +11,7 @@ function SignUpForm() {
     password: "",
     confirmPassword: "",
   });
-  const [signupSucc, setSignupSucc] = useState(false);
+  const [signupSucc, setSignupSucc] = useState(null);
 
   const handleInputChange = (evt) => {
     setSignUpInput({
@@ -143,7 +143,7 @@ function SignUpForm() {
           />
         </label>
 
-        {signupSucc ? <p className="text-success">Sign Up Success!</p> : <p className="text-error">Nick name or email already exists, please use a different one.</p> }
+        {signupSucc === null ? null : (signupSucc ? <p className="text-success">Sign Up Success!</p> : <p className="text-error">Nick name or email already exists, please use a different one.</p>)}
 
         <button className="btn btn-submit btn-sm">Sign Up</button>
       </form>
