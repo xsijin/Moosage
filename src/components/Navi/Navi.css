@@ -1,7 +1,8 @@
 .stayfixed {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000; /* Adjust the z-index as needed */
-  }
-  
+  position: fixed !important;
+  top: 20px !important;
+  width: 90% !important; 
+  left: 50%; /* Move the left edge to the center of the page */
+  transform: translateX(-50%); /* Shift the element left by half of its width */
+  z-index: 1000 !important; /* make navi top-most element */
+}

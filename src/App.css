@@ -50,4 +50,31 @@ body {
   min-height: 100vh;
   background-color: #fafaf0;
   background-attachment: fixed;
+  overflow: hidden;
+}
+
+.navmargin {
+  top: 60px !important; /* accomodate navi */
+  position: relative !important;
+  z-index: 500 !important;
+  height: calc(
+    100vh - 6.1rem
+  ); /* viewport height minus the height of the navbar */
+  overflow-y: auto;
+  width: 95%;
+  margin: auto;
+}
+
+.navmargin::-webkit-scrollbar {
+  width: 5px; 
+  height: 5px;
+}
+
+.navmargin::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+.navmargin::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.5); /* Make the thumb semi-transparent */
+  border-radius: 2.5px;
 }

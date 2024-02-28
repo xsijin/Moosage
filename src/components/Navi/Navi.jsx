@@ -14,7 +14,7 @@ function Navi({ setSelectedTheme, user }) {
 
   return (
     <>
-      <div className="navbar bg-base-100 rounded-full">
+      <div className="navbar bg-base-100 rounded-full stayfixed">
         <div className="flex-1">
           <img src="/movingcowemoji.png" width="50" height="50" />
           <Link
@@ -32,7 +32,7 @@ function Navi({ setSelectedTheme, user }) {
             <>
               Welcome,{" "}
               <Link to="/login-signup" className="hover:text-primary">
-                login here.
+                join us.
               </Link>
             </>
           )}
@@ -54,7 +54,7 @@ function Navi({ setSelectedTheme, user }) {
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
               <li>
-                <Link to={`/user/${user.id}`}>Profile</Link>
+                <Link to={`/user/${user.userId}`}>Profile</Link>
               </li>
               <li>
                 <a>Settings</a>
@@ -72,30 +72,30 @@ function Navi({ setSelectedTheme, user }) {
             </ul>
           </div>
           {/* Theme Dropdown */}
-          <div className="flex-none">
-            <ul className="menu menu-horizontal px-1">
-              <li>
-                <details>
-                  <summary>Theme</summary>
-                  <ul className="p-2 bg-base-100">
-                    {["light", "winter", "emerald", "forest", "night"].map(
-                      (theme) => (
-                        <li key={theme}>
-                          <input
-                            type="radio"
-                            name="theme-dropdown"
-                            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-                            aria-label={theme}
-                            value={theme}
-                            checked={selectedTheme === theme}
-                            onChange={() => handleThemeChange(theme)}
-                          />
-                        </li>
-                      )
-                    )}
-                  </ul>
-                </details>
-              </li>
+
+          <div className="dropdown">
+            <div tabIndex={0} role="button" className="btn btn-xs bg-base-100">
+              Vibin' in {selectedTheme} 🌈
+            </div>
+            <ul
+              tabIndex={0}
+              className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-24"
+            >
+              {["light", "winter", "emerald", "forest", "night"].map(
+                (theme) => (
+                  <li key={theme}>
+                    <input
+                      type="radio"
+                      name="theme-dropdown"
+                      className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                      aria-label={theme}
+                      value={theme}
+                      checked={selectedTheme === theme}
+                      onChange={() => handleThemeChange(theme)}
+                    />
+                  </li>
+                )
+              )}
             </ul>
           </div>
         </div>

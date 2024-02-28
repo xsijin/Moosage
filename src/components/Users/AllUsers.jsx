@@ -24,7 +24,7 @@ function AllUsers() {
   return (
     <>
       <br />
-      <h1 className="text-2xl font-bold text-center petit-formal">
+      <h1 className="text-2xl font-bold text-center petit-formal bg-base-100 p-3 rounded-3xl">
         All Moosagers
       </h1>
 

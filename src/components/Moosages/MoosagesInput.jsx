@@ -110,7 +110,7 @@ const MoosageInput = ({ addMoosage, user }) => {
           </form>
         </div>
         <div className="absolute inset-x-0 bottom-0">
-          <span className="badge m-1">
+          <span className="badge m-1 text-xs">
             {user.preferredName} · {todayDate}
           </span>
         </div>

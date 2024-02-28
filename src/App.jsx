@@ -35,7 +35,7 @@ function App() {
           <Navi setSelectedTheme={setSelectedTheme} user={user} />
         </nav>
 
-        <main>
+        <main className="navmargin">
           <Routes>
             <Route path="/" element={<Dashboard user={user} />} />
             <Route path="/board/:boardId" element={<MoosageLanding />} />

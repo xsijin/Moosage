@@ -10,7 +10,8 @@ const LandingError = () => {
   };
 
   return (
-    <>
+    <><br />
+    <div className="bg-base-100 p-3 rounded-3xl">
       <p>
         <br />
         You've landed on the wrong side of the <b>moo</b>n.
@@ -18,11 +19,9 @@ const LandingError = () => {
         🌚
       </p>
       <br />
-      Go{" "}
-      <span onClick={goBack} style={{ cursor: "pointer" }}>
+      Go<span onClick={goBack} style={{ cursor: "pointer" }}>
         🔙
-      </span>{" "}
-      <Link to="/" className="hover:text-primary hover:font-bold">
+      </span> <Link to="/" className="hover:text-primary hover:font-bold">
         home
       </Link>
       ?
@@ -65,6 +64,7 @@ const LandingError = () => {
           3
         </a>
       </div>
+    </div>
     </>
   );
 };

@@ -22,7 +22,7 @@ const MoosageDisplay = ({
   const [isEditing, setIsEditing] = useState(false);
   const [editedMoosage, setEditedMoosage] = useState({
     // Initialize with empty values or default values
-    userId: "65cfd9c270188fae2349b2b4", // replace this with the actual user ID
+    // userId: "65cfd9c270188fae2349b2b4", // replace this with the actual user ID
     message: "",
     moodUrl: null,
     is_public: true,
@@ -112,7 +112,7 @@ const MoosageDisplay = ({
       }
       const updatedData = await updatedResponse.json();
       setMoosages(updatedData);
-      setResetToken((prevToken) => prevToken + 1); // trigger re-render of boards to show -1 moosage count (if user set moosage to private)
+      setResetToken((prevToken) => prevToken + 1); // trigger re-render of boards to reflect change in moosage count
     } catch (error) {
       console.error(error);
     }
@@ -276,6 +276,9 @@ const MoosageDisplay = ({
             )}
 
             <div className="absolute inset-x-0 bottom-0">
+              {moosage.userId._id === moosage.boardId.userId ? (
+                <span className="badge m-1 text-xs">Owner</span>
+              ) : null}
               <span className="badge m-1 text-xs">
                 <Link
                   to={`/user/${moosage.userId._id}`}

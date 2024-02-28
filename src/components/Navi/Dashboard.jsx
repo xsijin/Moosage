@@ -15,8 +15,8 @@ const Dashboard = ({ user }) => {
   };
 
   return (
-    <div className="flex justify-around">
-      <div className="">
+    <div className="flex">
+      <div className="mx-3">
         <BoardsLanding
           user={user}
           resetToken={resetToken}
@@ -24,7 +24,7 @@ const Dashboard = ({ user }) => {
           setDeleteMoosageToken={setDeleteMoosageToken}
         />
       </div>
-      <div className="">
+      <div className="mx-3">
         <MoosagesLanding
           user={user}
           setResetToken={setResetToken}

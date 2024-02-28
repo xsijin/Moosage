@@ -113,10 +113,8 @@ const MoosagesLanding = ({
     <>
       <br />
       {!boardId ? (
-        <>
-          <p className="petit-formal text-2xl bg-base-100 p-5 rounded-full">
-            Please choose a board you'd like to view.
-          </p>
+        <div className="petit-formal text-2xl bg-base-100 p-5 rounded-[40px]">
+          <p>Please choose a board you'd like to view.</p>
           <p>
             <svg
               fill="currentColor"
@@ -132,9 +130,9 @@ const MoosagesLanding = ({
               <path d="M17.778,44.857v11.026L0,38.105l17.778-17.781v11.163c20.952-1.58,37.88-12.49,41.993-26.64 c0.627,2.158,0.96,4.393,0.96,6.682C60.731,28.812,41.931,43.037,17.778,44.857z"></path>
             </svg>
           </p>
-        </>
+        </div>
       ) : isLoading ? (
-        <p>
+        <p className="text-center px-10">
           <span className="loading loading-ring loading-lg"></span>
           <br />
           Loading board...
@@ -145,7 +143,8 @@ const MoosagesLanding = ({
             <span className="text-2xl font-bold text-center petit-formal">
               Moosages for {boardTitle}
             </span>
-          </div><br />
+          </div>
+          <br />
           <div className="centered-content flex flex-col space-y-4 bg-base-100/70 p-3">
             <MoosageInput addMoosage={addMoosage} user={user} />
             <div className="divider divider-accent">
