@@ -36,19 +36,52 @@ function App() {
         </nav>
 
         <main className="navmargin">
-          <Routes>
-            <Route path="/" element={<Dashboard user={user} />} />
-            <Route path="/board/:boardId" element={<MoosageLanding />} />
-            <Route path="*" element={<LandingError />} />
+          {
+            // ADMIN: All routes available
+            user.is_admin ? (
+              <>
+                <Routes>
+                  {/* Users Routing */}
+                  <Route path="/" element={<Dashboard user={user} />} />{" "}
+                  {/* change to admin dashboard in future w/ settings for user dashboard */}
+                  <Route path="*" element={<LandingError />} />
+                  <Route path="/admin/users" element={<AllUsers />} />
+                  <Route path="/user/:userId" element={<UserProfileIndiv />} />
+                  {/* Boards Routing */}
+                  <Route path="/board/:boardId" element={<MoosageLanding />} />
+                  {/* Moosages Routing */}
+                </Routes>
+              </>
+            ) : // LOGGED-IN USER: All public routes + editing routes available
+            user.email ? (
+              <>
+                <Routes>
+                  {/* Users Routing */}
+                  <Route path="/" element={<Dashboard user={user} />} />
+                  <Route path="/user/:userId" element={<UserProfileIndiv />} />
+                  <Route path="*" element={<LandingError />} />
+                  {/* Boards Routing */}
+                  <Route path="/board/:boardId" element={<MoosageLanding />} />
+                  {/* Moosages Routing */}
+                </Routes>
+              </>
+            ) : (
+              // NON-LOGGED-IN USERS: Only public routes available
+              <>
+                <Routes>
+                  {/* Users Routing */}
+                  <Route
+                    path="/"
+                    element={<LoginSignUp setLogin={setLogin} />}
+                  />
+                  <Route path="*" element={<LandingError />} />
+                  {/* Boards Routing */}
 
-            {/* User Routing */}
-            <Route path="/admin/users" element={<AllUsers />} />
-            <Route path="/user/:userId" element={<UserProfileIndiv />} />
-            <Route
-              path="/login-signup"
-              element={<LoginSignUp setLogin={setLogin} />}
-            />
-          </Routes>
+                  {/* Moosages Routing */}
+                </Routes>
+              </>
+            )
+          }
         </main>
       </ThemeContext.Provider>
     </>

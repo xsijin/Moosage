@@ -154,8 +154,8 @@ const BoardList = ({
       document.getElementById("deleteConfirmationModalBoard").close();
       // console.log("Modal closed");
 
-      console.log("deleteBoardId: ", deleteBoardId);
-      console.log("userBoard: ", userBoard);
+      // console.log("deleteBoardId: ", deleteBoardId);
+      // console.log("userBoard: ", userBoard);
       if (deleteBoardId === userBoard._id) {
         linkToMoosages(null); // re-render moosages
       }

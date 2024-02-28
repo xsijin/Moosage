@@ -10,7 +10,7 @@ const MoosageInput = ({ addMoosage, user }) => {
   });
 
   const [newMoosage, setNewMoosage] = useState({
-    userId: user.userId,
+    userId: user && user.userId,
     message: "",
     moodUrl:
       "https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/2709-fe0f.png",
@@ -46,7 +46,7 @@ const MoosageInput = ({ addMoosage, user }) => {
     addMoosage(newMoosage);
 
     setNewMoosage({
-      userId: user.userId,
+      userId: user && user.userId,
       message: "",
       moodUrl:
         "https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/2709-fe0f.png",
@@ -111,7 +111,7 @@ const MoosageInput = ({ addMoosage, user }) => {
         </div>
         <div className="absolute inset-x-0 bottom-0">
           <span className="badge m-1 text-xs">
-            {user.preferredName} · {todayDate}
+            {user && user.preferredName} · {todayDate}
           </span>
         </div>
       </div>
