@@ -14,6 +14,7 @@ const BoardList = ({
   setSelectedBoardId,
   cancelToken,
   setUserBoard,
+  userBoard,
 }) => {
   const [isEditingBoard, setIsEditingBoard] = useState(false);
   const [editedBoard, setEditedBoard] = useState({
@@ -105,7 +106,6 @@ const BoardList = ({
         )
       );
       linkToMoosages(updatedEditedBoard);
-      console.log("check", updatedEditedBoard);
     } catch (error) {
       console.error(error);
     }
@@ -153,7 +153,13 @@ const BoardList = ({
 
       document.getElementById("deleteConfirmationModalBoard").close();
       // console.log("Modal closed");
-      linkToMoosages(null); // re-render moosages
+
+      console.log("deleteBoardId: ", deleteBoardId);
+      console.log("userBoard: ", userBoard);
+      if (deleteBoardId === userBoard._id) {
+        linkToMoosages(null); // re-render moosages
+      }
+
     } catch (error) {
       console.error("Error:", error);
     }

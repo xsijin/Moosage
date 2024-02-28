@@ -20,6 +20,7 @@ const Dashboard = ({ user }) => {
           user={user}
           resetToken={resetToken}
           setUserBoard={setUserBoard}
+          userBoard={userBoard}
         />
       </div>
       <div className="mx-3">

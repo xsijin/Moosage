@@ -4,6 +4,7 @@ import BoardList from "./BoardList";
 const BoardsLanding = ({
   resetToken,
   setUserBoard,
+  userBoard,
   user,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -165,6 +166,7 @@ const BoardsLanding = ({
                   selectedBoardId={selectedBoardId}
                   setSelectedBoardId={setSelectedBoardId}
                   cancelToken={cancelToken}
+                  userBoard={userBoard}
                   setUserBoard={setUserBoard}
                   showShare={showShare}
                 />
