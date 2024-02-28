@@ -70,15 +70,7 @@ const MoosagesLanding = ({ setResetToken, userBoard, user }) => {
     if (userBoard) {
       setBoardTitle(userBoard.title);
     }
-  }, [routeBoardId, userBoardId]);
-
-  useEffect(() => {
-    if (userBoard) {
-      console.log("Landed via userBoard", userBoard);
-      setBoardTitle(userBoard.title);
-      fetchMoosages();
-    }
-  }, [userBoard]);
+  }, [routeBoardId, userBoard]);
 
   const addMoosage = async (newMoosage) => {
     setAddLoading(true);

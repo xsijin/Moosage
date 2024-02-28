@@ -85,27 +85,27 @@ const BoardList = ({
         throw new Error("Failed to update board");
       }
 
-    // Add the board._id to the editedBoard object
-    const updatedEditedBoard = {
-      ...editedBoard,
-      _id: board._id
-    };
+      // Add the board._id to the editedBoard object
+      const updatedEditedBoard = {
+        ...editedBoard,
+        _id: board._id,
+      };
 
-    // Update the state directly
-    setBoards(
-      boards.map((updatedBoard) =>
-        updatedBoard._id === board._id
-          ? {
-              ...updatedBoard,
-              title: updatedEditedBoard.title,
-              description: updatedEditedBoard.description,
-              is_public: updatedEditedBoard.is_public,
-            }
-          : updatedBoard
-      )
-    );
-    linkToMoosages(updatedEditedBoard);
-    console.log("check", updatedEditedBoard);
+      // Update the state directly
+      setBoards(
+        boards.map((updatedBoard) =>
+          updatedBoard._id === board._id
+            ? {
+                ...updatedBoard,
+                title: updatedEditedBoard.title,
+                description: updatedEditedBoard.description,
+                is_public: updatedEditedBoard.is_public,
+              }
+            : updatedBoard
+        )
+      );
+      linkToMoosages(updatedEditedBoard);
+      console.log("check", updatedEditedBoard);
     } catch (error) {
       console.error(error);
     }
