@@ -1,11 +1,12 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ThemeContext from "../../ThemeContext";
 import "./Navi.css";
 import { logoutUser } from "../../service/users";
 
 function Navi({ setSelectedTheme, user }) {
   const selectedTheme = useContext(ThemeContext);
+  const navigate = useNavigate();
 
   const handleThemeChange = (theme) => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -63,7 +64,7 @@ function Navi({ setSelectedTheme, user }) {
                 <button
                   onClick={async () => {
                     await logoutUser();
-                    window.location.reload();
+                    navigate("/");
                   }}
                 >
                   Logout

@@ -61,7 +61,7 @@ function App() {
                   <Route path="/user/:userId" element={<UserProfileIndiv />} />
                   <Route path="*" element={<LandingError />} />
                   {/* Boards Routing */}
-                  <Route path="/board/:boardId" element={<MoosageLanding />} />
+                  <Route path="/board/:boardId" element={<MoosageLanding />} /> {/* Private Routing */}
                   {/* Moosages Routing */}
                 </Routes>
               </>
