@@ -216,7 +216,10 @@ const MoosagesLanding = ({
                 >
                   {paramBoard.userPreferredName}
                 </Link>
-                's board. <br /> “{paramBoard.description}”
+                's board. <br />{" "}
+                {paramBoard.description &&
+                  paramBoard.description.trim() !== "" &&
+                  `“${paramBoard.description}”`}
               </div>
             )}
           </div>

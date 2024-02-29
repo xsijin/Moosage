@@ -17,7 +17,7 @@ const MoosageDisplay = ({
   user,
 }) => {
   if (!moosage) return null;
-  // console.log(moosage);
+  console.log(moosage);
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedMoosage, setEditedMoosage] = useState({
@@ -293,80 +293,82 @@ const MoosageDisplay = ({
               ) : null}
             </div>
 
-            <div className="card-actions justify-end">
-              {/* only admin, board owner or moosage owner have access to edit/delete moosage */}
-              {/* {String(userId) === String(review.user) ||
-                    (user && user.is_admin) ? ( */}
-
-              {!isEditing && (
-                <>
-                  <div className="dropdown dropdown-bottom dropdown-end">
-                    <div tabIndex={0} role="button" className="btn btn-sm">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        className="inline-block w-5 h-5 stroke-current"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                        ></path>
-                      </svg>
-                    </div>
-                    <ul
-                      tabIndex={0}
-                      className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-24"
-                    >
-                      <li onClick={handleEditClick}>
-                        <a>Edit</a>
-                      </li>
-                      <li onClick={() => handleDeleteClick(moosage._id)}>
-                        <a>Delete</a>
-                      </li>
-                    </ul>
-                  </div>
-                  {/* ) : null} */}
-
-                  {/* start of delete modal */}
-                  <dialog id="deleteConfirmationModal" className="modal">
-                    <div className="modal-box">
-                      <form method="dialog">
-                        {/* button to close modal without any changes */}
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                          ✕
-                        </button>
-                      </form>
-                      <h3 className="font-bold text-lg">
-                        Your moosage is about to be deleted.
-                      </h3>
-                      <p>Are you sure you want to delete this moosage?</p>
-                      <div className="py-4">
-                        <button
-                          className="btn btn-outline btn-error"
-                          onClick={handleConfirmDelete}
+            {user.userId === moosage.userId._id ||
+            (user && user.is_admin) ||
+            user.userId === moosage.boardId.userId ? (
+              <>
+                <div className="card-actions justify-end">
+                  {!isEditing && (
+                    <>
+                      <div className="dropdown dropdown-bottom dropdown-end">
+                        <div tabIndex={0} role="button" className="btn btn-sm">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            className="inline-block w-5 h-5 stroke-current"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                            ></path>
+                          </svg>
+                        </div>
+                        <ul
+                          tabIndex={0}
+                          className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-24"
                         >
-                          Yes, Delete
-                        </button>
-                        &nbsp;
-                        <button
-                          className="btn btn-ghost"
-                          onClick={() => handleCancelDelete()}
-                        >
-                          Cancel
-                        </button>
+                          <li onClick={handleEditClick}>
+                            <a>Edit</a>
+                          </li>
+                          <li onClick={() => handleDeleteClick(moosage._id)}>
+                            <a>Delete</a>
+                          </li>
+                        </ul>
                       </div>
-                    </div>
-                  </dialog>
+                      {/* ) : null} */}
 
-                  {/* end of delete modal */}
+                      {/* start of delete modal */}
+                      <dialog id="deleteConfirmationModal" className="modal">
+                        <div className="modal-box">
+                          <form method="dialog">
+                            {/* button to close modal without any changes */}
+                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                              ✕
+                            </button>
+                          </form>
+                          <h3 className="font-bold text-lg">
+                            Your moosage is about to be deleted.
+                          </h3>
+                          <p>Are you sure you want to delete this moosage?</p>
+                          <div className="py-4">
+                            <button
+                              className="btn btn-outline btn-error"
+                              onClick={handleConfirmDelete}
+                            >
+                              Yes, Delete
+                            </button>
+                            &nbsp;
+                            <button
+                              className="btn btn-ghost"
+                              onClick={() => handleCancelDelete()}
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      </dialog>
 
-                  {/* <button className="btn btn-accent btn-sm">Like</button> */}
-                </>
-              )}
-            </div>
+                      {/* end of delete modal */}
+
+                      {/* <button className="btn btn-accent btn-sm">Like</button> */}
+                    </>
+                  )}
+                </div>
+              </>
+            ) : null}
           </div>
         </div>
       </div>

@@ -45,14 +45,13 @@ function App() {
               <>
                 <Routes>
                   {/* Users Routing */}
-                  <Route path="/" element={<Dashboard user={user} newPname={newPname} />} />{" "}
-                  {/* change to admin dashboard in future w/ settings for user dashboard */}
+                  <Route path="/" element={<Dashboard user={user} newPname={newPname} />} /> {/* change to admin dashboard in future w/ settings for user dashboard */}
                   <Route path="*" element={<LandingError />} />
                   <Route path="/admin/users" element={<AllUsers loggedUser={user} setNewPname={setNewPname} />} />
                   <Route path="/user/:userId" element={<UserProfileIndiv loggedUser={user} setNewPname={setNewPname} />} />
                   {/* Boards Routing */}
-                  <Route path="/board/:boardId" element={<MoosageLanding newPname={newPname} />} />
                   {/* Moosages Routing */}
+                  <Route path="/board/:boardId" element={<MoosageLanding user={user} newPname={newPname} />} />
                 </Routes>
               </>
             ) : // LOGGED-IN USER: All public routes + editing routes available
@@ -64,8 +63,9 @@ function App() {
                   <Route path="*" element={<LandingError />} />
                   <Route path="/user/:userId" element={<UserProfileIndiv loggedUser={user} setNewPname={setNewPname} />} />
                   {/* Boards Routing */}
-                  <Route path="/board/:boardId" element={<MoosageLanding newPname={newPname} />} /> {/* Private Routing */}
                   {/* Moosages Routing */}
+                  <Route path="/board/:boardId" element={<MoosageLanding user={user} newPname={newPname} />} /> {/* Private Routing */}
+                  
                 </Routes>
               </>
             ) : (
@@ -73,9 +73,7 @@ function App() {
               <>
                 <Routes>
                   {/* Users Routing */}
-                  <Route
-                    path="/"
-                    element={<LoginSignUp setLogin={setLogin} />}
+                  <Route path="/" element={<LoginSignUp setLogin={setLogin} />}
                   />
                   <Route path="*" element={<LandingError />} />
                   {/* Boards Routing */}

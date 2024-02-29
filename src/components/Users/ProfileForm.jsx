@@ -241,6 +241,7 @@ function ProfileForm({
           <DeleteConfirmation
             user={user}
             fetchUsers={fetchUsers}
+            fetchUser={fetchUser}
             closeModal={closeModal}
             closeDelModal={() =>
               document.getElementById(`delete-confirmation-${user._id}`).close()

@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
-function DeleteConfirmation({ user, fetchUsers, closeDelModal, closeModal }) {
+function DeleteConfirmation({
+  user,
+  fetchUsers,
+  closeDelModal,
+  closeModal,
+  fetchUser,
+}) {
   const navigate = useNavigate();
 
   const handleDeleteUser = async () => {
@@ -18,9 +24,9 @@ function DeleteConfirmation({ user, fetchUsers, closeDelModal, closeModal }) {
       );
 
       if (response.ok) {
-        navigate("/admin/users");
+        fetchUsers ? navigate("/admin/users") : navigate(`/user/${user._id}`); 
         // console.log("User deleted");
-        fetchUsers(); // re-fetch users after updating
+        fetchUsers ? fetchUsers() : fetchUser(); // re-fetch user(s) after updating
         closeDelModal();
         closeModal();
       } else {
