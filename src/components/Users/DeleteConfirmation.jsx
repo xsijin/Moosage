@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { logoutUser } from "../../service/users";
 
 function DeleteConfirmation({
   user,
@@ -24,11 +25,16 @@ function DeleteConfirmation({
       );
 
       if (response.ok) {
-        fetchUsers ? navigate("/admin/users") : navigate(`/user/${user._id}`); 
-        // console.log("User deleted");
         fetchUsers ? fetchUsers() : fetchUser(); // re-fetch user(s) after updating
         closeDelModal();
         closeModal();
+        if (fetchUsers) {
+          navigate("/admin/users");
+        } else {
+          await logoutUser();
+          window.location.href = "/";
+        }
+        // console.log("User deleted");
       } else {
         throw new Error("Failed to delete user.");
       }
