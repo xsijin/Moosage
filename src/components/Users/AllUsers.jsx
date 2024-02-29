@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
 import UserProfile from "./UserProfile";
 
-function AllUsers() {
+function AllUsers({ loggedUser, setNewPname }) {
+  const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState([]);
 
   const fetchUsers = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         "https://moosage-backend.onrender.com/users/admin/show"
@@ -14,6 +16,8 @@ function AllUsers() {
       // console.log(result);
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -25,18 +29,26 @@ function AllUsers() {
     <>
       <br />
       <h1 className="text-2xl font-bold text-center petit-formal bg-base-100 p-3 rounded-3xl">
-        All Moosagers
+        All Moosengers
       </h1>
 
-      {users.length === 0 ? (
-        <p>
+      {isLoading ? (
+        <>
           <span className="loading loading-ring loading-lg"></span>
-        </p>
+          <br />
+          Loading profiles...
+        </>
       ) : (
         <ul role="list">
           {users.map((user) => {
             return (
-              <UserProfile user={user} key={user._id} fetchUsers={fetchUsers} />
+              <UserProfile
+                user={user}
+                key={user._id}
+                fetchUsers={fetchUsers}
+                loggedUser={loggedUser}
+                setNewPname={setNewPname}
+              />
             );
           })}
         </ul>

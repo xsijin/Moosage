@@ -8,6 +8,8 @@ function ProfileForm({
   closeModal,
   updateMsg,
   setUpdateMsg,
+  loggedUser,
+  setNewPname,
 }) {
   const [updateInput, setUpdateInput] = useState({
     nickName: user.nickName,
@@ -62,6 +64,7 @@ function ProfileForm({
         msg: "Makeover Completed!",
       });
       fetchUsers ? fetchUsers() : fetchUser(); // re-fetch user(s) after updating
+      setNewPname(updatedUser.preferredName);
       closeModal();
     } else {
       console.error("Failed to update user.");
@@ -170,49 +173,51 @@ function ProfileForm({
             />
           </label>
 
-          <div className="form-control items-end">
-            <div>
-              <label className="cursor-pointer label">
-                <div
-                  className="tooltip"
-                  data-tip="Check to ban, uncheck to unban"
-                >
-                  <span className="label-text font-bold ">
-                    Ban {user.nickName}?
-                  </span>
-                </div>
-                &nbsp;
-                <input
-                  type="checkbox"
-                  name="is_banned"
-                  checked={updateInput.is_banned}
-                  onChange={handleInputChange}
-                  className="checkbox checkbox-warning"
-                />
-              </label>
-            </div>
+          {loggedUser && loggedUser.is_admin && (
+            <div className="form-control items-end">
+              <div>
+                <label className="cursor-pointer label">
+                  <div
+                    className="tooltip"
+                    data-tip="Check to ban, uncheck to unban"
+                  >
+                    <span className="label-text font-bold ">
+                      Ban {user.nickName}?
+                    </span>
+                  </div>
+                  &nbsp;
+                  <input
+                    type="checkbox"
+                    name="is_banned"
+                    checked={updateInput.is_banned}
+                    onChange={handleInputChange}
+                    className="checkbox checkbox-warning"
+                  />
+                </label>
+              </div>
 
-            <div>
-              <label className="cursor-pointer label">
-                <div
-                  className="tooltip"
-                  data-tip="Check to give admin powers, uncheck to revoke"
-                >
-                  <span className="label-text font-bold ">
-                    Promote {user.nickName} to an admin?
-                  </span>
-                </div>
-                &nbsp;
-                <input
-                  type="checkbox"
-                  name="is_admin"
-                  checked={updateInput.is_admin}
-                  onChange={handleInputChange}
-                  className="checkbox checkbox-warning"
-                />
-              </label>
+              <div>
+                <label className="cursor-pointer label">
+                  <div
+                    className="tooltip"
+                    data-tip="Check to give admin powers, uncheck to revoke"
+                  >
+                    <span className="label-text font-bold ">
+                      Promote {user.nickName} to an admin?
+                    </span>
+                  </div>
+                  &nbsp;
+                  <input
+                    type="checkbox"
+                    name="is_admin"
+                    checked={updateInput.is_admin}
+                    onChange={handleInputChange}
+                    className="checkbox checkbox-warning"
+                  />
+                </label>
+              </div>
             </div>
-          </div>
+          )}
 
           <span className={updateMsg.success ? "text-success" : "text-error"}>
             {updateMsg.res ? <p>{updateMsg.msg}</p> : null}

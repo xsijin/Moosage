@@ -30,7 +30,6 @@ const MoosageDisplay = ({
   const [editMoodUrl, setEditMoodUrl] = useState(moosage.moodUrl);
 
   const handleEditClick = () => {
-    setSelectedMoosageId(moosage._id);
     setEditedMoosage({
       // userId: moosage.userId,
       message: moosage.message,
@@ -84,7 +83,7 @@ const MoosageDisplay = ({
       // if (!token) throw new Error("Token not found");
 
       const response = await fetch(
-        `https://moosage-backend.onrender.com/moosages/update/${selectedMoosageId}`,
+        `https://moosage-backend.onrender.com/moosages/update/${moosage._id}`,
         {
           method: "PATCH",
           headers: {

@@ -15,6 +15,7 @@ function App() {
   const [selectedTheme, setSelectedTheme] = useState("emerald");
   const [user, setUser] = useState({});
   const [login, setLogin] = useState(false);
+  const [newPname, setNewPname] = useState(null);
 
   useEffect(() => {
     const token = getToken();
@@ -28,11 +29,13 @@ function App() {
     }
   }, [login]);
 
+  console.log("newPname in App", newPname);
+
   return (
     <>
       <ThemeContext.Provider value={selectedTheme}>
         <nav>
-          <Navi setSelectedTheme={setSelectedTheme} user={user} />
+          <Navi setSelectedTheme={setSelectedTheme} user={user} newPname={newPname}/>
         </nav>
 
         <main className="navmargin">
@@ -42,13 +45,13 @@ function App() {
               <>
                 <Routes>
                   {/* Users Routing */}
-                  <Route path="/" element={<Dashboard user={user} />} />{" "}
+                  <Route path="/" element={<Dashboard user={user} newPname={newPname} />} />{" "}
                   {/* change to admin dashboard in future w/ settings for user dashboard */}
                   <Route path="*" element={<LandingError />} />
-                  <Route path="/admin/users" element={<AllUsers />} />
-                  <Route path="/user/:userId" element={<UserProfileIndiv />} />
+                  <Route path="/admin/users" element={<AllUsers loggedUser={user} setNewPname={setNewPname} />} />
+                  <Route path="/user/:userId" element={<UserProfileIndiv loggedUser={user} setNewPname={setNewPname} />} />
                   {/* Boards Routing */}
-                  <Route path="/board/:boardId" element={<MoosageLanding />} />
+                  <Route path="/board/:boardId" element={<MoosageLanding newPname={newPname} />} />
                   {/* Moosages Routing */}
                 </Routes>
               </>
@@ -57,11 +60,11 @@ function App() {
               <>
                 <Routes>
                   {/* Users Routing */}
-                  <Route path="/" element={<Dashboard user={user} />} />
-                  <Route path="/user/:userId" element={<UserProfileIndiv />} />
+                  <Route path="/" element={<Dashboard user={user} newPname={newPname} />} />
                   <Route path="*" element={<LandingError />} />
+                  <Route path="/user/:userId" element={<UserProfileIndiv loggedUser={user} setNewPname={setNewPname} />} />
                   {/* Boards Routing */}
-                  <Route path="/board/:boardId" element={<MoosageLanding />} /> {/* Private Routing */}
+                  <Route path="/board/:boardId" element={<MoosageLanding newPname={newPname} />} /> {/* Private Routing */}
                   {/* Moosages Routing */}
                 </Routes>
               </>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Mood from "../Mood/Mood";
 
-const MoosageInput = ({ addMoosage, user }) => {
+const MoosageInput = ({ addMoosage, user, newPname }) => {
   const today = new Date();
   const todayDate = today.toLocaleDateString("en-GB", {
     day: "2-digit",
@@ -111,7 +111,7 @@ const MoosageInput = ({ addMoosage, user }) => {
         </div>
         <div className="absolute inset-x-0 bottom-0">
           <span className="badge m-1 text-xs">
-            {user && user.preferredName} · {todayDate}
+            {newPname ? newPname : user.preferredName} · {todayDate}
           </span>
         </div>
       </div>

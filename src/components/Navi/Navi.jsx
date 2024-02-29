@@ -1,12 +1,11 @@
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ThemeContext from "../../ThemeContext";
 import "./Navi.css";
 import { logoutUser } from "../../service/users";
 
-function Navi({ setSelectedTheme, user }) {
+function Navi({ setSelectedTheme, user, newPname }) {
   const selectedTheme = useContext(ThemeContext);
-  const navigate = useNavigate();
 
   const handleThemeChange = (theme) => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -27,8 +26,8 @@ function Navi({ setSelectedTheme, user }) {
         </div>
 
         <div className="flex-none gap-2 text-base-content">
-          {user.nickName ? (
-            `Welcome, ${user.preferredName}!`
+          {user.userId ? (
+            `Welcome, ${newPname ? newPname : user.preferredName}!`
           ) : (
             <>
               Welcome,{" "}
@@ -37,41 +36,50 @@ function Navi({ setSelectedTheme, user }) {
               </Link>
             </>
           )}
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                />
+          {Object.keys(user).length > 0 && (
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  />
+                </div>
               </div>
+              <ul
+                tabIndex={0}
+                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-28"
+              >
+                <li>
+                  <Link to={`/user/${user.userId}`}>Profile</Link>
+                </li>
+                {user.is_admin && (
+                  <>
+                    <li>
+                      <a>Admin</a>
+                    </li>
+                    <li>
+                      <Link to={`/`}>Dashboard</Link>
+                    </li>
+                  </>
+                )}
+                <li>
+                  <button
+                    onClick={async () => {
+                      await logoutUser();
+                      window.location.href = "/";
+                    }}
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
             </div>
-            <ul
-              tabIndex={0}
-              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <Link to={`/user/${user.userId}`}>Profile</Link>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <button
-                  onClick={async () => {
-                    await logoutUser();
-                    navigate("/");
-                  }}
-                >
-                  Logout
-                </button>
-              </li>
-            </ul>
-          </div>
+          )}
           {/* Theme Dropdown */}
 
           <div className="dropdown">

@@ -3,12 +3,13 @@ import ProfileForm from "./ProfileForm";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-function UserProfile({ user, fetchUsers, fetchUser }) {
+function UserProfile({ user, fetchUsers, fetchUser, loggedUser, setNewPname }) {
   const [updateMsg, setUpdateMsg] = useState({
     res: false,
     success: false,
     msg: "",
   });
+  console.log("check logged user ", loggedUser);
 
   return (
     <>
@@ -27,10 +28,7 @@ function UserProfile({ user, fetchUsers, fetchUser }) {
             />
           </figure>
           <div className="card-body mali-regular">
-            <Link
-              to={`/user/${user._id}`}
-              className="hover:text-primary"
-            >
+            <Link to={`/user/${user._id}`} className="hover:text-primary">
               <h2 className="card-title">
                 {user.preferredName}{" "}
                 {user.is_admin ? (
@@ -59,40 +57,46 @@ function UserProfile({ user, fetchUsers, fetchUser }) {
               Moosages(s)
             </div>
           </div>
-          <div className="card-actions justify-end">
-            <div className="dropdown dropdown-bottom dropdown-end">
-              <div tabIndex={0} role="button" className="btn m-2 btn-xs">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  className="inline-block w-5 h-5 stroke-current"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                  ></path>
-                </svg>
+
+          {loggedUser.userId === user._id ||
+          (loggedUser && loggedUser.is_admin) ? (
+            <>
+              <div className="card-actions justify-end">
+                <div className="dropdown dropdown-bottom dropdown-end">
+                  <div tabIndex={0} role="button" className="btn m-2 btn-xs">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      className="inline-block w-5 h-5 stroke-current"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                  >
+                    <li
+                      onClick={() => {
+                        document
+                          .getElementById(`profileForm-${user._id}`)
+                          .showModal();
+                        setUpdateMsg({ res: false, success: false, msg: "" });
+                      }}
+                    >
+                      <a>Update Profile</a>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <ul
-                tabIndex={0}
-                className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-              >
-                <li
-                  onClick={() => {
-                    document
-                      .getElementById(`profileForm-${user._id}`)
-                      .showModal();
-                    setUpdateMsg({ res: false, success: false, msg: "" });
-                  }}
-                >
-                  <a>Update Profile</a>
-                </li>
-              </ul>
-            </div>
-          </div>
+            </>
+          ) : null}
 
           <dialog id={`profileForm-${user._id}`} className="modal">
             {user && (
@@ -102,6 +106,8 @@ function UserProfile({ user, fetchUsers, fetchUser }) {
                 fetchUser={fetchUser}
                 setUpdateMsg={setUpdateMsg}
                 updateMsg={updateMsg}
+                loggedUser={loggedUser}
+                setNewPname={setNewPname}
                 closeModal={() =>
                   document.getElementById(`profileForm-${user._id}`).close()
                 }

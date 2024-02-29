@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MoosagesLanding from "../Moosages/MoosagesLanding";
 import BoardsLanding from "../Boards/BoardsLanding";
 
-const Dashboard = ({ user }) => {
+const Dashboard = ({ user, newPname }) => {
   const [resetToken, setResetToken] = useState(0);
   const [userBoard, setUserBoard] = useState(null);
 
@@ -28,6 +28,7 @@ const Dashboard = ({ user }) => {
           user={user}
           setResetToken={setResetToken}
           userBoard={userBoard}
+          newPname={newPname}
         />
       </div>
 
