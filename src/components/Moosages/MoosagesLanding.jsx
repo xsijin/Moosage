@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { getToken } from "../../util/security";
 import MoosageDisplay from "./MoosagesDisplay";
 import MoosageInput from "./MoosagesInput";
 import LandingError from "./LandingError";
 import "./Moosages.css";
 
-const MoosagesLanding = ({ setResetToken, userBoard, user }) => {
+const MoosagesLanding = ({ setResetToken, userBoard, user: userProp }) => {
+  const [user, setUser] = useState(userProp || null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isBoardLoading, setIsBoardLoading] = useState(false);
   const [addLoading, setAddLoading] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [fetchSuccess, setFetchSuccess] = useState(true);
@@ -17,6 +20,7 @@ const MoosagesLanding = ({ setResetToken, userBoard, user }) => {
   const userBoardId = userBoard && userBoard._id;
   const [boardTitle, setBoardTitle] = useState(userBoard && userBoard.title);
   const boardId = routeBoardId ? routeBoardId : userBoardId;
+  const [paramBoard, setParamBoard] = useState(null);
 
   const fetchMoosages = async () => {
     if (isFirstLoad) setIsLoading(true);
@@ -41,7 +45,7 @@ const MoosagesLanding = ({ setResetToken, userBoard, user }) => {
 
   useEffect(() => {
     const fetchBoardDetails = async () => {
-      setIsLoading(true);
+      setIsBoardLoading(true);
       try {
         const response = await fetch(
           `https://moosage-backend.onrender.com/boards/show/${boardId}`
@@ -52,10 +56,11 @@ const MoosagesLanding = ({ setResetToken, userBoard, user }) => {
         const data = await response.json();
         console.log("Landed via paramId", data);
         setBoardTitle(data.board.title);
+        setParamBoard(data.board);
       } catch (error) {
         console.error(error);
       } finally {
-        setIsLoading(false);
+        setIsBoardLoading(false);
       }
     };
 
@@ -104,6 +109,21 @@ const MoosagesLanding = ({ setResetToken, userBoard, user }) => {
     }
   };
 
+  useEffect(() => {
+    // Only run the effect if the user prop is not defined
+    if (!user) {
+      const token = getToken();
+      const payload = token
+        ? JSON.parse(atob(token.split(".")[1])).payload
+        : null;
+      console.log("payload", payload);
+      if (payload && payload.email) {
+        console.log("payload set");
+        setUser(payload);
+      }
+    }
+  }, [routeBoardId]);
+
   return (
     <>
       <br />
@@ -126,7 +146,7 @@ const MoosagesLanding = ({ setResetToken, userBoard, user }) => {
             </svg>
           </p>
         </div>
-      ) : isLoading ? (
+      ) : isLoading || isBoardLoading ? (
         <p className="text-center px-10">
           <span className="loading loading-ring loading-lg"></span>
           <br />
@@ -176,6 +196,19 @@ const MoosagesLanding = ({ setResetToken, userBoard, user }) => {
                   user={user}
                 />
               ))
+            )}
+
+            {paramBoard && (
+              <div className="petit-formal text-xl">
+                Thanks for visiting{" "}
+                <Link
+                  to={`/user/${paramBoard.userId}`} // should link to public profile
+                  className="hover:text-primary"
+                >
+                  {paramBoard.userPreferredName}
+                </Link>
+                's board. <br /> “{paramBoard.description}”
+              </div>
             )}
           </div>
         </>

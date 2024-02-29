@@ -31,7 +31,7 @@ function Navi({ setSelectedTheme, user }) {
           ) : (
             <>
               Welcome,{" "}
-              <Link to="/login-signup" className="hover:text-primary">
+              <Link to="/" className="hover:text-primary">
                 join us.
               </Link>
             </>
