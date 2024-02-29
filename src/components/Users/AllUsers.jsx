@@ -11,11 +11,11 @@ function AllUsers() {
       );
       const result = await response.json();
       setUsers(result.users);
-      console.log(result);
+      // console.log(result);
     } catch (err) {
       console.error(err);
     }
-}, []);
+  }, []);
 
   useEffect(() => {
     fetchUsers();
@@ -35,7 +35,9 @@ function AllUsers() {
       ) : (
         <ul role="list">
           {users.map((user) => {
-            return <UserProfile user={user} key={user._id} fetchUsers={fetchUsers} />;
+            return (
+              <UserProfile user={user} key={user._id} fetchUsers={fetchUsers} />
+            );
           })}
         </ul>
       )}

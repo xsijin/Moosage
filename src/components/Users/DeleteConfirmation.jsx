@@ -5,7 +5,7 @@ function DeleteConfirmation({ user, fetchUsers, closeDelModal, closeModal }) {
   const navigate = useNavigate();
 
   const handleDeleteUser = async () => {
-    console.log("user: ", user);
+    // console.log("user: ", user);
     try {
       const response = await fetch(
         `https://moosage-backend.onrender.com/users/remove/${user._id}`,
@@ -19,7 +19,7 @@ function DeleteConfirmation({ user, fetchUsers, closeDelModal, closeModal }) {
 
       if (response.ok) {
         navigate("/admin/users");
-        console.log("User deleted");
+        // console.log("User deleted");
         fetchUsers(); // re-fetch users after updating
         closeDelModal();
         closeModal();
@@ -59,7 +59,10 @@ function DeleteConfirmation({ user, fetchUsers, closeDelModal, closeModal }) {
           's account?
         </p>
         <div className="modal-action">
-          <button className="btn btn-sm btn-outline btn-error" onClick={() => handleDeleteUser()}>
+          <button
+            className="btn btn-sm btn-outline btn-error"
+            onClick={() => handleDeleteUser()}
+          >
             Yes, bye.
           </button>
           <form method="dialog">

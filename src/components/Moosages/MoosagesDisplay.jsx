@@ -17,7 +17,7 @@ const MoosageDisplay = ({
   user,
 }) => {
   if (!moosage) return null;
-  console.log(moosage);
+  // console.log(moosage);
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedMoosage, setEditedMoosage] = useState({

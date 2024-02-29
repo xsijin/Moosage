@@ -55,7 +55,7 @@ function ProfileForm({
 
     if (response.ok) {
       const updatedUser = await response.json();
-      console.log(updatedUser);
+      // console.log(updatedUser);
       setUpdateMsg({
         res: true,
         success: true,

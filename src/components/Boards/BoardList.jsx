@@ -159,7 +159,6 @@ const BoardList = ({
       if (deleteBoardId === userBoard._id) {
         linkToMoosages(null); // re-render moosages
       }
-
     } catch (error) {
       console.error("Error:", error);
     }

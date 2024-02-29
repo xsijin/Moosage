@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BoardList from "./BoardList";
 
-const BoardsLanding = ({
-  resetToken,
-  setUserBoard,
-  userBoard,
-  user,
-}) => {
+const BoardsLanding = ({ resetToken, setUserBoard, userBoard, user }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [userId, setUserId] = useState(user.userId);
@@ -41,7 +36,7 @@ const BoardsLanding = ({
         throw new Error("Failed to fetch board");
       }
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setBoards(data.boards);
     } catch (error) {
       console.error(error);

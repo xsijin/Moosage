@@ -54,7 +54,7 @@ const MoosagesLanding = ({ setResetToken, userBoard, user: userProp }) => {
           throw new Error("Failed to fetch board details");
         }
         const data = await response.json();
-        console.log("Landed via paramId", data);
+        // console.log("Landed via paramId", data);
         setBoardTitle(data.board.title);
         setParamBoard(data.board);
       } catch (error) {
@@ -116,9 +116,9 @@ const MoosagesLanding = ({ setResetToken, userBoard, user: userProp }) => {
       const payload = token
         ? JSON.parse(atob(token.split(".")[1])).payload
         : null;
-      console.log("payload", payload);
+      // console.log("payload", payload);
       if (payload && payload.email) {
-        console.log("payload set");
+        // console.log("payload set");
         setUser(payload);
       }
     }
