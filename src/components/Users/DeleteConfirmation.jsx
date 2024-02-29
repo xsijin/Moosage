@@ -11,7 +11,8 @@ function DeleteConfirmation({
 }) {
   const navigate = useNavigate();
 
-  const handleDeleteUser = async () => {
+  const handleDeleteUser = async (e) => {
+    e.preventDefault();
     // console.log("user: ", user);
     try {
       const response = await fetch(
@@ -25,10 +26,10 @@ function DeleteConfirmation({
       );
 
       if (response.ok) {
-        fetchUsers ? fetchUsers() : fetchUser(); // re-fetch user(s) after updating
-        closeDelModal();
-        closeModal();
         if (fetchUsers) {
+          fetchUsers(); // re-fetch users after updating
+          closeDelModal();
+          closeModal();
           navigate("/admin/users");
         } else {
           await logoutUser();
@@ -73,7 +74,7 @@ function DeleteConfirmation({
         <div className="modal-action">
           <button
             className="btn btn-sm btn-outline btn-error"
-            onClick={() => handleDeleteUser()}
+            onClick={(e) => handleDeleteUser(e)}
           >
             Yes, bye.
           </button>

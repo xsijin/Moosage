@@ -61,11 +61,13 @@ function ProfileForm({
       setUpdateMsg({
         res: true,
         success: true,
-        msg: "Makeover Completed!",
+        msg: "Makeover Completed! Your changes will take effect on the next login.",
       });
-      fetchUsers ? fetchUsers() : fetchUser(); // re-fetch user(s) after updating
-      setNewPname(updatedUser.preferredName);
-      closeModal();
+      setNewPname(updatedUser);
+      setTimeout(() => {
+        closeModal();
+        fetchUsers ? fetchUsers() : fetchUser(); // re-fetch user(s) after updating
+      }, 2000);
     } else {
       console.error("Failed to update user.");
       setUpdateMsg({

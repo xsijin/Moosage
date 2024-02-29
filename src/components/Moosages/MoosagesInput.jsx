@@ -112,7 +112,10 @@ const MoosageInput = ({ addMoosage, user, newPname }) => {
         </div>
         <div className="absolute inset-x-0 bottom-0">
           <span className="badge m-1 text-xs">
-            {newPname ? newPname : user.preferredName} · {todayDate}
+            {newPname && newPname._id === user.userId
+              ? newPname.preferredName
+              : user.preferredName}{" "}
+            · {todayDate}
           </span>
         </div>
       </div>

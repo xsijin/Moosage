@@ -27,7 +27,11 @@ function Navi({ setSelectedTheme, user, newPname }) {
 
         <div className="flex-none gap-2 text-base-content">
           {user.userId ? (
-            `Welcome, ${newPname ? newPname : user.preferredName}!`
+            `Welcome, ${
+              newPname && newPname._id === user.userId
+                ? newPname.preferredName
+                : user.preferredName
+            }!`
           ) : (
             <>
               Welcome,{" "}
