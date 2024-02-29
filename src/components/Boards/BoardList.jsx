@@ -4,6 +4,7 @@ const BoardList = ({
   board,
   isDeleteClicked,
   isEditClicked,
+  isCopyClicked,
   setBoards,
   boardId,
   boards,
@@ -16,6 +17,7 @@ const BoardList = ({
   setUserBoard,
   userBoard,
 }) => {
+  const [showToast, setShowToast] = useState(false);
   const [isEditingBoard, setIsEditingBoard] = useState(false);
   const [editedBoard, setEditedBoard] = useState({
     // _id: board._id,
@@ -23,6 +25,13 @@ const BoardList = ({
     description: board.description,
     is_public: board.is_public,
   });
+
+  const handleBoardCopyClick = () => {
+    navigator.clipboard.writeText(
+      `https://moosages.onrender.com/board/${board._id}`
+    );
+    setShowToast(true);
+  };
 
   const handleBoardEditClick = () => {
     setSelectedBoardId(board._id);
@@ -114,6 +123,16 @@ const BoardList = ({
   useEffect(() => {
     setIsEditingBoard(false);
   }, [cancelToken]);
+
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => {
+        setShowToast(false);
+      }, 1500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showToast]);
 
   // Delete feature - opens modal
   const handleDeleteClick = async (id) => {
@@ -239,6 +258,7 @@ const BoardList = ({
                 <span
                   className="indicator-item indicator-top indicator-end badge badge-error text-error-content"
                   onClick={() => handleDeleteClick(board._id)}
+                  style={{ cursor: "pointer" }}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -258,11 +278,22 @@ const BoardList = ({
                 <span
                   className="indicator-item indicator-top indicator-end badge badge-warning text-warning-content"
                   onClick={handleBoardEditClick}
+                  style={{ cursor: "pointer" }}
                 >
                   <span
                     style={{ fontSize: "18px", fontFamily: "Times New Roman" }}
                   >
                     I
+                  </span>
+                </span>
+              ) : isCopyClicked ? (
+                <span
+                  className="indicator-item indicator-top indicator-end badge badge-secondary text-secondary-content"
+                  onClick={handleBoardCopyClick}
+                  style={{ cursor: "pointer" }}
+                >
+                  <span style={{ fontFamily: "Arial" }}>
+                    Copy
                   </span>
                 </span>
               ) : (
@@ -331,6 +362,14 @@ const BoardList = ({
       </dialog>
 
       {/* end of delete modal */}
+
+      {showToast && (
+        <div className="toast toast-start">
+          <div className="alert alert-info">
+            <span>URL copied!</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

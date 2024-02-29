@@ -8,11 +8,11 @@ const BoardsLanding = ({ resetToken, setUserBoard, userBoard, user }) => {
   const [boards, setBoards] = useState([]);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
   const [isEditClicked, setIsEditClicked] = useState(false);
+  const [isCopyClicked, setIsCopyClicked] = useState(false);
   const [deleteBoardId, setDeleteBoardId] = useState(null);
   const [selectedBoardId, setSelectedBoardId] = useState(null);
   const [cancelToken, setCancelToken] = useState(0);
   const [showForm, setShowForm] = useState(false);
-  const [showShare, setShowShare] = useState(false);
   const [newBoard, setNewBoard] = useState({
     // userId: moosage.userId,
     title: "",
@@ -105,13 +105,21 @@ const BoardsLanding = ({ resetToken, setUserBoard, userBoard, user }) => {
     }
   };
 
+  const handleCopyClick = () => {
+    setIsDeleteClicked(false); // Reset isDeleteClicked when copy is clicked
+    setIsEditClicked(false); // Reset isEditClicked when copy is clicked
+    setIsCopyClicked(true);
+  };
+
   const handleEditClick = () => {
     setIsDeleteClicked(false); // Reset isDeleteClicked when edit is clicked
+    setIsCopyClicked(false); // Reset isCopyClicked when edit is clicked
     setIsEditClicked(true);
   };
 
   const handleDeleteClick = () => {
     setIsEditClicked(false); // Reset isEditClicked when delete is clicked
+    setIsCopyClicked(false); // Reset isCopyClicked when delete is clicked
     setIsDeleteClicked(true);
   };
 
@@ -119,7 +127,7 @@ const BoardsLanding = ({ resetToken, setUserBoard, userBoard, user }) => {
     setIsDeleteClicked(false);
     setIsEditClicked(false);
     setShowForm(false);
-    setShowShare(false);
+    setIsCopyClicked(false);
     setCancelToken((prevToken) => prevToken + 1); // to trigger useEffect in BoardList that sets all isEdit state to false
   };
 
@@ -163,7 +171,7 @@ const BoardsLanding = ({ resetToken, setUserBoard, userBoard, user }) => {
                   cancelToken={cancelToken}
                   userBoard={userBoard}
                   setUserBoard={setUserBoard}
-                  showShare={showShare}
+                  isCopyClicked={isCopyClicked}
                 />
               ))
             )}
@@ -245,7 +253,7 @@ const BoardsLanding = ({ resetToken, setUserBoard, userBoard, user }) => {
           >
             <li
               onClick={() => {
-                setShowShare(true);
+                handleCopyClick();
               }}
             >
               <a>Copy board URL</a>
