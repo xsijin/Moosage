@@ -30,15 +30,11 @@ const MoosagesPublic = ({
   const fetchMoosages = async () => {
     if (isFirstLoad) setIsLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      if (!token) throw new Error("Token not found");
-
       const response = await fetch(
         `https://moosage-backend.onrender.com/moosages/show/${boardId}`,
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
           },
         }
       );
