@@ -69,7 +69,7 @@ const MoosagesPublic = ({
           throw new Error("Failed to fetch board details");
         }
         const data = await response.json();
-        // console.log("Landed via paramId", data);
+        console.log("Landed via paramId", data);
         setBoardTitle(data.board.title);
         setParamBoard(data.board);
       } catch (error) {
@@ -141,7 +141,9 @@ const MoosagesPublic = ({
 
   return (
     <>
-      {!boardId ? (
+      {paramBoard && paramBoard.is_public !== true ? (
+        <LandingError />
+      ) : !boardId ? (
         <div className="petit-formal text-2xl bg-base-100 p-5 rounded-[40px]">
           <p>Please choose a board you'd like to view.</p>
           <p>

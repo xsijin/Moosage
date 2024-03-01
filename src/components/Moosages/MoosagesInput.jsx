@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Mood from "../Mood/Mood";
 
 const MoosageInput = ({ addMoosage, user, newPname }) => {
-  console.log("check user ", user);
   const today = new Date();
   const todayDate = today.toLocaleDateString("en-GB", {
     day: "2-digit",
