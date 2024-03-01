@@ -28,6 +28,14 @@ Vibe and connect with us!
 
 <img src="/src/assets/images/copy.png">
 
+**Inline Editing of Boards**
+
+<img src="/src/assets/images/editboard.png">
+
+**Inline Editing of Moosages**
+
+<img src="/src/assets/images/editmoosage.png">
+
 **Error Page**
 
 <img src="/src/assets/images/errorpage.png">
@@ -105,14 +113,11 @@ In future, we may implement ways users can recover items which have been mistake
 
 ## Code Sharing
 
-**Inline Editing of Boards**
-
-<img src="/src/assets/images/editboard.png">
-
-**Inline Editing of Moosages**
-
-<img src="/src/assets/images/editmoosage.png">
-<img src="/src/assets/images/isediting.png">
+* Using MongoDB noSQL database - the storage and querying of data outside the traditional structures found in relational databases
+* Using Express.js Server Controller method
+* Using React Components, DaisyUI components and TailwindCSS styling method
+* Client-side routing:
+<img src="/src/assets/images/routing.png">
 
 **Favorite React Component**
 
@@ -127,8 +132,9 @@ Sample (able to maximize and search within the EmojiPicker):
 ## Key Challenges / Learning / Takeaways
 
 1. Backend logic is important. It is ideal to map out the product logic before starting to code.
-2. Priortize the MVP first before working on smaller / UI features.
+2. Priortize the MVP first before working on smaller / UI features. Then, debug as issues arise.
 3. There are limitations to using JWT token to setState instead of utiizing useState within the app. (I used it to retrieve name & profile pic, and found out that the token doesn't update despite profile being updated, unless user relogins to set a new token.) May not be recommended to do so as well since JWT is meant for authentication.
+4. Use React components to break down large codebases into smaller, more manageable pieces.
 
 ## Resources
 
