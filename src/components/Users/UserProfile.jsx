@@ -46,8 +46,13 @@ function UserProfile({ user, fetchUsers, fetchUser, loggedUser, setNewPname }) {
                   <span className="badge badge-error">Deleted</span>
                 ) : null}
               </p>
-              📧 {user.email}
-              <br />
+              {((loggedUser && loggedUser.userId === user._id) ||
+                (loggedUser && loggedUser.is_admin)) && (
+                <>
+                  📧 {user.email}
+                  <br />
+                </>
+              )}
               {user.boards ? user.boards.length : user.publicBoards.length}{" "}
               Board(s)
               <br />
@@ -58,7 +63,7 @@ function UserProfile({ user, fetchUsers, fetchUser, loggedUser, setNewPname }) {
             </div>
           </div>
 
-          {loggedUser.userId === user._id ||
+          {(loggedUser && loggedUser.userId === user._id) ||
           (loggedUser && loggedUser.is_admin) ? (
             <>
               <div className="card-actions justify-end">

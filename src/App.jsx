@@ -4,7 +4,7 @@ import ThemeContext from "./ThemeContext";
 import "./App.css";
 import Navi from "./components/Navi/Navi";
 import Dashboard from "./components/Navi/Dashboard";
-import MoosageLanding from "./components/Moosages/MoosagesLanding";
+import MoosagePublic from "./components/Moosages/MoosagesPublic";
 import LandingError from "./components/Moosages/LandingError";
 import AllUsers from "./components/Users/AllUsers";
 import UserProfileIndiv from "./components/Users/UserProfileIndiv";
@@ -55,7 +55,7 @@ function App() {
                   <Route path="/user/:userId" element={<UserProfileIndiv loggedUser={user} setNewPname={setNewPname} />} />
                   {/* Boards Routing */}
                   {/* Moosages Routing */}
-                  <Route path="/board/:boardId" element={<MoosageLanding user={user} newPname={newPname} />} />
+                  <Route path="/board/:boardId" element={<MoosagePublic user={user} newPname={newPname} />} />
                 </Routes>
               </>
             ) : // LOGGED-IN USER: All public routes + editing routes available
@@ -68,7 +68,7 @@ function App() {
                   <Route path="/user/:userId" element={<UserProfileIndiv loggedUser={user} setNewPname={setNewPname} />} />
                   {/* Boards Routing */}
                   {/* Moosages Routing */}
-                  <Route path="/board/:boardId" element={<MoosageLanding user={user} newPname={newPname} />} /> {/* Private Routing */}
+                  <Route path="/board/:boardId" element={<MoosagePublic user={user} newPname={newPname} />} />
                 </Routes>
               </>
             ) : (
@@ -78,9 +78,10 @@ function App() {
                   {/* Users Routing */}
                   <Route path="/" element={<LoginSignUp setLogin={setLogin} />} />
                   <Route path="*" element={<LandingError />} />
+                  <Route path="/user/:userId" element={<UserProfileIndiv loggedUser={user} setNewPname={setNewPname} />} />
                   {/* Boards Routing */}
-
                   {/* Moosages Routing */}
+                  <Route path="/board/:boardId" element={<MoosagePublic user={user} newPname={newPname} />} />
                 </Routes>
               </>
             )

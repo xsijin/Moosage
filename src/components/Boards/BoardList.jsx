@@ -119,7 +119,7 @@ const BoardList = ({
         )
       );
       if (board._id === userBoard._id) {
-      linkToMoosages(updatedEditedBoard);
+        linkToMoosages(updatedEditedBoard);
       }
     } catch (error) {
       console.error(error);
@@ -211,7 +211,7 @@ const BoardList = ({
                 name="title"
                 value={editedBoard.title}
                 onChange={handleBoardInputChange}
-                className="input input-bordered min-w-[400px] max-w-[400px] mb-2"
+                className="input input-bordered min-w-[350px] max-w-[350px] mb-2"
               />
               <input
                 type="text"
@@ -219,7 +219,7 @@ const BoardList = ({
                 placeholder="What's this board about?"
                 value={editedBoard.description}
                 onChange={handleBoardInputChange}
-                className="input input-bordered min-w-[400px] max-w-[400px]"
+                className="input input-bordered min-w-[350px] max-w-[350px]"
               />
             </div>
 
@@ -313,7 +313,7 @@ const BoardList = ({
                   Private
                 </span>
               )}
-              <div className="grid min-w-[400px] max-w-[400px] min-h-[40px] bg-primary/30 place-items-center p-0.5 text-primary text-balance petit-formal rounded-lg hover:bg-primary/60">
+              <div className="grid min-w-[350px] max-w-[350px] min-h-[40px] bg-primary/30 place-items-center p-0.5 text-primary text-balance petit-formal rounded-lg hover:bg-primary/60">
                 <div
                   className="collapse bg-base-100"
                   onClick={() => linkToMoosages(board)}
