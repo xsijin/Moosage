@@ -30,8 +30,17 @@ const MoosagesLanding = ({
   const fetchMoosages = async () => {
     if (isFirstLoad) setIsLoading(true);
     try {
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("Token not found");
+
       const response = await fetch(
-        `https://moosage-backend.onrender.com/moosages/show/${boardId}`
+        `https://moosage-backend.onrender.com/moosages/show/${boardId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       if (!response.ok) {
         throw new Error("Failed to fetch moosages");
@@ -52,8 +61,17 @@ const MoosagesLanding = ({
     const fetchBoardDetails = async () => {
       setIsBoardLoading(true);
       try {
+        const token = localStorage.getItem("token");
+        if (!token) throw new Error("Token not found");
+
         const response = await fetch(
-          `https://moosage-backend.onrender.com/boards/show/${boardId}`
+          `https://moosage-backend.onrender.com/boards/show/${boardId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         if (!response.ok) {
           throw new Error("Failed to fetch board details");
@@ -85,8 +103,8 @@ const MoosagesLanding = ({
   const addMoosage = async (newMoosage) => {
     setAddLoading(true);
     try {
-      // const token = localStorage.getItem("token"); // Retrieve the token from localStorage
-      // if (!token) throw new Error("Token not found");
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("Token not found");
 
       const response = await fetch(
         `https://moosage-backend.onrender.com/moosages/create/${boardId}`,
@@ -94,7 +112,7 @@ const MoosagesLanding = ({
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${token}`, // Include the authorization header
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(newMoosage),
         }

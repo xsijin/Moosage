@@ -8,8 +8,17 @@ function AllUsers({ loggedUser, setNewPname }) {
   const fetchUsers = useCallback(async () => {
     setIsLoading(true);
     try {
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("Token not found");
+
       const response = await fetch(
-        "https://moosage-backend.onrender.com/users/admin/show"
+        "https://moosage-backend.onrender.com/users/admin/show",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       const result = await response.json();
       setUsers(result.users);

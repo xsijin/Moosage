@@ -65,7 +65,7 @@ function App() {
                   {/* Users Routing */}
                   <Route path="/" element={<Dashboard user={user} newPname={newPname} />} />
                   <Route path="*" element={<LandingError />} />
-                  <Route path="/user/:userId" element={ <UserProfileIndiv loggedUser={user} setNewPname={setNewPname} />} />
+                  <Route path="/user/:userId" element={<UserProfileIndiv loggedUser={user} setNewPname={setNewPname} />} />
                   {/* Boards Routing */}
                   {/* Moosages Routing */}
                   <Route path="/board/:boardId" element={<MoosageLanding user={user} newPname={newPname} />} /> {/* Private Routing */}

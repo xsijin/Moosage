@@ -29,8 +29,17 @@ const BoardsLanding = ({ resetToken, setUserBoard, userBoard, user }) => {
   const fetchBoard = async () => {
     if (isFirstLoad) setIsLoading(true);
     try {
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("Token not found");
+
       const response = await fetch(
-        `https://moosage-backend.onrender.com/boards/user/${user.userId}`
+        `https://moosage-backend.onrender.com/boards/user/${user.userId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       if (!response.ok) {
         throw new Error("Failed to fetch board");
@@ -79,8 +88,8 @@ const BoardsLanding = ({ resetToken, setUserBoard, userBoard, user }) => {
 
   const addBoard = async (newBoard) => {
     try {
-      // const token = localStorage.getItem("token"); // Retrieve the token from localStorage
-      // if (!token) throw new Error("Token not found");
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("Token not found");
 
       const response = await fetch(
         `https://moosage-backend.onrender.com/boards/create/${user.userId}`,
@@ -88,7 +97,7 @@ const BoardsLanding = ({ resetToken, setUserBoard, userBoard, user }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${token}`, // Include the authorization header
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(newBoard),
         }

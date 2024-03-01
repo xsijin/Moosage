@@ -79,8 +79,8 @@ const MoosageDisplay = ({
   // calls the patch function to edit moosage
   const handlePatchSubmit = async () => {
     try {
-      // const token = localStorage.getItem("token"); // Retrieve the token from localStorage
-      // if (!token) throw new Error("Token not found");
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("Token not found");
 
       const response = await fetch(
         `https://moosage-backend.onrender.com/moosages/update/${moosage._id}`,
@@ -88,7 +88,7 @@ const MoosageDisplay = ({
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${token}`, // Include the authorization header
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             message: editedMoosage.message,
@@ -104,7 +104,13 @@ const MoosageDisplay = ({
 
       // Fetch the updated moosages again to reflect the changes immediately
       const updatedResponse = await fetch(
-        `https://moosage-backend.onrender.com/moosages/show/${boardId}`
+        `https://moosage-backend.onrender.com/moosages/show/${boardId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       if (!updatedResponse.ok) {
         throw new Error("Failed to fetch updated moosages");
@@ -126,7 +132,8 @@ const MoosageDisplay = ({
 
   const handleConfirmDelete = async () => {
     try {
-      // console.log(`Starting deletion process for ${deleteMoosageId}`);
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("Token not found");
 
       const response = await fetch(
         `https://moosage-backend.onrender.com/moosages/remove/${deleteMoosageId}`,
@@ -134,6 +141,7 @@ const MoosageDisplay = ({
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       );

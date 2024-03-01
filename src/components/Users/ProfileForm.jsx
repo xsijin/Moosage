@@ -44,12 +44,16 @@ function ProfileForm({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("Token not found");
+
     const response = await fetch(
       `https://moosage-backend.onrender.com/users/update/${user._id}`,
       {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(updateInput),
       }

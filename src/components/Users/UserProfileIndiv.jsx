@@ -10,8 +10,17 @@ function UserProfileIndiv({ loggedUser, setNewPname }) {
   const fetchUser = useCallback(async () => {
     setIsLoading(true);
     try {
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("Token not found");
+
       const response = await fetch(
-        `https://moosage-backend.onrender.com/users/show/${userId}`
+        `https://moosage-backend.onrender.com/users/show/${userId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       const result = await response.json();
       setSingleUser(result.user);

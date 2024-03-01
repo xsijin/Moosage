@@ -76,12 +76,16 @@ const BoardList = ({
 
   const handleBoardPatchSubmit = async () => {
     try {
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("Token not found");
+
       const response = await fetch(
         `https://moosage-backend.onrender.com/boards/update/${board._id}`,
         {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             title: editedBoard.title,
@@ -143,7 +147,8 @@ const BoardList = ({
 
   const handleConfirmDelete = async () => {
     try {
-      // console.log(`Starting deletion process for ${deleteBoardId}`);
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("Token not found");
 
       const response = await fetch(
         `https://moosage-backend.onrender.com/boards/remove/${deleteBoardId}`,
@@ -151,6 +156,7 @@ const BoardList = ({
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -292,9 +298,7 @@ const BoardList = ({
                   onClick={handleBoardCopyClick}
                   style={{ cursor: "pointer" }}
                 >
-                  <span style={{ fontFamily: "Arial" }}>
-                    Copy
-                  </span>
+                  <span style={{ fontFamily: "Arial" }}>Copy</span>
                 </span>
               ) : (
                 <span className="indicator-item indicator-top indicator-end badge">
