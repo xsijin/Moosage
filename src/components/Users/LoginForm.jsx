@@ -5,7 +5,8 @@ import { useNavigate } from "react-router";
 
 function LoginForm({ setLogin }) {
   const navigate = useNavigate();
-
+  const [loginSucc, setLoginSucc] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [loginInput, setLoginInput] = useState({
     email: "",
     password: "",
@@ -19,6 +20,8 @@ function LoginForm({ setLogin }) {
   };
 
   const handleSubmit = async (evt) => {
+    setLoginSucc(null);
+    setIsLoading(true);
     try {
       evt.preventDefault();
 
@@ -42,10 +45,14 @@ function LoginForm({ setLogin }) {
       // store token in localStorage
       storeToken(token);
       setLogin(true);
+      setIsLoading(false);
+      setLoginSucc("Login successful!");
 
       navigate("/");
     } catch (err) {
       console.error(err);
+      setIsLoading(false);
+      setLoginSucc("Incorrect user/password, please try again.");
     }
   };
 
@@ -81,6 +88,24 @@ function LoginForm({ setLogin }) {
             required
           />
         </label>
+
+        {isLoading ? (
+          <p className="text-center px-10">
+            <span className="loading loading-ring loading-lg"></span>
+            <br />
+            Please wait...
+          </p>
+        ) : null}
+
+        {loginSucc && (
+          <p
+            className={
+              loginSucc === "Login successful!" ? "text-success" : "text-error"
+            }
+          >
+            {loginSucc}
+          </p>
+        )}
 
         <button className="btn btn-submit btn-sm">Login</button>
       </form>

@@ -118,7 +118,9 @@ const BoardList = ({
             : updatedBoard
         )
       );
+      if (board._id === userBoard._id) {
       linkToMoosages(updatedEditedBoard);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -368,7 +370,7 @@ const BoardList = ({
       {/* end of delete modal */}
 
       {showToast && (
-        <div className="toast toast-start">
+        <div className="toast toast-start" style={{ zIndex: 999 }}>
           <div className="alert alert-info">
             <span>URL copied!</span>
           </div>
