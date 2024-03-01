@@ -24,7 +24,7 @@ Vibe and connect with us!
 
 <img src="/src/assets/images/boardassist.png">
 
-**Board Assistant - Copy Feature**
+**Board Assistant - Copy Board Public URL Feature**
 
 <img src="/src/assets/images/copy.png">
 
@@ -105,16 +105,14 @@ In future, we may implement ways users can recover items which have been mistake
 
 ## Code Sharing
 
-**Inline Editing of Boards & Moosages**
+**Inline Editing of Boards**
 
 <img src="/src/assets/images/editboard.png">
-<img src="/src/assets/images/editmoosage.png">
-<img src="/src/assets/images/isediting.png">
 
 **Inline Editing of Moosages**
 
-<img src="/src/assets/images/controller.png">
-<img src="/src/assets/images/model.png">
+<img src="/src/assets/images/editmoosage.png">
+<img src="/src/assets/images/isediting.png">
 
 **Favorite React Component**
 
@@ -122,16 +120,15 @@ My favourite component is the EmojiPicker which creates the vibe of moosages by 
 
 <img src="/src/assets/images/code.png">
 
-Samples:
+Sample (able to maximize and search within the EmojiPicker):
 
 <img src="/src/assets/images/sample.png">
-<img src="/src/assets/images/sample2.png">
 
 ## Key Challenges / Learning / Takeaways
 
 1. Backend logic is important. It is ideal to map out the product logic before starting to code.
 2. Priortize the MVP first before working on smaller / UI features.
-3. There are limitations to using JWT token to setState (I used it to retrieve name & profile pic) instead of setting state within the app. May not be recommended to do so as well since JWT is meant for authentication.
+3. There are limitations to using JWT token to setState instead of utiizing useState within the app. (I used it to retrieve name & profile pic, and found out that the token doesn't update despite profile being updated, unless user relogins to set a new token.) May not be recommended to do so as well since JWT is meant for authentication.
 
 ## Resources
 
