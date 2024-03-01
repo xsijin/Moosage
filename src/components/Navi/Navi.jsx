@@ -49,8 +49,16 @@ function Navi({ setSelectedTheme, user, newPname }) {
               >
                 <div className="w-10 rounded-full">
                   <img
-                    alt="Tailwind CSS Navbar component"
-                    src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                    alt="Profile Pic"
+                    src={
+                      newPname &&
+                      newPname._id === user.userId &&
+                      newPname.profilePicUrl.trim() !== ""
+                        ? newPname.profilePicUrl
+                        : user.profilePicUrl && user.profilePicUrl.trim() !== ""
+                        ? user.profilePicUrl
+                        : "https://em-content.zobj.net/source/samsung/380/cow-face_1f42e.png"
+                    }
                   />
                 </div>
               </div>
