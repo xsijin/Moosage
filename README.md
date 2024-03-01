@@ -133,7 +133,7 @@ Sample (able to maximize and search within the EmojiPicker):
 
 1. Backend logic is important. It is ideal to map out the product logic before starting to code.
 2. Priortize the MVP first before working on smaller / UI features. Then, debug as issues arise.
-3. There are limitations to using JWT token to setState instead of utiizing useState within the app. (I used it to retrieve name & profile pic, and found out that the token doesn't update despite profile being updated, unless user relogins to set a new token.) May not be recommended to do so as well since JWT is meant for authentication.
+3. There are limitations to using JWT token to setState instead of utilizing useState within the app. (I used it to retrieve name & profile pic, and found out that the token doesn't update despite profile being updated, unless user relogins to set a new token.) May not be recommended to do so as well since JWT is meant for authentication.
 4. Use React components to break down large codebases into smaller, more manageable pieces.
 
 ## Resources
@@ -156,6 +156,6 @@ Sample (able to maximize and search within the EmojiPicker):
 - [Google Images](https://www.google.com/imgres?imgurl=https%3A%2F%2Fmedia.istockphoto.com%2Fid%2F477832804%2Fphoto%2Fsleeping-cows-at-sunrise.jpg%3Fs%3D612x612%26w%3D0%26k%3D20%26c%3DmtPZXS5trDLST4E-IAwhwFqf-JPBodJVOQhEP72tD8s%3D&tbnid=XAzSf482cQBxRM&vet=12ahUKEwiRvr2z58WEAxV_q2MGHZrwDdsQMygCegQIARBa..i&imgrefurl=https%3A%2F%2Fwww.istockphoto.com%2Fphotos%2Fcow-field&docid=akScqRNFl4VzLM&w=612&h=408&q=scenic%20cows%20and%20fields%20wallpaper&ved=2ahUKEwiRvr2z58WEAxV_q2MGHZrwDdsQMygCegQIARBa) - Cow Image 1
 - [Google Images](https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.shutterstock.com%2Fimage-photo%2Fcows-herd-on-grass-field-600nw-2030724431.jpg&tbnid=TJZRiYWFzHJV6M&vet=12ahUKEwiRvr2z58WEAxV_q2MGHZrwDdsQMygFegQIARBh..i&imgrefurl=https%3A%2F%2Fwww.shutterstock.com%2Fsearch%2Fcow-landscape&docid=814uOoc0nRPGQM&w=600&h=399&q=scenic%20cows%20and%20fields%20wallpaper&ved=2ahUKEwiRvr2z58WEAxV_q2MGHZrwDdsQMygFegQIARBh) - Cow Image 2
 - [Google Images](https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1500595046743-cd271d694d30%3Fq%3D80%26w%3D1000%26auto%3Dformat%26fit%3Dcrop%26ixlib%3Drb-4.0.3%26ixid%3DM3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y293c3xlbnwwfHwwfHx8MA%253D%253D&tbnid=FpWkU78RfIlwXM&vet=12ahUKEwiRvr2z58WEAxV_q2MGHZrwDdsQMygNegQIARB0..i&imgrefurl=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fcows&docid=1uXj-MMqWjutDM&w=1000&h=664&q=scenic%20cows%20and%20fields%20wallpaper&ved=2ahUKEwiRvr2z58WEAxV_q2MGHZrwDdsQMygNegQIARB0) - Cow Image 3
-- [GitHub Copilot](https://github.com/features/copilot) - Answering all my coding questions
+- [GitHub Copilot](https://github.com/features/copilot) - Answering all my programming related questions
   <img src="/src/assets/images/copilot.png">
 - Team at Singapore General Assembly SEIF-15
