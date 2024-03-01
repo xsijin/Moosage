@@ -275,13 +275,14 @@ const MoosageDisplay = ({
             )}
 
             <div className="absolute inset-x-0 bottom-0">
-              {moosage.userId._id === moosage.boardId.userId ? (
-                <span className="badge m-1 text-xs">Owner</span>
-              ) : null}
               <span className="badge m-1 text-xs">
                 <Link
                   to={`/user/${moosage.userId._id}`}
-                  className="hover:text-primary"
+                  className={`hover:text-primary ${
+                    moosage.userId._id === moosage.boardId.userId
+                      ? "font-bold"
+                      : null
+                  }`}
                 >
                   {moosage.userId.preferredName}
                 </Link>

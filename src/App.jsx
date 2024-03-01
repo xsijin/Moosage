@@ -35,7 +35,11 @@ function App() {
     <>
       <ThemeContext.Provider value={selectedTheme}>
         <nav>
-          <Navi setSelectedTheme={setSelectedTheme} user={user} newPname={newPname}/>
+          <Navi
+            setSelectedTheme={setSelectedTheme}
+            user={user}
+            newPname={newPname}
+          />
         </nav>
 
         <main className="navmargin">
@@ -61,11 +65,10 @@ function App() {
                   {/* Users Routing */}
                   <Route path="/" element={<Dashboard user={user} newPname={newPname} />} />
                   <Route path="*" element={<LandingError />} />
-                  <Route path="/user/:userId" element={<UserProfileIndiv loggedUser={user} setNewPname={setNewPname} />} />
+                  <Route path="/user/:userId" element={ <UserProfileIndiv loggedUser={user} setNewPname={setNewPname} />} />
                   {/* Boards Routing */}
                   {/* Moosages Routing */}
                   <Route path="/board/:boardId" element={<MoosageLanding user={user} newPname={newPname} />} /> {/* Private Routing */}
-                  
                 </Routes>
               </>
             ) : (
@@ -73,8 +76,7 @@ function App() {
               <>
                 <Routes>
                   {/* Users Routing */}
-                  <Route path="/" element={<LoginSignUp setLogin={setLogin} />}
-                  />
+                  <Route path="/" element={<LoginSignUp setLogin={setLogin} />} />
                   <Route path="*" element={<LandingError />} />
                   {/* Boards Routing */}
 
@@ -84,6 +86,17 @@ function App() {
             )
           }
         </main>
+
+        <footer className="footer footer-center bg-base-100 text-base-content rounded-full footerstyle text-xs">
+          <aside>
+            <p>
+              Copyright © 2024 -{" "}
+              <a href="https://github.com/xsijin/Moosage" target="_blank">
+                Moosage
+              </a>
+            </p>
+          </aside>
+        </footer>
       </ThemeContext.Provider>
     </>
   );

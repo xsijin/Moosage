@@ -64,7 +64,7 @@ function Navi({ setSelectedTheme, user, newPname }) {
               </div>
               <ul
                 tabIndex={0}
-                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-28"
+                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-32"
               >
                 <li>
                   <Link to={`/user/${user.userId}`}>Profile</Link>
@@ -72,10 +72,10 @@ function Navi({ setSelectedTheme, user, newPname }) {
                 {user.is_admin && (
                   <>
                     <li>
-                      <a>Admin</a>
+                      <Link to="/admin/users">Moosengers</Link>
                     </li>
                     <li>
-                      <Link to={`/`}>Dashboard</Link>
+                      <Link to="/">Dashboard</Link>
                     </li>
                   </>
                 )}

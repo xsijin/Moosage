@@ -68,8 +68,8 @@ body {
   position: relative !important;
   z-index: 500 !important;
   height: calc(
-    100vh - 6.1rem
-  ); /* viewport height minus the height of the navbar */
+    100vh - 6.1rem - 15px
+  ); /* viewport height minus the height of the navbar & footer */
   overflow-y: auto;
   width: 95%;
   margin: auto;
@@ -87,4 +87,12 @@ body {
 .navmargin::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.5); /* Make the thumb semi-transparent */
   border-radius: 2.5px;
+}
+
+.footerstyle {
+  width: 45% !important;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
