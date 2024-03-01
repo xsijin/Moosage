@@ -197,7 +197,7 @@ const BoardsLanding = ({ resetToken, setUserBoard, userBoard, user }) => {
                   placeholder="Name your new board"
                   value={newBoard.title}
                   onChange={handleAddInputChange}
-                  className="input input-bordered min-w-[400px] max-w-[400px] mb-2"
+                  className="input input-bordered min-w-[350px] max-w-[350px] mb-2"
                 />
                 <input
                   type="text"
@@ -205,7 +205,7 @@ const BoardsLanding = ({ resetToken, setUserBoard, userBoard, user }) => {
                   placeholder="What's this board about?"
                   value={newBoard.description}
                   onChange={handleAddInputChange}
-                  className="input input-bordered min-w-[400px] max-w-[400px]"
+                  className="input input-bordered min-w-[350px] max-w-[350px]"
                 />
               </div>
 
