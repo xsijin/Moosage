@@ -144,7 +144,6 @@ const BoardList = ({
   const handleDeleteClick = async (id) => {
     setDeleteBoardId(id);
     document.getElementById("deleteConfirmationModalBoard").showModal();
-    // console.log(`To delete board with ID: ${id}`);
   };
 
   const handleConfirmDelete = async () => {
@@ -163,26 +162,17 @@ const BoardList = ({
         }
       );
 
-      // console.log("Response received:", response);
-
       if (!response.ok) {
         throw new Error("Failed to delete board");
       }
-
-      // console.log("Board deleted successfully");
 
       const updatedBoards = boards.filter(
         (board) => board._id !== deleteBoardId
       );
       setBoards(updatedBoards);
 
-      // console.log("State updated:", updatedBoards);
-
       document.getElementById("deleteConfirmationModalBoard").close();
-      // console.log("Modal closed");
 
-      // console.log("deleteBoardId: ", deleteBoardId);
-      // console.log("userBoard: ", userBoard);
       if (deleteBoardId === userBoard._id) {
         linkToMoosages(null); // re-render moosages
       }

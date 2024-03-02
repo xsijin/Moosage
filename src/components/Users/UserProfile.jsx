@@ -9,7 +9,6 @@ function UserProfile({ user, fetchUsers, fetchUser, loggedUser, setNewPname }) {
     success: false,
     msg: "",
   });
-  console.log("check logged user ", loggedUser);
 
   return (
     <>

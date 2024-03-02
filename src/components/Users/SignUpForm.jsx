@@ -23,7 +23,6 @@ function SignUpForm() {
   function hashPassword() {
     var currForm = signUpInput;
     if (currForm.password) {
-      // console.log(currForm.password);
       var hash = hashData(currForm.password);
       currForm.password = hash.hash;
       currForm.salt = hash.salt;
@@ -35,8 +34,6 @@ function SignUpForm() {
     try {
       evt.preventDefault();
 
-      // console.log("signUpInput: ", signUpInput);
-
       if (signUpInput.preferredName === "") {
         signUpInput.preferredName = signUpInput.nickName;
       } // default preferred name if not provided
@@ -44,9 +41,7 @@ function SignUpForm() {
       hashPassword();
       const signUpData = { ...signUpInput };
       delete signUpData.confirmPassword;
-      // console.log("signUpData ", signUpData);
       const user = await signUp(signUpData);
-      // console.log("user: ", user);
 
       if (user.success) {
         setSignUpInput({

@@ -17,7 +17,6 @@ const MoosageDisplay = ({
   user,
 }) => {
   if (!moosage) return null;
-  console.log(moosage);
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedMoosage, setEditedMoosage] = useState({
@@ -126,7 +125,6 @@ const MoosageDisplay = ({
   const handleDeleteClick = async (id) => {
     setDeleteMoosageId(id);
     document.getElementById("deleteConfirmationModal").showModal();
-    // console.log(`To delete moosage with ID: ${id}`);
   };
 
   const handleConfirmDelete = async () => {
@@ -145,23 +143,17 @@ const MoosageDisplay = ({
         }
       );
 
-      // console.log("Response received:", response);
-
       if (!response.ok) {
         throw new Error("Failed to delete moosage");
       }
-
-      // console.log("Moosage deleted successfully");
 
       const updatedMoosages = moosages.filter(
         (moosage) => moosage._id !== deleteMoosageId
       );
       setMoosages(updatedMoosages);
 
-      // console.log("State updated:", updatedMoosages);
-
       document.getElementById("deleteConfirmationModal").close();
-      // console.log("Modal closed");
+
       setResetToken((prevToken) => prevToken + 1); // trigger re-render of boards to show -1 moosage count
     } catch (error) {
       console.error("Error:", error);

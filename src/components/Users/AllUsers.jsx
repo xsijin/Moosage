@@ -22,7 +22,6 @@ function AllUsers({ loggedUser, setNewPname }) {
       );
       const result = await response.json();
       setUsers(result.users);
-      // console.log(result);
     } catch (err) {
       console.error(err);
     } finally {

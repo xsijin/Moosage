@@ -69,7 +69,6 @@ const MoosagesPublic = ({
           throw new Error("Failed to fetch board details");
         }
         const data = await response.json();
-        console.log("Landed via paramId", data);
         setBoardTitle(data.board.title);
         setParamBoard(data.board);
       } catch (error) {
@@ -131,9 +130,7 @@ const MoosagesPublic = ({
       const payload = token
         ? JSON.parse(atob(token.split(".")[1])).payload
         : null;
-      // console.log("payload", payload);
       if (payload && payload.email) {
-        // console.log("payload set");
         setUser(payload);
       }
     }

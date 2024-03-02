@@ -26,11 +26,9 @@ function LoginForm({ setLogin }) {
       evt.preventDefault();
 
       const loginData = { ...loginInput };
-      // console.log("loginForm data: ", loginData);
 
       // get user salt and iterations from DB
       const loginDetails = await getLoginDetails(loginData.email);
-      // console.log("loginDetails: ", loginDetails);
 
       // hash password
       const hashedPassword = hashDataWithSaltRounds(

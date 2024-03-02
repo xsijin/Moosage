@@ -22,14 +22,10 @@ function App() {
     const payload = token
       ? JSON.parse(atob(token.split(".")[1])).payload
       : null;
-    // console.log("payload", payload);
     if (payload && payload.email) {
-      // console.log("payload set");
       setUser(payload);
     }
   }, [login]);
-
-  console.log("newPname in App", newPname);
 
   return (
     <>

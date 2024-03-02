@@ -45,7 +45,6 @@ const BoardsLanding = ({ resetToken, setUserBoard, userBoard, user }) => {
         throw new Error("Failed to fetch board");
       }
       const data = await response.json();
-      // console.log(data);
       setBoards(data.boards);
     } catch (error) {
       console.error(error);

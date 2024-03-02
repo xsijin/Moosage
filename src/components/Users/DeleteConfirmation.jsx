@@ -13,7 +13,6 @@ function DeleteConfirmation({
 
   const handleDeleteUser = async (e) => {
     e.preventDefault();
-    // console.log("user: ", user);
     try {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("Token not found");
@@ -39,7 +38,6 @@ function DeleteConfirmation({
           await logoutUser();
           window.location.href = "/";
         }
-        // console.log("User deleted");
       } else {
         throw new Error("Failed to delete user.");
       }
